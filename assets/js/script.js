@@ -1,20 +1,24 @@
 // ======================================
 // MIAUTECHPT V4 - JavaScript Principal
 // ======================================
+'use strict';
 
 /**
- * Função para capturar os dados do formulário de contactos
- * e redirecionar para a conversa do WhatsApp formatada.
+ * Captura os dados do formulário de contactos/reserva
+ * e redireciona para a conversa do WhatsApp com mensagem formatada.
  */
 function enviarWhatsApp() {
     // Captura os valores de forma segura (fallback para string vazia)
     const nome = document.getElementById("nome")?.value.trim() || "";
     const email = document.getElementById("email")?.value.trim() || "";
     const telefone = document.getElementById("telefone")?.value.trim() || "";
-    const data = document.getElementById("data")?.value || "";
+    const dataEntrega = document.getElementById("dataEntrega")?.value || document.getElementById("data")?.value || "";
+    const dataDevolucao = document.getElementById("dataDevolucao")?.value || "";
     const periodo = document.getElementById("periodo")?.value || "";
     const localidade = document.getElementById("localidade")?.value.trim() || "";
     const mensagem = document.getElementById("mensagem")?.value.trim() || "";
+    const numReserva = document.getElementById("numReservaInput")?.value || "";
+    const valorTotal = document.getElementById("valorTotalInput")?.value || "";
 
     // Validação básica dos campos obrigatórios
     if (!nome || !telefone) {
@@ -22,19 +26,26 @@ function enviarWhatsApp() {
         return;
     }
 
+    // Construção das datas para o texto
+    let infoDatas = `📅 Data pretendida: ${dataEntrega}`;
+    if (dataDevolucao) {
+        infoDatas = `📅 Período: ${dataEntrega} até ${dataDevolucao}`;
+    } else if (periodo) {
+        infoDatas += `\n⏳ Duração: ${periodo}`;
+    }
+
     // Formatação da mensagem
     const texto = 
 `Olá MiautechPT! 🐱
 
-Gostaria de reservar o Pack PETKIT.
+Gostaria de solicitar a reserva do Pack PETKIT.
 
-👤 Nome: ${nome}
-📧 Email: ${email}
+${numReserva ? `🔖 Ref. Reserva: ${numReserva}\n` : ''}👤 Nome: ${nome}
+📧 Email: ${email || "Não informado"}
 📞 Telemóvel: ${telefone}
-📅 Data pretendida: ${data}
-⏳ Período: ${periodo}
-📍 Localidade: ${localidade}
-
+${infoDatas}
+📍 Localidade: ${localidade || "Não informada"}
+${valorTotal ? `💰 Valor Estimado: ${valorTotal}\n` : ''}
 📝 Observações:
 ${mensagem || "Nenhuma"}`;
 
@@ -45,90 +56,125 @@ ${mensagem || "Nenhuma"}`;
 
 /**
  * Animação de entrada (Fade In / Scroll Reveal)
- * Garante que só executa quando o HTML estiver totalmente carregado.
+ * Executa quando os elementos com .fade-up entram no viewport.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-            }
+    // Verifica se o browser suporta IntersectionObserver
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    observer.unobserve(entry.target); // Deixa de observar após animar
+                }
+            });
+        }, {
+            threshold: 0.1 // Ativa a animação quando 10% do elemento estiver visível
         });
-    }, {
-        threshold: 0.1 // Ativa a animação quando 10% do elemento estiver visível
-    });
 
-    // Observa todos os elementos com a classe .fade-up
-    document.querySelectorAll(".fade-up").forEach((el) => {
-        observer.observe(el);
-    });
+        // Observa todos os elementos com a classe .fade-up
+        document.querySelectorAll(".fade-up").forEach((el) => {
+            observer.observe(el);
+        });
+    }
 });
-function partilharSite() {
+
+/**
+ * Função para partilhar o site através do dispositivo
+ */
+async function partilharSite() {
+    const shareData = {
+        title: 'MiautechPT - Aluguer de Tecnologia para Gatos',
+        text: 'Vá de férias descansado! Alugue o Pack PETKIT e monitorize o seu gato.',
+        url: window.location.href
+    };
+
     if (navigator.share) {
-        navigator.share({
-            title: 'MiautechPT - Aluguer de Tecnologia para Gatos',
-            text: 'Vá de férias descansado! Alugue o Pack PETKIT e monitorize o seu gato.',
-            url: window.location.href
-        })
-        .then(() => console.log('Partilhado com sucesso!'))
-        .catch((error) => console.log('Erro ao partilhar:', error));
+        try {
+            await navigator.share(shareData);
+            console.log('Partilhado com sucesso!');
+        } catch (error) {
+            // Ignora o erro caso o utilizador tenha cancelado a partilha
+            if (error.name !== 'AbortError') {
+                console.error('Erro ao partilhar:', error);
+            }
+        }
     } else {
-        // Caso esteja num computador sem suporte nativo a partilha, copia o link para a área de transferência
-        navigator.clipboard.writeText(window.location.href);
-        alert('Link do site copiado para a área de transferência!');
+        // Fallback: Copia o link para a área de transferência
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            alert('Link do site copiado para a área de transferência!');
+        } catch (err) {
+            console.error('Erro ao copiar link:', err);
+        }
     }
 }
+
+/**
+ * Atualiza os elementos visuais do resumo de preço e equipamento no ecran
+ */
 function atualizarEcra(valorFinal, numDias, valorBase, temDesconto, texto) {
     const valorTotalSpan = document.getElementById('valorTotal');
     const valorOriginalSpan = document.getElementById('valorOriginal');
     const detalhesCalculo = document.getElementById('detalhesCalculo');
-    const soCaixaVal = document.getElementById('soCaixa').value;
+    const soCaixaElem = document.getElementById('soCaixa');
+    const valorTotalInput = document.getElementById('valorTotalInput');
 
     const itemCaixa = document.getElementById('itemCaixa');
     const itemComedouro = document.getElementById('itemComedouro');
     const itemFonte = document.getElementById('itemFonte');
     const tituloEquipamento = document.getElementById('tituloEquipamento');
 
-    // Se selecionou "Sim" (Apenas Caixa de Areia)
+    const soCaixaVal = soCaixaElem ? soCaixaElem.value : 'Nao';
+
+    // Atualiza a lista de itens com base na escolha (Apenas Caixa vs Kit Completo)
     if (soCaixaVal === 'Sim') {
-        tituloEquipamento.innerText = 'Apenas Caixa de Areia PETKIT';
+        if (tituloEquipamento) tituloEquipamento.innerText = 'Apenas Caixa de Areia PETKIT';
 
-        // Caixa de Areia (Incluído)
-        itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
-        itemCaixa.className = 'text-dark fw-medium';
-
-        // Comedouro (Não Incluído - tira o certo verde)
-        itemComedouro.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Comedouro Automático com Câmara</del>';
-        itemComedouro.className = 'text-muted';
-
-        // Fonte (Não Incluído - tira o certo verde)
-        itemFonte.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Fonte de Água Inteligente</del>';
-        itemFonte.className = 'text-muted';
-
+        if (itemCaixa) {
+            itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
+            itemCaixa.className = 'text-dark fw-medium';
+        }
+        if (itemComedouro) {
+            itemComedouro.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Comedouro Automático com Câmara</del>';
+            itemComedouro.className = 'text-muted';
+        }
+        if (itemFonte) {
+            itemFonte.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Fonte de Água Inteligente</del>';
+            itemFonte.className = 'text-muted';
+        }
     } else {
-        // Se selecionou "Não" (Kit Completo)
-        tituloEquipamento.innerText = 'Kit PETKIT Completo';
+        if (tituloEquipamento) tituloEquipamento.innerText = 'Kit PETKIT Completo';
 
-        itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
-        itemCaixa.className = 'text-dark';
-
-        itemComedouro.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Comedouro Automático com Câmara';
-        itemComedouro.className = 'text-dark';
-
-        itemFonte.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Fonte de Água Inteligente';
-        itemFonte.className = 'text-dark';
+        if (itemCaixa) {
+            itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
+            itemCaixa.className = 'text-dark';
+        }
+        if (itemComedouro) {
+            itemComedouro.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Comedouro Automático com Câmara';
+            itemComedouro.className = 'text-dark';
+        }
+        if (itemFonte) {
+            itemFonte.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Fonte de Água Inteligente';
+            itemFonte.className = 'text-dark';
+        }
     }
 
-    // Atualização de preços
-    valorTotalSpan.innerText = valorFinal.toFixed(2).replace('.', ',') + ' €';
-    detalhesCalculo.innerText = texto + (temDesconto ? ' [Desc. 10%]' : '');
+    // Atualização dos valores e descontos
+    const valorFormatado = valorFinal.toFixed(2).replace('.', ',') + ' €';
+    
+    if (valorTotalSpan) valorTotalSpan.innerText = valorFormatado;
+    if (detalhesCalculo) detalhesCalculo.innerText = texto + (temDesconto ? ' [Desc. 10%]' : '');
 
-    if (temDesconto) {
+    if (temDesconto && valorOriginalSpan) {
         valorOriginalSpan.innerText = valorBase.toFixed(2).replace('.', ',') + ' €';
         valorOriginalSpan.classList.remove('d-none');
-    } else {
+    } else if (valorOriginalSpan) {
         valorOriginalSpan.classList.add('d-none');
     }
 
-    document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
+    // Atualiza o campo oculto do formulário
+    if (valorTotalInput) {
+        valorTotalInput.value = `${valorFormatado} (${numDias} dias)`;
+    }
 }

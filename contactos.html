@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Reservar o Kit PETKIT | MiautechPT</title>
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <!-- SDK Oficial do Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+
     <style>
         body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
         .bg-gradient-price { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
@@ -23,7 +31,7 @@
         </div>
     </div>
 
-   <!-- MENU -->
+    <!-- MENU -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -59,9 +67,7 @@
 
             <div class="row g-5">
                 <div class="col-lg-7">
-                    <form id="reservaForm" action="https://formsubmit.co/miautechpt@hotmail.com" method="POST" class="p-4 rounded shadow-sm bg-light border" onsubmit="return validarEnvioEmail(event)">
-                        <input type="hidden" name="_subject" value="Nova Reserva - MiautechPT">
-                        <input type="hidden" name="_captcha" value="false">
+                    <form id="reservaForm" class="p-4 rounded shadow-sm bg-light border">
                         <input type="hidden" id="numReservaInput" name="Número da Reserva" value="">
                         <input type="hidden" id="valorTotalInput" name="Valor Final do Aluguer" value="">
 
@@ -138,12 +144,9 @@
 
                         <div id="alertaErro" class="alert alert-danger d-none mb-3" role="alert"></div>
 
-                        <button class="btn btn-primary w-100 mb-2 py-2 fs-5" id="btnEmail" type="submit">
-                            <i class="fa-solid fa-paper-plane me-2"></i> Enviar Pedido por Email
-                        </button>
-
-                        <button class="btn btn-success w-100 py-2 fs-5" id="btnWhatsapp" type="button" onclick="enviarWhatsApp()">
-                            <i class="fa-brands fa-whatsapp me-2"></i> Reservar pelo WhatsApp
+                        <!-- BOTÃO DE PAGAMENTO STRIPE CHECKOUT -->
+                        <button class="btn btn-dark w-100 py-3 fs-5 shadow-sm" id="btnStripe" type="button" onclick="pagarComStripe()">
+                            <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão / MB WAY
                         </button>
                     </form>
                 </div>
@@ -193,21 +196,6 @@
                                     <div class="border-top pt-2 mt-2 d-flex justify-content-between align-items-center">
                                         <small class="text-muted fw-medium">Ref. da Reserva:</small>
                                         <small class="fw-bold text-dark font-monospace" id="numReservaDisplay">#------</small>
-                                    </div>
-                                </div>
-
-                                <!-- PAGAMENTO MBWAY -->
-                                <div class="p-3 bg-white border border-info rounded-3 mb-3 shadow-sm">
-                                    <div class="d-flex align-items-center mb-1">
-                                        <i class="fa-solid fa-mobile-screen-button text-primary fs-5 me-2"></i>
-                                        <h6 class="fw-bold mb-0 text-dark">Pagamento por MB WAY</h6>
-                                    </div>
-                                    <p class="small text-muted mb-1 lh-sm">
-                                        Envie o valor do aluguer para o número <strong>+351 918 642 824</strong>.
-                                    </p>
-                                    <div class="alert alert-warning py-1 px-2 mb-0 small text-dark border-0">
-                                        <i class="fa-solid fa-triangle-exclamation me-1"></i>
-                                        <strong>Obrigatório:</strong> Por favor indique o <u>Número da Reserva</u> na descrição/observações do MB WAY ao realizar a transferência.
                                     </div>
                                 </div>
 
@@ -294,6 +282,7 @@
 
     <script>
         let numeroReservaGlobal = "";
+        const CLOUDFLARE_WORKER_URL = 'https://blue-bread-52b1.miautechpt.workers.dev';
 
         document.addEventListener('DOMContentLoaded', () => {
             const hoje = new Date().toISOString().split('T')[0];
@@ -313,13 +302,11 @@
 
             const alertaErro = document.getElementById('alertaErro');
             const alertaSucesso = document.getElementById('alertaSucesso');
-            const btnEmail = document.getElementById('btnEmail');
-            const btnWhatsapp = document.getElementById('btnWhatsapp');
+            const btnStripe = document.getElementById('btnStripe');
 
             alertaErro.classList.add('d-none');
             alertaSucesso.classList.add('d-none');
-            btnEmail.disabled = false;
-            btnWhatsapp.disabled = false;
+            btnStripe.disabled = false;
 
             if (!dataEntregaVal || !dataDevolucaoVal) {
                 resetValores("Selecione as datas de entrega e devolução.");
@@ -405,8 +392,7 @@
 
         function mostrarErro(msg) {
             const alertaErro = document.getElementById('alertaErro');
-            document.getElementById('btnEmail').disabled = true;
-            document.getElementById('btnWhatsapp').disabled = true;
+            document.getElementById('btnStripe').disabled = true;
             alertaErro.innerText = msg;
             alertaErro.classList.remove('d-none');
         }
@@ -454,43 +440,69 @@
             document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
         }
 
-        function validarEnvioEmail(e) {
-            const valorTotalInput = document.getElementById('valorTotalInput').value;
-            if (!valorTotalInput) {
-                e.preventDefault();
-                alert('Por favor, selecione as datas corretamente para calcular o valor antes de submeter.');
-                return false;
-            }
-            return true;
-        }
-
-        function enviarWhatsApp() {
+        async function pagarComStripe() {
             const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
             const telefone = document.getElementById('telefone').value;
             const entrega = document.getElementById('dataEntrega').value;
             const devolucao = document.getElementById('dataDevolucao').value;
-            const soCaixa = document.getElementById('soCaixa').value;
             const localidade = document.getElementById('localidade').value;
-            const valorFinal = document.getElementById('valorTotal').innerText;
+            const mensagem = document.getElementById('mensagem').value;
+            const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
+            const valorTexto = document.getElementById('valorTotal').innerText;
 
-            if (!nome || !telefone || !entrega || !devolucao || !localidade) {
-                alert('Por favor, preencha o Nome, Telemóvel, Localidade e Selecione as Datas.');
+            if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
+                alert('Por favor, preencha o Nome, Email, Telemóvel, Localidade e Datas antes de pagar.');
                 return;
             }
 
-            const texto = `Olá! Gostaria de reservar o Kit PETKIT:\n\n` +
-                `*Nº da Reserva:* ${numeroReservaGlobal}\n` +
-                `*Nome:* ${nome}\n` +
-                `*Telemóvel:* ${telefone}\n` +
-                `*Localidade:* ${localidade}\n` +
-                `*Data de Entrega:* ${entrega}\n` +
-                `*Data de Devolução:* ${devolucao}\n` +
-                `*Opção:* ${soCaixa === 'Sim' ? 'Apenas Caixa de Areia' : 'Kit Completo'}\n` +
-                `*Valor Total:* ${valorFinal}\n\n` +
-                `*Pagamento MB WAY:* +351 918 642 824\n` +
-                `_(Indicar Ref. ${numeroReservaGlobal} na descrição do MB WAY)_`;
+            if (!valorTexto || valorTexto.includes('--')) {
+                alert('Por favor, selecione datas válidas para calcular o total.');
+                return;
+            }
 
-            window.open(`https://wa.me/351918642824?text=${encodeURIComponent(texto)}`, '_blank');
+            const valorNumerico = parseFloat(valorTexto.replace('€', '').replace(',', '.').trim());
+            const valorEmCentimos = Math.round(valorNumerico * 100);
+
+            const btnStripe = document.getElementById('btnStripe');
+            btnStripe.disabled = true;
+            btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A abrir Checkout Seguro...';
+
+            try {
+                const response = await fetch(CLOUDFLARE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        valorCentimos: valorEmCentimos,
+                        reservaNum: numeroReservaGlobal,
+                        nomeCliente: nome,
+                        emailCliente: email,
+                        telefoneCliente: telefone,
+                        localidade: localidade,
+                        mensagem: mensagem,
+                        tipoEquipamento: tipoEquipamento,
+                        dias: `${entrega} até ${devolucao}`
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error("Não foi possível gerar a ligação de pagamento.");
+                }
+
+            } catch (error) {
+                console.error("Erro no checkout:", error);
+                alert("Ocorreu um erro ao ligar ao gateway de pagamento. Tente novamente.");
+                btnStripe.disabled = false;
+                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão / MB WAY';
+            }
         }
     </script>
 </body>
