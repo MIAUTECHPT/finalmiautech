@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perguntas Frequentes (FAQ) | MiautechPT</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body, section { background-color: #f0f7ff !important; }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOPBAR -->
+    <div class="topbar py-2 bg-dark text-white">
+        <div class="container d-flex justify-content-center justify-content-lg-between align-items-center">
+            <span><i class="fa-solid fa-truck-fast me-2"></i> Entrega presencial nos distritos de Porto e Aveiro</span>
+            <span><i class="fa-solid fa-shield-cat me-2"></i> Equipamentos higienizados</span>
+            <span><i class="fa-brands fa-whatsapp me-2"></i> Apoio por WhatsApp</span>
+        </div>
+    </div>
+
+    <!-- MENU NAVEGAÇÃO -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/imagens/favicon.jpg" alt="MiautechPT Logo" height="50">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto align-items-lg-center py-2 py-lg-0">
+                    <li class="nav-item"><a class="nav-link py-2" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link py-2" href="pack.html">Alugar Pack</a></li>
+                    <li class="nav-item"><a class="nav-link py-2" href="loja.html">Comprar</a></li>
+                    <li class="nav-item"><a class="nav-link py-2" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link py-2 active" href="faq.html">FAQ</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-primary reservar-btn w-100 w-lg-auto text-center" href="contactos.html">Reserva o Aluguer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CABEÇALHO FAQ -->
+    <section class="py-5 bg-light text-center">
+        <div class="container">
+            <h1 class="fw-bold mb-3 hero-titulo">Perguntas Frequentes</h1>
+            <p class="lead text-muted max-w-600 mx-auto hero-subtitulo">
+                Tire todas as suas dúvidas sobre o aluguer do Pack PETKIT, higienização, caução, prazos e entregas.
+            </p>
+        </div>
+    </section>
+
+    <!-- ACCORDION FAQ -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                    <div class="accordion shadow-sm" id="faqAccordion">
+
+                        <!-- Item 1 -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fa-solid fa-box-open me-3 text-primary"></i> O que está incluído no Pack PETKIT?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    O Pack é composto por 3 equipamentos inteligentes: a caixa de areia automática <strong>Purobot Ultra com Câmara</strong>, o <strong>Comedouro Automático Inteligente com Câmara</strong> e a <strong>Fonte de Água Inteligente</strong>. Inclui também os manuais de utilização e o nosso suporte ao longo de todo o período de aluguer.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fa-solid fa-pump-medical me-3 text-primary"></i> Como é garantida a higienização dos equipamentos?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    A higiene e a saúde do seu gato são a nossa maior prioridade. Entre cada aluguer, todos os equipamentos passam por uma desmontagem completa, lavagem profunda 100% segura os próximos animais.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: CAUÇÃO E VALOR -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingCaucao">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCaucao" aria-expanded="false" aria-controls="collapseCaucao">
+                                    <i class="fa-solid fa-shield-halved me-3 text-primary"></i> Como funciona a caução e qual é o valor do equipamento?
+                                </button>
+                            </h2>
+                            <div id="collapseCaucao" class="accordion-collapse collapse" aria-labelledby="headingCaucao" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    <p class="mb-2">Para garantir a segurança do equipamento durante o período de aluguer, é solicitada uma <strong> caução de 450 €</strong>, através de uma pré-autorização no cartão bancário. Este valor não é debitado, ficando apenas cativo enquanto o aluguer estiver em vigor.</p>
+                                    <ul class="mb-0 ps-3">
+                                        <li><strong>Valor de substituição do Kit:</strong> 950 €.</li>
+                                        <li><strong>Libertação da caução:</strong> A pré-autorização é anulada na totalidade no dia da devolução do kit, após confirmação de que o equipamento foi entregue completo e em perfeitas condições.</li>
+                                        <li><strong>Responsabilidade do cliente:</strong> A caução cobre apenas danos ou prejuízos até ao montante de 450 €. Se o equipamento não for devolvido, sofrer danos cuja reparação ou substituição exceda esse valor, o cliente é responsável pelo pagamento da diferença, até ao valor total de substituição do kit, conforme previsto no contrato de aluguer.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4: ESTADO E VERIFICAÇÃO -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingDanos">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDanos" aria-expanded="false" aria-controls="collapseDanos">
+                                    <i class="fa-solid fa-clipboard-check me-3 text-primary"></i> Como é verificado o estado do equipamento na entrega e devolução?
+                                </button>
+                            </h2>
+                            <div id="collapseDanos" class="accordion-collapse collapse" aria-labelledby="headingDanos" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    <p class="mb-2">Para total transparência e proteção de ambas as partes:</p>
+                                    <ol class="mb-0 ps-3">
+                                        <li>No momento da entrega, fazemos um <strong>inventário</strong> de todos os equipamentos e registamos/fotografamos o estado do material.</li>
+                                        <li>O cliente confirma e assina a ficha de entrega e estado dos equipamentos.</li>
+                                        <li>Na devolução, é feita uma nova verificação conjunta. O desgaste normal de utilização está coberto, mas o cliente é responsável por danos decorrentes de utilização indevida, acidentes, perda ou falta de limpeza extrema.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 (NOVO): TIPO DE AREIA PERMITIDO -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingAreia">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAreia" aria-expanded="false" aria-controls="collapseAreia">
+                                    <i class="fa-solid fa-triangle-exclamation me-3 text-warning"></i> ⚠️ Que tipo de areia posso utilizar na caixa automática?
+                                </button>
+                            </h2>
+                            <div id="collapseAreia" class="accordion-collapse collapse" aria-labelledby="headingAreia" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    <p class="fw-bold mb-2 text-dark">Para garantir o bom funcionamento da máquina e evitar taxas por danos/avarias:</p>
+                                    <ul class="list-unstyled mb-3">
+                                        <li class="mb-2">
+                                            <span class="text-danger fw-bold">🚫 Proibido:</span> Areia de sílica convencional (cristais grandes/grossos). Bloqueia a rede de filtragem e danifica o motor.
+                                        </li>
+                                        <li class="mb-2">
+                                            <span class="text-success fw-bold">✅ Obrigatório:</span> Areia Aglomerante (Clumping) de grão fino (Bentonite ou Tofu fino) para os modelos Pura Max 2 e Purobot Ultra.
+                                        </li>
+                                    </ul>
+                                    <div class="p-3 bg-light border-start border-warning border-4 rounded">
+                                        <small class="text-dark">💡 <strong>Atenção:</strong> Areias não aglomerantes desfazem-se e sujeitam o motor a avarias, cujos custos serão imputados ao cliente.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 6 -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <i class="fa-solid fa-cat me-3 text-primary"></i> E se o meu gato não se adaptar ao Pack?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    O objetivo principal do nosso serviço de aluguer é precisamente permitir que teste a reação do seu patudo antes de gastar centenas de euros. Se o seu gato não se adaptar durante o período, basta devolver o equipamento no final do contrato sem qualquer compromisso de compra.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 7 -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <i class="fa-solid fa-mobile-screen-button me-3 text-primary"></i> É preciso instalar alguma aplicação no telemóvel?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Sim, para aproveitar ao máximo as funcionalidades inteligentes (como visualizar as câmeras, programar horários de refeição e monitorizar a frequência com que o gato usa a caixa), basta descarregar a aplicação oficial <strong>PETKIT</strong> (disponível para iOS e Android). A nossa equipa ajuda-o em todo o processo de configuração inicial.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 8 -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    <i class="fa-solid fa-calendar-plus me-3 text-primary"></i> Posso prolongar o período de aluguer?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Sim! Se precisar de mais tempo para tomar uma decisão, basta entrar em contacto connosco por WhatsApp ou e-mail com pelo menos 48 horas de antecedência. O valor do dia adicional é de apenas <strong>8,50 €</strong>.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 9 -->
+                        <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    <i class="fa-solid fa-truck me-3 text-primary"></i> Como funcionam as entregas e devoluções?
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Realizamos entregas presenciais nos distritos do Porto e Aveiro. Após preencher o formulário de reserva, entraremos em contacto para combinar os detalhes de entrega e a data de recolha no final do período.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- AJUDA ADICIONAL -->
+                    <div class="text-center mt-5 p-4 bg-light rounded-3 shadow-sm">
+                        <h5 class="fw-bold mb-2">Ainda tem dúvidas?</h5>
+                        <p class="text-muted mb-3">Estamos disponíveis no WhatsApp para o ajudar em tempo real.</p>
+                        <a href="https://wa.me/351918642824" target="_blank" class="btn btn-success fw-bold">
+                            <i class="fa-brands fa-whatsapp me-2"></i> Falar no WhatsApp
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4>MiautechPT</h4>
+                    <p class="text-white-50">Experimente antes de comprar.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Contacto</h5>
+                    <p class="mb-1">
+                        <i class="fa-solid fa-envelope me-2"></i>
+                        <a href="mailto:miautechpt@hotmail.com" class="text-white-50 text-decoration-none">miautechpt@hotmail.com</a>
+                    </p>
+                    <p>
+                        <i class="fa-brands fa-whatsapp me-2"></i>
+                        <a href="https://wa.me/351918642824" target="_blank" class="text-white-50 text-decoration-none">+351 918 642 824</a>
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Links Úteis</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Início</a></li>
+                        <li><a href="pack.html" class="text-white-50 text-decoration-none">Produtos</a></li>
+                        <li><a href="contactos.html" class="text-white-50 text-decoration-none">Reservar</a></li>
+                        <li><a href="privacidade.html" class="text-white-50 text-decoration-none">Política de Privacidade</a></li>
+                        <li><a href="termos.html" class="text-white-50 text-decoration-none">Termos e Condições</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-secondary my-4">
+            
+            <!-- CONTROLO DE ESCALA DA PÁGINA -->
+            <div class="d-flex align-items-center justify-content-center flex-wrap gap-2 py-2 mb-3 small text-white-50">
+                <span class="me-1">Tamanho de visualização:</span>
+                <button onclick="definirEscala('50%')" class="btn btn-sm btn-outline-light py-0 px-2">50%</button>
+                <button onclick="definirEscala('80%')" class="btn btn-sm btn-outline-light py-0 px-2">80%</button>
+                <button onclick="definirEscala('100%')" class="btn btn-sm btn-primary py-0 px-2">100% (Normal)</button>
+                <button onclick="definirEscala('120%')" class="btn btn-sm btn-outline-light py-0 px-2">120%</button>
+            </div>
+
+            <p class="text-center text-white-50 mb-0">
+                © 2026 MiautechPT. Todos os direitos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/351918642824" class="whatsapp-btn position-fixed bottom-0 end-0 m-4 btn btn-success rounded-circle p-3 shadow" target="_blank" style="z-index: 1000;">
+        <i class="fa-brands fa-whatsapp fa-2x"></i>
+    </a>
+
+    <!-- Scripts Bootstrap e Personalizado -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- Função para controlo de escala / zoom -->
+    <script>
+    function definirEscala(porcentagem) {
+        document.body.style.zoom = porcentagem;
+        if (porcentagem === '50%') document.body.style.transform = 'scale(0.5)';
+        else if (porcentagem === '80%') document.body.style.transform = 'scale(0.8)';
+        else if (porcentagem === '120%') document.body.style.transform = 'scale(1.2)';
+        else document.body.style.transform = 'none';
+        
+        if (porcentagem !== '100%') {
+            document.body.style.transformOrigin = 'top center';
+        }
+    }
+    </script>
+
+</body>
+</html>

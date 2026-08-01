@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reservar o Kit PETKIT | MiautechPT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
+        .bg-gradient-price { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR INFORMATIVA -->
+    <div class="topbar py-2 bg-dark text-white">
+        <div class="container d-flex justify-content-center justify-content-lg-between align-items-center">
+            <span><i class="fa-solid fa-truck-fast me-2"></i> Entrega presencial nos distritos de Porto e Aveiro</span>
+            <span><i class="fa-solid fa-shield-cat me-2"></i> Equipamentos higienizados</span>
+            <span><i class="fa-brands fa-whatsapp me-2"></i> Apoio por WhatsApp</span>
+        </div>
+    </div>
+
+   <!-- MENU -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/imagens/favicon.jpg" alt="MiautechPT Logo" height="50">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto align-items-lg-center py-2 py-lg-0">
+                    <li class="nav-item"><a class="nav-link py-2" href="index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link py-2" href="pack.html">Alugar Pack</a></li>
+                    <li class="nav-item"><a class="nav-link py-2" href="loja.html">Comprar</a></li>
+                    <li class="nav-item"><a class="nav-link py-2" href="sobre.html">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link py-2 active" href="faq.html">FAQ</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-primary reservar-btn w-100 w-lg-auto text-center" href="contactos.html">Reserva o Aluguer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FORMULÁRIO -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold">Reservar o Kit PETKIT</h1>
+                <p class="lead text-muted">Escolha as datas de entrega e devolução para verificar a disponibilidade em tempo real.</p>
+            </div>
+
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <form id="reservaForm" action="https://formsubmit.co/miautechpt@hotmail.com" method="POST" class="p-4 rounded shadow-sm bg-light border" onsubmit="return validarEnvioEmail(event)">
+                        <input type="hidden" name="_subject" value="Nova Reserva - MiautechPT">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" id="numReservaInput" name="Número da Reserva" value="">
+                        <input type="hidden" id="valorTotalInput" name="Valor Final do Aluguer" value="">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nome" class="form-label fw-medium">Nome completo *</label>
+                                <input type="text" class="form-control" id="nome" name="Nome" required placeholder="Ex: Maria Silva">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telefone" class="form-label fw-medium">Telemóvel *</label>
+                                <input type="tel" class="form-control" id="telefone" name="Telefone" required placeholder="912 345 678">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-medium">Email *</label>
+                            <input type="email" class="form-control" id="email" name="Email" required placeholder="exemplo@email.com">
+                        </div>
+
+                        <div class="row border p-3 rounded-3 bg-white mb-3 mx-0">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="dataEntrega" class="form-label fw-bold text-primary">Data de Entrega *</label>
+                                <input type="date" class="form-control" id="dataEntrega" name="Data de Entrega" required onchange="calcularEVerificar()">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="dataDevolucao" class="form-label fw-bold text-primary">Data de Devolução *</label>
+                                <input type="date" class="form-control" id="dataDevolucao" name="Data de Devolução" required onchange="calcularEVerificar()">
+                            </div>
+                            <div class="col-12 mt-2">
+                                <small class="text-muted"><i class="fa-solid fa-circle-info me-1"></i> Mínimo de aluguer: <strong>5 dias</strong>.</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="soCaixa" class="form-label fw-medium">Deseja alugar apenas a caixa de areia? (10% de desconto)</label>
+                            <select class="form-select border-primary" id="soCaixa" name="Apenas Caixa de Areia" onchange="calcularEVerificar()">
+                                <option value="Nao" selected>Não (Kit Completo)</option>
+                                <option value="Sim">Sim (Apenas Caixa de Areia - 10% Desc.)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="localidade" class="form-label fw-medium">Distrito / Concelho de Entrega *</label>
+                            <select class="form-select" id="localidade" name="Localidade" required>
+                                <option value="" selected disabled>Selecione a sua localização...</option>
+                                <optgroup label="Distrito do Porto">
+                                    <option value="Porto - Concelho">Porto (Centro)</option>
+                                    <option value="Vila Nova de Gaia">Vila Nova de Gaia</option>
+                                    <option value="Matosinhos">Matosinhos</option>
+                                    <option value="Gondomar">Gondomar</option>
+                                    <option value="Maia">Maia</option>
+                                    <option value="Outro - Porto">Outro concelho do Porto</option>
+                                </optgroup>
+                                <optgroup label="Distrito de Aveiro">
+                                    <option value="Aveiro - Concelho">Aveiro (Centro)</option>
+                                    <option value="Oliveira de Azeméis">Oliveira de Azeméis</option>
+                                    <option value="Santa Maria da Feira">Santa Maria da Feira</option>
+                                    <option value="São João da Madeira">São João da Madeira</option>
+                                    <option value="Ovar">Ovar</option>
+                                    <option value="Outro - Aveiro">Outro concelho de Aveiro</option>
+                                </optgroup>
+                                <option value="Fora das zonas de entrega">Outra zona (Sob consulta de taxa de envio)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="mensagem" class="form-label fw-medium">Observações / Morada exata</label>
+                            <textarea class="form-control" rows="3" id="mensagem" name="Mensagem" placeholder="Alguma dúvida ou detalhe adicional?"></textarea>
+                        </div>
+
+                        <div id="alertaSucesso" class="alert alert-success d-none mb-3" role="alert">
+                            <i class="fa-solid fa-circle-check me-2"></i> <strong>Disponibilidade Confirmada!</strong> Existe stock disponível para as datas selecionadas.
+                        </div>
+
+                        <div id="alertaErro" class="alert alert-danger d-none mb-3" role="alert"></div>
+
+                        <button class="btn btn-primary w-100 mb-2 py-2 fs-5" id="btnEmail" type="submit">
+                            <i class="fa-solid fa-paper-plane me-2"></i> Enviar Pedido por Email
+                        </button>
+
+                        <button class="btn btn-success w-100 py-2 fs-5" id="btnWhatsapp" type="button" onclick="enviarWhatsApp()">
+                            <i class="fa-brands fa-whatsapp me-2"></i> Reservar pelo WhatsApp
+                        </button>
+                    </form>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4 d-flex flex-column justify-content-between">
+                            <div>
+                                <h3 class="mb-3 fw-bold">Resumo da Reserva</h3>
+                                <h5 class="fw-bold text-primary" id="tituloEquipamento">Kit PETKIT Completo</h5>
+                                <ul class="list-unstyled lh-lg mb-3" id="listaEquipamentos">
+                                    <li id="itemCaixa"><i class="fa-solid fa-check text-success me-2"></i> Purobot Ultra com Câmara</li>
+                                    <li id="itemComedouro"><i class="fa-solid fa-check text-success me-2"></i> Comedouro Automático Inteligente com Câmara</li>
+                                    <li id="itemFonte"><i class="fa-solid fa-check text-success me-2"></i> Fonte de Água Inteligente</li>
+                                </ul>
+
+                                <!-- TABELA DE TARIFAS DE REFERÊNCIA -->
+                                <div class="p-3 bg-white rounded border mb-3">
+                                    <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.85rem;"><i class="fa-solid fa-tags me-1"></i> Tabela de Preços/Dia:</h6>
+                                    <div class="d-flex justify-content-between text-muted small border-bottom py-1">
+                                        <span>5 a 6 dias:</span> <strong>9,50 € / dia</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-muted small border-bottom py-1">
+                                        <span>7 a 13 dias:</span> <strong>8,43 € / dia</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-muted small border-bottom py-1">
+                                        <span>14 a 27 dias:</span> <strong>6,25 € / dia</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-muted small py-1">
+                                        <span>28+ dias:</span> <strong>4,11 € / dia</strong>
+                                    </div>
+                                </div>
+
+                                <!-- CAIXA DE PREÇO TOTAL E REF. RESERVA -->
+                                <div class="p-3 bg-gradient-price border border-primary rounded-3 mb-3 shadow-sm">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-primary">Valor Total</h6>
+                                            <small class="text-muted" id="detalhesCalculo">Selecione as datas para calcular</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="fs-6 text-muted text-decoration-line-through d-none me-1" id="valorOriginal"></span>
+                                            <span class="fs-3 fw-bold text-primary" id="valorTotal">--,-- €</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="border-top pt-2 mt-2 d-flex justify-content-between align-items-center">
+                                        <small class="text-muted fw-medium">Ref. da Reserva:</small>
+                                        <small class="fw-bold text-dark font-monospace" id="numReservaDisplay">#------</small>
+                                    </div>
+                                </div>
+
+                                <!-- PAGAMENTO MBWAY -->
+                                <div class="p-3 bg-white border border-info rounded-3 mb-3 shadow-sm">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <i class="fa-solid fa-mobile-screen-button text-primary fs-5 me-2"></i>
+                                        <h6 class="fw-bold mb-0 text-dark">Pagamento por MB WAY</h6>
+                                    </div>
+                                    <p class="small text-muted mb-1 lh-sm">
+                                        Envie o valor do aluguer para o número <strong>+351 918 642 824</strong>.
+                                    </p>
+                                    <div class="alert alert-warning py-1 px-2 mb-0 small text-dark border-0">
+                                        <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                                        <strong>Obrigatório:</strong> Por favor indique o <u>Número da Reserva</u> na descrição/observações do MB WAY ao realizar a transferência.
+                                    </div>
+                                </div>
+
+                                <!-- TIPO DE AREIA PERMITIDO -->
+                                <div class="p-3 bg-white border border-warning rounded-3 mb-3 shadow-sm">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="fa-solid fa-box-open text-warning fs-5 me-2"></i>
+                                        <h6 class="fw-bold mb-0 text-dark">Tipo de Areia Permitido</h6>
+                                    </div>
+                                    <p class="small text-muted mb-2 lh-sm">
+                                        Para garantir o bom funcionamento da máquina e evitar danos/avarias:
+                                    </p>
+                                    <ul class="list-unstyled small mb-0 lh-sm">
+                                        <li class="mb-1 text-danger">
+                                            <strong>🚫 Proibido:</strong> Areia de sílica convencional (cristais grandes/grossos). Bloqueia a rede de filtragem e danifica o motor.
+                                        </li>
+                                        <li class="mb-1 text-success">
+                                            <strong>✅ Obrigatório:</strong> Areia Aglomerante (Clumping) de grão fino (Bentonite ou Tofu fino) para os modelos Pura Max 2 e Purobot Ultra.
+                                        </li>
+                                        <li class="mt-2 text-dark bg-light p-2 rounded border border-warning-subtle">
+                                            <strong>💡 Nota:</strong> Areias não aglomerantes desfazem-se e sujeitam o motor a avarias, cujos custos serão imputados ao cliente.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- INFORMAÇÃO DA CAUÇÃO -->
+                            <div class="p-3 bg-white border border-primary border-opacity-25 rounded-3 shadow-sm">
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="fa-solid fa-shield-cat text-primary fs-5 me-2"></i>
+                                    <h6 class="fw-bold mb-0 text-dark">Informação da Caução</h6>
+                                </div>
+                                <p class="small text-muted mb-0 lh-sm">
+                                    Para o aluguer do kit, é necessária uma caução com o valor de 450€, efetuada através de uma pré-autorização. <br><strong>Este valor não é debitado, ficando só temporariamente cativo durante o período de aluguer</strong>. <br>Após a devolução do kit, e confirmando-se que se encontra em boas condições, a caução é libertada na totalidade.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO DE CONTACTO DÚVIDAS WHATSAPP NO BOTTOM -->
+            <div class="text-center mt-5 pt-3">
+                <div class="p-4 bg-white rounded-3 shadow-sm border d-inline-block">
+                    <p class="mb-2 fw-medium text-dark fs-5">
+                        <i class="fa-regular fa-circle-question text-primary me-2"></i>Tem alguma dúvida sobre o aluguer?
+                    </p>
+                    <p class="text-muted small mb-3">Estamos disponíveis para esclarecer todas as questões antes ou após a sua reserva.</p>
+                    <a href="https://wa.me/351918642824" target="_blank" class="btn btn-outline-success px-4 py-2 rounded-pill fw-bold">
+                        <i class="fa-brands fa-whatsapp me-2"></i>Contactar através do WhatsApp
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FIREBASE SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyABrd9CBg1i2TQoybqNrXbx-NOZPaUAaok",
+            authDomain: "miautechpt.firebaseapp.com",
+            databaseURL: "https://miautechpt-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "miautechpt",
+            storageBucket: "miautechpt.firebasestorage.app",
+            messagingSenderId: "178436092597",
+            appId: "1:178436092597:web:70ddc25324d9984b8044fc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.getDocs = getDocs;
+        window.collection = collection;
+        window.doc = doc;
+        window.getDoc = getDoc;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let numeroReservaGlobal = "";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('dataEntrega').min = hoje;
+            document.getElementById('dataDevolucao').min = hoje;
+
+            // Gerar número de reserva único (Ex: #MIAU-8492)
+            numeroReservaGlobal = "#MIAU-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('numReservaDisplay').innerText = numeroReservaGlobal;
+            document.getElementById('numReservaInput').value = numeroReservaGlobal;
+        });
+
+        async function calcularEVerificar() {
+            const dataEntregaVal = document.getElementById('dataEntrega').value;
+            const dataDevolucaoVal = document.getElementById('dataDevolucao').value;
+            const soCaixaVal = document.getElementById('soCaixa').value;
+
+            const alertaErro = document.getElementById('alertaErro');
+            const alertaSucesso = document.getElementById('alertaSucesso');
+            const btnEmail = document.getElementById('btnEmail');
+            const btnWhatsapp = document.getElementById('btnWhatsapp');
+
+            alertaErro.classList.add('d-none');
+            alertaSucesso.classList.add('d-none');
+            btnEmail.disabled = false;
+            btnWhatsapp.disabled = false;
+
+            if (!dataEntregaVal || !dataDevolucaoVal) {
+                resetValores("Selecione as datas de entrega e devolução.");
+                return false;
+            }
+
+            const dataEntrega = new Date(dataEntregaVal);
+            const dataDevolucao = new Date(dataDevolucaoVal);
+
+            if (dataDevolucao <= dataEntrega) {
+                mostrarErro("A data de devolução deve ser posterior à data de entrega.");
+                resetValores("Datas inválidas");
+                return false;
+            }
+
+            const diffTime = Math.abs(dataDevolucao - dataEntrega);
+            const numDias = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (numDias < 5) {
+                mostrarErro(`O período mínimo de aluguer é de 5 dias. Selecionou ${numDias} dia(s).`);
+                resetValores("Mínimo 5 dias");
+                return false;
+            }
+
+            // Consultar Stock no Firebase
+            try {
+                let totalStock = 3;
+                if (window.getDoc && window.db) {
+                    const configSnap = await window.getDoc(window.doc(window.db, "configuracao", "stock"));
+                    if (configSnap.exists()) {
+                        totalStock = configSnap.data().totalKits || 3;
+                    }
+
+                    const querySnapshot = await window.getDocs(window.collection(window.db, "reservas"));
+                    let kitsOcupados = 0;
+
+                    querySnapshot.forEach((docSnap) => {
+                        const res = docSnap.data();
+                        const resInicio = new Date(res.entrega);
+                        const resFim = new Date(res.devolucao);
+
+                        if (dataEntrega < resFim && dataDevolucao > resInicio) {
+                            kitsOcupados++;
+                        }
+                    });
+
+                    if (kitsOcupados >= totalStock) {
+                        mostrarErro(`Lamentamos, não temos disponibilidade para as datas selecionadas. Tente outros dias.`);
+                        resetValores("Sem disponibilidade");
+                        return false;
+                    }
+                }
+
+                alertaSucesso.classList.remove('d-none');
+
+            } catch (error) {
+                console.error("Erro na verificação de stock:", error);
+            }
+
+            // Cálculo do Preço
+            let precoPorDia = 0;
+            if (numDias >= 5 && numDias <= 6) precoPorDia = 9.50;
+            else if (numDias >= 7 && numDias <= 13) precoPorDia = 8.43;
+            else if (numDias >= 14 && numDias <= 27) precoPorDia = 6.25;
+            else if (numDias >= 28) precoPorDia = 4.11;
+
+            let valorBase = numDias * precoPorDia;
+            if (numDias === 7) valorBase = 59.00;
+            if (numDias === 14) valorBase = 87.50;
+            if (numDias === 28) valorBase = 115.00;
+
+            let valorFinal = valorBase;
+            let temDesconto = false;
+
+            if (soCaixaVal === 'Sim') {
+                valorFinal = valorBase * 0.90;
+                temDesconto = true;
+            }
+
+            atualizarEcra(valorFinal, numDias, valorBase, temDesconto, `${numDias} dias (${precoPorDia.toFixed(2).replace('.', ',')} €/dia)`);
+            return true;
+        }
+
+        function mostrarErro(msg) {
+            const alertaErro = document.getElementById('alertaErro');
+            document.getElementById('btnEmail').disabled = true;
+            document.getElementById('btnWhatsapp').disabled = true;
+            alertaErro.innerText = msg;
+            alertaErro.classList.remove('d-none');
+        }
+
+        function resetValores(mensagem) {
+            document.getElementById('valorTotal').innerText = '--,-- €';
+            document.getElementById('valorOriginal').classList.add('d-none');
+            document.getElementById('detalhesCalculo').innerText = mensagem;
+            document.getElementById('valorTotalInput').value = '';
+        }
+
+        function atualizarEcra(valorFinal, numDias, valorBase, temDesconto, texto) {
+            const valorTotalSpan = document.getElementById('valorTotal');
+            const valorOriginalSpan = document.getElementById('valorOriginal');
+            const detalhesCalculo = document.getElementById('detalhesCalculo');
+            const soCaixaVal = document.getElementById('soCaixa').value;
+
+            const itemCaixa = document.getElementById('itemCaixa');
+            const itemComedouro = document.getElementById('itemComedouro');
+            const itemFonte = document.getElementById('itemFonte');
+            const tituloEquipamento = document.getElementById('tituloEquipamento');
+
+            if (soCaixaVal === 'Sim') {
+                tituloEquipamento.innerText = 'Apenas Caixa de Areia PETKIT';
+                itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
+                itemComedouro.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Comedouro Automático com Câmara</del>';
+                itemFonte.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Fonte de Água Inteligente</del>';
+            } else {
+                tituloEquipamento.innerText = 'Kit PETKIT Completo';
+                itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
+                itemComedouro.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Comedouro Automático com Câmara';
+                itemFonte.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Fonte de Água Inteligente';
+            }
+
+            valorTotalSpan.innerText = valorFinal.toFixed(2).replace('.', ',') + ' €';
+            detalhesCalculo.innerText = texto + (temDesconto ? ' [Desc. 10%]' : '');
+
+            if (temDesconto) {
+                valorOriginalSpan.innerText = valorBase.toFixed(2).replace('.', ',') + ' €';
+                valorOriginalSpan.classList.remove('d-none');
+            } else {
+                valorOriginalSpan.classList.add('d-none');
+            }
+
+            document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
+        }
+
+        function validarEnvioEmail(e) {
+            const valorTotalInput = document.getElementById('valorTotalInput').value;
+            if (!valorTotalInput) {
+                e.preventDefault();
+                alert('Por favor, selecione as datas corretamente para calcular o valor antes de submeter.');
+                return false;
+            }
+            return true;
+        }
+
+        function enviarWhatsApp() {
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const entrega = document.getElementById('dataEntrega').value;
+            const devolucao = document.getElementById('dataDevolucao').value;
+            const soCaixa = document.getElementById('soCaixa').value;
+            const localidade = document.getElementById('localidade').value;
+            const valorFinal = document.getElementById('valorTotal').innerText;
+
+            if (!nome || !telefone || !entrega || !devolucao || !localidade) {
+                alert('Por favor, preencha o Nome, Telemóvel, Localidade e Selecione as Datas.');
+                return;
+            }
+
+            const texto = `Olá! Gostaria de reservar o Kit PETKIT:\n\n` +
+                `*Nº da Reserva:* ${numeroReservaGlobal}\n` +
+                `*Nome:* ${nome}\n` +
+                `*Telemóvel:* ${telefone}\n` +
+                `*Localidade:* ${localidade}\n` +
+                `*Data de Entrega:* ${entrega}\n` +
+                `*Data de Devolução:* ${devolucao}\n` +
+                `*Opção:* ${soCaixa === 'Sim' ? 'Apenas Caixa de Areia' : 'Kit Completo'}\n` +
+                `*Valor Total:* ${valorFinal}\n\n` +
+                `*Pagamento MB WAY:* +351 918 642 824\n` +
+                `_(Indicar Ref. ${numeroReservaGlobal} na descrição do MB WAY)_`;
+
+            window.open(`https://wa.me/351918642824?text=${encodeURIComponent(texto)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
