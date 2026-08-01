@@ -178,3 +178,66 @@ function atualizarEcra(valorFinal, numDias, valorBase, temDesconto, texto) {
         valorTotalInput.value = `${valorFormatado} (${numDias} dias)`;
     }
 }
+/**
+ * Envia os dados para o Cloudflare Worker para criar uma sessão de pagamento no Stripe
+ */
+async function pagarComStripe(event) {
+    if (event) event.preventDefault();
+
+    const nome = document.getElementById("nome")?.value.trim() || "";
+    const email = document.getElementById("email")?.value.trim() || "";
+    const telefone = document.getElementById("telefone")?.value.trim() || "";
+    const dataEntrega = document.getElementById("dataEntrega")?.value || document.getElementById("data")?.value || "";
+    const dataDevolucao = document.getElementById("dataDevolucao")?.value || "";
+    const periodo = document.getElementById("periodo")?.value || "";
+    const localidade = document.getElementById("localidade")?.value.trim() || "";
+    const mensagem = document.getElementById("mensagem")?.value.trim() || "";
+    const reservaNum = document.getElementById("numReservaInput")?.value || "REF-" + Math.floor(1000 + Math.random() * 9000);
+    const tipoEquipamento = document.getElementById("tituloEquipamento")?.innerText || "Kit PETKIT Completo";
+    
+    // Obter o valor total em cêntimos (exemplo: extrair do span ou input)
+    const valorTotalSpan = document.getElementById('valorTotal')?.innerText || "0";
+    const valorNumerico = parseFloat(valorTotalSpan.replace(' €', '').replace(',', '.')) || 0;
+    const valorCentimos = Math.round(valorNumerico * 100);
+
+    if (!nome || !email || !telefone) {
+        alert("Por favor, preencha o Nome, E-mail e Telemóvel para prosseguir com o pagamento.");
+        return;
+    }
+
+    if (valorCentimos <= 0) {
+        alert("O valor da reserva não é válido.");
+        return;
+    }
+
+    const dadosReserva = {
+        valorCentimos: valorCentimos,
+        reservaNum: reservaNum,
+        nomeCliente: nome,
+        emailCliente: email,
+        telefoneCliente: telefone,
+        dias: dataDevolucao ? `${dataEntrega} até ${dataDevolucao}` : (periodo || dataEntrega),
+        localidade: localidade,
+        mensagem: mensagem,
+        tipoEquipamento: tipoEquipamento
+    };
+
+    try {
+        const resposta = await fetch('https://blue-bread-52b1.miautechpt.workers.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dadosReserva)
+        });
+
+        const resultado = await resposta.json();
+
+        if (resultado.url) {
+            window.location.href = resultado.url; // Redireciona para o Checkout do Stripe
+        } else {
+            throw new Error(resultado.error || 'Erro ao iniciar o pagamento.');
+        }
+    } catch (erro) {
+        console.error('Erro:', erro);
+        alert('Ocorreu um erro ao ligar ao sistema de pagamento. Tente novamente.');
+    }
+}
