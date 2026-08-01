@@ -108,7 +108,7 @@
                             <i class="fa-solid fa-paper-plane me-2"></i> Enviar Pedido por Email
                         </button>
 
-                        <button class="btn btn-success w-100 py-2 fs-5" id="btnWhatsapp" type="button" id="btnWhatsapp" onclick="enviarWhatsApp()">
+                        <button class="btn btn-success w-100 py-2 fs-5" id="btnWhatsapp" type="button" onclick="enviarWhatsApp()">
                             <i class="fa-brands fa-whatsapp me-2"></i> Reservar pelo WhatsApp
                         </button>
                     </form>
@@ -203,6 +203,31 @@
         </div>
     </section>
 
+    <!-- FIREBASE SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyABrd9CBg1i2TQoybqNrXbx-NOZPaUAaok",
+            authDomain: "miautechpt.firebaseapp.com",
+            databaseURL: "https://miautechpt-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "miautechpt",
+            storageBucket: "miautechpt.firebasestorage.app",
+            messagingSenderId: "178436092597",
+            appId: "1:178436092597:web:70ddc25324d9984b8044fc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.getDocs = getDocs;
+        window.collection = collection;
+        window.doc = doc;
+        window.getDoc = getDoc;
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const hoje = new Date().toISOString().split('T')[0];
@@ -210,7 +235,7 @@
             document.getElementById('dataDevolucao').min = hoje;
         });
 
-        function calcularEVerificar() {
+        async function calcularEVerificar() {
             const dataEntregaVal = document.getElementById('dataEntrega').value;
             const dataDevolucaoVal = document.getElementById('dataDevolucao').value;
             const soCaixaVal = document.getElementById('soCaixa').value;
@@ -251,27 +276,41 @@
                 return;
             }
 
-            // 4. Verificar Disponibilidade (Lê as definições guardadas no sistema)
-            const configInventario = JSON.parse(localStorage.getItem('inventarioConfig')) || { totalKits: 3 };
-            const reservasExistentes = JSON.parse(localStorage.getItem('reservasDB')) || [];
-            
-            let kitsOcupados = 0;
-            reservasExistentes.forEach(res => {
-                const resInicio = new Date(res.entrega);
-                const resFim = new Date(res.devolucao);
-                if (dataEntrega < resFim && dataDevolucao > resInicio) {
-                    kitsOcupados++;
+            // 4. Verificar Disponibilidade (Lê as definições guardadas no Firebase)
+            try {
+                let totalStock = 3;
+                if (window.getDoc && window.db) {
+                    const configSnap = await window.getDoc(window.doc(window.db, "configuracao", "stock"));
+                    if (configSnap.exists()) {
+                        totalStock = configSnap.data().totalKits || 3;
+                    }
+
+                    const querySnapshot = await window.getDocs(window.collection(window.db, "reservas"));
+                    let kitsOcupados = 0;
+
+                    querySnapshot.forEach((docSnap) => {
+                        const res = docSnap.data();
+                        const resInicio = new Date(res.entrega);
+                        const resFim = new Date(res.devolucao);
+
+                        if (dataEntrega < resFim && dataDevolucao > resInicio) {
+                            kitsOcupados++;
+                        }
+                    });
+
+                    if (kitsOcupados >= totalStock) {
+                        mostrarErro(`Lamentamos, mas não temos disponibilidade de kits para o período selecionado (${dataEntregaVal} a ${dataDevolucaoVal}). Escolha outras datas.`);
+                        resetValores("Sem disponibilidade");
+                        return;
+                    }
                 }
-            });
 
-            if (kitsOcupados >= configInventario.totalKits) {
-                mostrarErro(`Lamentamos, mas não temos disponibilidade de kits para o período selecionado (${dataEntregaVal} a ${dataDevolucaoVal}). Escolha outras datas.`);
-                resetValores("Sem disponibilidade");
-                return;
+                // Se chegou aqui, há stock! Mostra mensagem positiva.
+                alertaSucesso.classList.remove('d-none');
+
+            } catch (error) {
+                console.error("Erro na verificação de stock:", error);
             }
-
-            // Se chegou aqui, há stock! Mostra mensagem positiva.
-            alertaSucesso.classList.remove('d-none');
 
             // 5. Determinar Preço por dia
             let precoPorDia = 0;
