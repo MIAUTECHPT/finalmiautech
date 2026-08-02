@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    // Pedido à API do Stripe para criar a Checkout Session
+// Pedido à API do Stripe para criar a Checkout Session
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: {
@@ -29,8 +29,9 @@ export async function onRequestPost(context) {
       },
       body: new URLSearchParams({
         'payment_method_types[0]': 'card',
+        'payment_method_types[1]': 'mbway', // Adiciona o MB WAY aqui
         'line_items[0][price_data][currency]': 'eur',
-        'line_items[0][price_data][unit_amount]': Math.round(amount * 100), // O Stripe usa cêntimos (ex: 10€ = 1000)
+        'line_items[0][price_data][unit_amount]': Math.round(amount * 100),
         'line_items[0][price_data][product_data][name]': description || 'Reserva Miautech',
         'line_items[0][quantity]': '1',
         'mode': 'payment',
