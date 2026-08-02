@@ -566,10 +566,7 @@
                     },
                     body: JSON.stringify({
                         access_key: 'f0c8056b-8868-4d22-a0c8-16fe7182a7e1',
-                        subject: `Confirmação de Reserva - ${numeroReservaGlobal} (MiauTech)`,
-                        // Define o email do cliente como destinatário de resposta/cópia suportado pelo Web3Forms
-                        replyto: email,
-                        email: email, // Garante que o Web3Forms reconhece o email introduzido pelo cliente
+                        subject: `Nova Reserva MB WAY - ${numeroReservaGlobal}`,
                         'Número de Reserva': numeroReservaGlobal,
                         'Nome do Cliente': nome,
                         'Email': email,
@@ -579,15 +576,14 @@
                         'Localidade': localidade,
                         'Equipamento': tipoEquipamento,
                         'Valor Total': valorTexto,
-                        'Observações': observacoes || 'Nenhuma',
-                        'Mensagem para o Cliente': `Olá ${nome},\n\nA sua reserva (${numeroReservaGlobal}) foi registada com sucesso! Iremos entrar em contacto consigo muito em breve para proceder aos detalhes do pagamento por MB WAY e agendamento da entrega.\n\nObrigado por escolher a MiauTech!`
+                        'Observações': observacoes || 'Nenhuma'
                     })
                 });
 
                 const result = await response.json();
 
                 if (result.success) {
-                    alert('Reserva registada com sucesso! Enviámos os detalhes para o seu email e entraremos em contacto em breve.');
+                    alert('Reserva registada com sucesso! Os detalhes foram enviados para o seu email.');
                     window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
                 } else {
                     throw new Error(result.message || 'Erro ao enviar formulário.');
@@ -600,3 +596,6 @@
                 btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva <br /> Após pagamento efetuado por MB WAY';
             }
         }
+    </script>
+</body>
+</html>
