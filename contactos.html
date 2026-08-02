@@ -583,8 +583,15 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    alert('Reserva registada com sucesso! Os detalhes foram enviados para o seu email.');
-                    window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
+                    alert(
+                        `RESERVA REGISTADA COM SUCESSO!\n\n` +
+                        `Referência: ${numeroReservaGlobal}\n` +
+                        `Período: ${entrega} a ${devolucao}\n` +
+                        `Valor Total: ${valorTexto}\n\n` +
+                        `Iremos entrar em contacto consigo muito em breve para confirmar os detalhes de agendamento.`
+                    );
+                    
+                    window.location.href = `sucesso.html?reserva=${encodeURIComponent(numeroReservaGlobal)}&entrega=${encodeURIComponent(entrega)}&devolucao=${encodeURIComponent(devolucao)}&valor=${encodeURIComponent(valorTexto)}`;
                 } else {
                     throw new Error(result.message || 'Erro ao enviar formulário.');
                 }
