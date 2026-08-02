@@ -150,6 +150,16 @@
                         </button>
                     </form>
                 </div>
+                <!-- BOTÃO DE PAGAMENTO MB WAY / RESERVA MANUAL -->
+<div class="mt-3 p-3 bg-white border rounded-3 text-center shadow-sm">
+    <p class="small text-muted mb-2">
+        <i class="fa-solid fa-circle-info text-primary me-1"></i>
+        Se pretender o pagamento por <strong>MB WAY</strong>, o número é <strong>918642824</strong> e basta informar o nº de reserva que está por baixo do valor a pagar.
+    </p>
+    <button class="btn btn-success w-100 py-2 fs-6 shadow-sm" id="btnMbway" type="button" onclick="reservarPorMbway()">
+        <i class="fa-brands fa-whatsapp me-2"></i> Reservado por MB WAY (Enviar Aviso)
+    </button>
+</div>
 
                 <div class="col-lg-5">
                     <div class="card shadow-sm border-0 h-100">
@@ -492,3 +502,60 @@
     </script>
 </body>
 </html>
+async function reservarPorMbway() {
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const telefone = document.getElementById('telefone').value;
+    const entrega = document.getElementById('dataEntrega').value;
+    const devolucao = document.getElementById('dataDevolucao').value;
+    const localidade = document.getElementById('localidade').value;
+    const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
+    const valorTexto = document.getElementById('valorTotal').innerText;
+
+    if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
+        alert('Por favor, preencha o Nome, Email, Telemóvel, Localidade e Datas antes de prosseguir.');
+        return;
+    }
+
+    if (!valorTexto || valorTexto.includes('--')) {
+        alert('Por favor, selecione datas válidas para calcular o total.');
+        return;
+    }
+
+    const btnMbway = document.getElementById('btnMbway');
+    btnMbway.disabled = true;
+    btnMbway.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A registar e a enviar avisos...';
+
+    try {
+        const response = await fetch('/api/reservar-mbway', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                numReserva: numeroReservaGlobal,
+                nome,
+                email,
+                telefone,
+                entrega,
+                devolucao,
+                localidade,
+                tipoEquipamento,
+                valorTotal: valorTexto
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes sobre o pagamento MB WAY.');
+        window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
+
+    } catch (error) {
+        console.error("Erro MB WAY:", error);
+        alert("Ocorreu um erro ao processar a reserva. Tente novamente.");
+        btnMbway.disabled = false;
+        btnMbway.innerHTML = '<i class="fa-brands fa-whatsapp me-2"></i> Reservado por MB WAY (Enviar Aviso)';
+    }
+}
