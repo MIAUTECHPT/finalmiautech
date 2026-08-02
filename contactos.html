@@ -149,24 +149,24 @@
                             <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
                         </button>
 
-                        <!-- BLOCO DE PAGAMENTO MB WAY ATUALIZADO -->
-                        <div class="p-3 bg-white border rounded-3 shadow-sm">
-                            <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 border-bottom pb-2 gap-2">
-                                <div class="d-flex align-items-center gap-2">
-                                    <img src="assets/imagens/mbway-logo.png" alt="MB WAY" height="32">
-                                    <span class="fs-4 fw-bold text-dark font-monospace">918 642 824</span>
+                        <!-- BLOCO DE PAGAMENTO MB WAY REESTRUTURADO (Tons de Azul + Borda Dedicada) -->
+                        <div class="p-3 bg-gradient-price border border-primary border-opacity-50 rounded-3 shadow-sm mb-3">
+                            <div class="bg-white p-3 rounded-3 shadow-sm mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2 border">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="https://www.mbway.pt/wp-content/uploads/2021/06/logo_mbway.png" alt="MB WAY" height="38" style="object-fit: contain;">
+                                    <span class="fs-4 fw-bold text-dark font-monospace mb-0">918 642 824</span>
                                 </div>
-                                <span class="badge bg-danger text-white">Pagamento Manual</span>
+                                <span class="badge bg-primary text-white px-3 py-2">Pagamento Manual</span>
                             </div>
                             
-                            <ul class="small text-muted ps-3 mb-3 lh-lg">
-                                <li><strong>1º</strong> Abra a aplicação <strong class="text-dark">MB WAY</strong> e envie o valor total para o número indicado acima.</li>
-                                <li><strong>2º</strong> No campo de mensagem/descrição da transferência, indique o seu <strong class="text-dark">Nº de Reserva</strong> (visível no resumo ao lado).</li>
+                            <ul class="small text-dark ps-3 mb-3 lh-lg">
+                                <li><strong>1º</strong> Abra a aplicação <strong class="text-primary">MB WAY</strong> e envie o valor total para o número indicado acima.</li>
+                                <li><strong>2º</strong> No campo de mensagem/descrição da transferência, indique o seu <strong class="text-primary">Nº de Reserva</strong> (visível no resumo ao lado).</li>
                                 <li><strong>3º</strong> Clique no botão azul abaixo para concluir a sua reserva.</li>
                             </ul>
 
                             <button class="btn btn-primary w-100 py-3 fs-5 shadow-sm" id="btnMbway" type="button" onclick="reservarPorMbway()">
-                                <i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência já efetuada por MB WAY
+                                <i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência feita por MB WAY
                             </button>
                         </div>
                     </form>
