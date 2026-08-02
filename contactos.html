@@ -50,7 +50,7 @@
                     <li class="nav-item"><a class="nav-link py-2" href="sobre.html">Sobre</a></li>
                     <li class="nav-item"><a class="nav-link py-2 active" href="faq.html">FAQ</a></li>
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn btn-primary reservar-btn w-100 w-lg-auto text-center" href="contactos.html">Reserva o Aluguer</a>
+                        <a class="btn btn-primary reservar-btn w-100 text-center" href="contactos.html">Reserva o Aluguer</a>
                     </li>
                 </ul>
             </div>
@@ -213,10 +213,7 @@
                                             <strong>🚫 Proibido:</strong> Areia de sílica convencional (cristais grandes/grossos). Bloqueia a rede de filtragem e danifica o motor.
                                         </li>
                                         <li class="mb-1 text-success">
-                                            <strong>✅ Obrigatório:</strong> Areia Aglomerante (Clumping) de grão fino (Bentonite ou Tofu fino) para os modelos Pura Max 2 e Purobot Ultra.
-                                        </li>
-                                        <li class="mt-2 text-dark bg-light p-2 rounded border border-warning-subtle">
-                                            <strong>💡 Nota:</strong> Areias não aglomerantes desfazem-se e sujeitam o motor a avarias, cujos custos serão imputados ao cliente.
+                                            <strong>✅ Obrigatório:</strong> Areia Aglomerante (Clumping) de grão fino (Bentonite ou Tofu fino).
                                         </li>
                                     </ul>
                                 </div>
@@ -229,7 +226,7 @@
                                     <h6 class="fw-bold mb-0 text-dark">Informação da Caução</h6>
                                 </div>
                                 <p class="small text-muted mb-0 lh-sm">
-                                    Para o aluguer do kit, é necessária uma caução com o valor de 450€, efetuada através de uma pré-autorização. <br><strong>Este valor não é debitado, ficando só temporariamente cativo durante o período de aluguer</strong>. <br>Após a devolução do kit, e confirmando-se que se encontra em boas condições, a caução é libertada na totalidade.
+                                    Caução de 450€ por pré-autorização (não é debitada, fica apenas cativa durante o aluguer).
                                 </p>
                             </div>
                         </div>
@@ -282,14 +279,13 @@
 
     <script>
         let numeroReservaGlobal = "";
-        const CLOUDFLARE_WORKER_URL = 'https://blue-bread-52b1.miautechpt.workers.dev';
+        const CLOUDFLARE_WORKER_URL = '/api/create-checkout-session';
 
         document.addEventListener('DOMContentLoaded', () => {
             const hoje = new Date().toISOString().split('T')[0];
             document.getElementById('dataEntrega').min = hoje;
             document.getElementById('dataDevolucao').min = hoje;
 
-            // Gerar número de reserva único (Ex: #MIAU-8492)
             numeroReservaGlobal = "#MIAU-" + Math.floor(1000 + Math.random() * 9000);
             document.getElementById('numReservaDisplay').innerText = numeroReservaGlobal;
             document.getElementById('numReservaInput').value = numeroReservaGlobal;
@@ -331,7 +327,6 @@
                 return false;
             }
 
-            // Consultar Stock no Firebase
             try {
                 let totalStock = 3;
                 if (window.getDoc && window.db) {
@@ -354,7 +349,7 @@
                     });
 
                     if (kitsOcupados >= totalStock) {
-                        mostrarErro(`Lamentamos, não temos disponibilidade para as datas selecionadas. Tente outros dias.`);
+                        mostrarErro(`Lamentamos, não temos disponibilidade para as datas selecionadas.`);
                         resetValores("Sem disponibilidade");
                         return false;
                     }
@@ -366,7 +361,6 @@
                 console.error("Erro na verificação de stock:", error);
             }
 
-            // Cálculo do Preço
             let precoPorDia = 0;
             if (numDias >= 5 && numDias <= 6) precoPorDia = 9.50;
             else if (numDias >= 7 && numDias <= 13) precoPorDia = 8.43;
@@ -417,13 +411,13 @@
 
             if (soCaixaVal === 'Sim') {
                 tituloEquipamento.innerText = 'Apenas Caixa de Areia PETKIT';
-                itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
+                itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Ultra com Câmara';
                 itemComedouro.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Comedouro Automático com Câmara</del>';
                 itemFonte.innerHTML = '<i class="fa-solid fa-xmark text-danger me-2"></i> <del class="text-muted">Fonte de Água Inteligente</del>';
             } else {
                 tituloEquipamento.innerText = 'Kit PETKIT Completo';
-                itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Max Pro 2';
-                itemComedouro.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Comedouro Automático com Câmara';
+                itemCaixa.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Purobot Ultra com Câmara';
+                itemComedouro.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Comedouro Automático Inteligente com Câmara';
                 itemFonte.innerHTML = '<i class="fa-solid fa-check text-success me-2"></i> Fonte de Água Inteligente';
             }
 
@@ -447,7 +441,6 @@
             const entrega = document.getElementById('dataEntrega').value;
             const devolucao = document.getElementById('dataDevolucao').value;
             const localidade = document.getElementById('localidade').value;
-            const mensagem = document.getElementById('mensagem').value;
             const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
             const valorTexto = document.getElementById('valorTotal').innerText;
 
@@ -462,7 +455,6 @@
             }
 
             const valorNumerico = parseFloat(valorTexto.replace('€', '').replace(',', '.').trim());
-            const valorEmCentimos = Math.round(valorNumerico * 100);
 
             const btnStripe = document.getElementById('btnStripe');
             btnStripe.disabled = true;
@@ -473,15 +465,8 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        valorCentimos: valorEmCentimos,
-                        reservaNum: numeroReservaGlobal,
-                        nomeCliente: nome,
-                        emailCliente: email,
-                        telefoneCliente: telefone,
-                        localidade: localidade,
-                        mensagem: mensagem,
-                        tipoEquipamento: tipoEquipamento,
-                        dias: `${entrega} até ${devolucao}`
+                        amount: valorNumerico,
+                        description: `${tipoEquipamento} (${numeroReservaGlobal}) - Ref: ${entrega} a ${devolucao}`
                     })
                 });
 
