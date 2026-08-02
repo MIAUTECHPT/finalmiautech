@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
   try {
     const stripeSecretKey = context.env.STRIPE_SECRET_KEY;
-    
+
     if (!stripeSecretKey) {
       return new Response(JSON.stringify({ error: "Chave secreta do Stripe não configurada." }), {
         status: 500,
@@ -10,9 +10,8 @@ export async function onRequestPost(context) {
     }
 
     const body = await context.request.json();
-    const { amount, description } = body; // Recebe o valor e a descrição enviados pelo site
+    const { amount, description } = body;
 
-    // Validação simples do valor
     if (!amount || amount <= 0) {
       return new Response(JSON.stringify({ error: "Valor inválido para pagamento." }), {
         status: 400,
@@ -20,7 +19,7 @@ export async function onRequestPost(context) {
       });
     }
 
-// Pedido à API do Stripe para criar a Checkout Session
+    // Pedido à API do Stripe utilizando automatic_payment_methods
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: {
@@ -28,8 +27,7 @@ export async function onRequestPost(context) {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        'payment_method_types[0]': 'card',
-        'payment_method_types[1]': 'mbway', // Adiciona o MB WAY aqui
+        'automatic_payment_methods[enabled]': 'true',
         'line_items[0][price_data][currency]': 'eur',
         'line_items[0][price_data][unit_amount]': Math.round(amount * 100),
         'line_items[0][price_data][product_data][name]': description || 'Reserva Miautech',
@@ -42,11 +40,14 @@ export async function onRequestPost(context) {
 
     const session = await response.json();
 
-    if (!session.id) {
-      throw new Error(session.error?.message || 'Erro ao comunicar com o Stripe');
+    if (session.error) {
+      return new Response(JSON.stringify({ error: session.error.message }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    return new Response(JSON.stringify({ url: session.url }), {
+    return new Response(JSON.stringify({ id: session.id, url: session.url }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
