@@ -304,7 +304,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- O TEU SCRIPT PRINCIPAL -->
-    <script>
+   <script>
         let numeroReservaGlobal = "";
         const CLOUDFLARE_WORKER_URL = '/api/create-checkout-session';
 
@@ -325,6 +325,7 @@
             if(inputReserva) inputReserva.value = numeroReservaGlobal;
         });
 
+        // 1. FUNÇÃO DE CÁLCULO E VERIFICAÇÃO (Garante que os valores aparecem)
         async function calcularEVerificar() {
             const dataEntregaVal = document.getElementById('dataEntrega').value;
             const dataDevolucaoVal = document.getElementById('dataDevolucao').value;
@@ -476,62 +477,7 @@
             document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
         }
 
-        async function pagarComStripe() {
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const telefone = document.getElementById('telefone').value;
-            const entrega = document.getElementById('dataEntrega').value;
-            const devolucao = document.getElementById('dataDevolucao').value;
-            const localidade = document.getElementById('localidade').value;
-            const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
-            const valorTexto = document.getElementById('valorTotal').innerText;
-
-            if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
-                alert('Por favor, preencha o Nome, Email, Telemóvel, Localidade e Datas antes de pagar.');
-                return;
-            }
-
-            if (!valorTexto || valorTexto.includes('--')) {
-                alert('Por favor, selecione datas válidas para calcular o total.');
-                return;
-            }
-
-            const valorNumerico = parseFloat(valorTexto.replace('€', '').replace(',', '.').trim());
-
-            const btnStripe = document.getElementById('btnStripe');
-            btnStripe.disabled = true;
-            btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A abrir Checkout Seguro...';
-
-            try {
-                const response = await fetch(CLOUDFLARE_WORKER_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        amount: valorNumerico,
-                        description: `${tipoEquipamento} (${numeroReservaGlobal}) - Ref: ${entrega} a ${devolucao}`
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-                if (data.url) {
-                    window.location.href = data.url;
-                } else {
-                    throw new Error("Não foi possível gerar a ligação de pagamento.");
-                }
-
-            } catch (error) {
-                console.error("Erro no checkout:", error);
-                alert("Ocorreu um erro ao ligar ao gateway de pagamento. Tente novamente.");
-                btnStripe.disabled = false;
-                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
-            }
-        }
-
+        // 2. FUNÇÃO MBWAY (Com o alerta e redirecionamento correto após o OK)
         async function reservarPorMbway() {
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
@@ -567,6 +513,7 @@
                     body: JSON.stringify({
                         access_key: 'f0c8056b-8868-4d22-a0c8-16fe7182a7e1',
                         subject: `Nova Reserva MB WAY - ${numeroReservaGlobal}`,
+                        email: email,
                         'Número de Reserva': numeroReservaGlobal,
                         'Nome do Cliente': nome,
                         'Email': email,
@@ -591,7 +538,7 @@
                         `Iremos entrar em contacto consigo muito em breve para confirmar os detalhes de agendamento.`
                     );
                     
-                    window.location.href = `sucesso.html?reserva=${encodeURIComponent(numeroReservaGlobal)}&entrega=${encodeURIComponent(entrega)}&devolucao=${encodeURIComponent(devolucao)}&valor=${encodeURIComponent(valorTexto)}`;
+                    window.location.href = `sucesso/index.html?reserva=${encodeURIComponent(numeroReservaGlobal)}&entrega=${encodeURIComponent(entrega)}&devolucao=${encodeURIComponent(devolucao)}&valor=${encodeURIComponent(valorTexto)}`;
                 } else {
                     throw new Error(result.message || 'Erro ao enviar formulário.');
                 }
@@ -604,5 +551,3 @@
             }
         }
     </script>
-</body>
-</html>
