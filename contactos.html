@@ -564,12 +564,11 @@
 
                 alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes.');
                 window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
-
-            } catch (error) {
-                console.error("Erro MB WAY:", error);
-                alert("Ocorreu um erro ao processar a reserva. Tente novamente.");
+} catch (error) {
+                console.error("Erro no registo MB WAY:", error);
+                alert("Ocorreu um erro ao registar a reserva. Tente novamente.");
                 btnMbway.disabled = false;
-                btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência feita por MB WAY';
+                btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva <br /> Após pagamento efetuado por MB WAY';
             }
         }
     </script>
