@@ -18,7 +18,6 @@
     <style>
         body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
         .bg-gradient-price { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
-        .mbway-badge { background-color: #ff3366; color: white; font-weight: bold; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -150,21 +149,24 @@
                             <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
                         </button>
 
-                        <!-- BLOCO DE PAGAMENTO MB WAY / MELHORADO POR PASSOS -->
+                        <!-- BLOCO DE PAGAMENTO MB WAY ATUALIZADO -->
                         <div class="p-3 bg-white border rounded-3 shadow-sm">
-                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
-                                <span class="fw-bold text-dark"><span class="mbway-badge">MB WAY</span> Pagamento Passo a Passo</span>
-                                <i class="fa-solid fa-mobile-screen-button text-danger fs-4"></i>
+                            <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 border-bottom pb-2 gap-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="assets/imagens/mbway-logo.png" alt="MB WAY" height="32">
+                                    <span class="fs-4 fw-bold text-dark font-monospace">918 642 824</span>
+                                </div>
+                                <span class="badge bg-danger text-white">Pagamento Manual</span>
                             </div>
                             
                             <ul class="small text-muted ps-3 mb-3 lh-lg">
-                                <li><strong>1º</strong> Abra a aplicação <strong class="text-dark">MB WAY</strong> no telemóvel e envie o valor total para o número: <strong class="text-dark">918642824</strong>.</li>
+                                <li><strong>1º</strong> Abra a aplicação <strong class="text-dark">MB WAY</strong> e envie o valor total para o número indicado acima.</li>
                                 <li><strong>2º</strong> No campo de mensagem/descrição da transferência, indique o seu <strong class="text-dark">Nº de Reserva</strong> (visível no resumo ao lado).</li>
-                                <li><strong>3º</strong> Clique no botão verde abaixo para concluir e submeter a reserva.</li>
+                                <li><strong>3º</strong> Clique no botão azul abaixo para concluir a sua reserva.</li>
                             </ul>
 
-                            <button class="btn btn-success w-100 py-3 fs-5 shadow-sm" id="btnMbway" type="button" onclick="reservarPorMbway()">
-                                <i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva por MB WAY
+                            <button class="btn btn-primary w-100 py-3 fs-5 shadow-sm" id="btnMbway" type="button" onclick="reservarPorMbway()">
+                                <i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência já efetuada por MB WAY
                             </button>
                         </div>
                     </form>
@@ -560,14 +562,14 @@
                     throw new Error(data.error);
                 }
 
-                alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes sobre o pagamento MB WAY.');
+                alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes.');
                 window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
 
             } catch (error) {
                 console.error("Erro MB WAY:", error);
                 alert("Ocorreu um erro ao processar a reserva. Tente novamente.");
                 btnMbway.disabled = false;
-                btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva por MB WAY';
+                btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência feita por MB WAY';
             }
         }
     </script>
