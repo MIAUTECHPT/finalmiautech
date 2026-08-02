@@ -19,23 +19,25 @@ export async function onRequestPost(context) {
       });
     }
 
-    // Pedido à API do Stripe utilizando automatic_payment_methods
+    // Configuração correta de parâmetros para o Stripe
+    const params = new URLSearchParams();
+    params.append('payment_method_types[0]', 'card');
+    params.append('payment_method_types[1]', 'mbway');
+    params.append('line_items[0][price_data][currency]', 'eur');
+    params.append('line_items[0][price_data][unit_amount]', Math.round(amount * 100));
+    params.append('line_items[0][price_data][product_data][name]', description || 'Reserva Miautech');
+    params.append('line_items[0][quantity]', '1');
+    params.append('mode', 'payment');
+    params.append('success_url', `${new URL(context.request.url).origin}/sucesso.html?session_id={CHECKOUT_SESSION_ID}`);
+    params.append('cancel_url', `${new URL(context.request.url).origin}/cancelado.html`);
+
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${stripeSecretKey}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams({
-        'automatic_payment_methods[enabled]': 'true',
-        'line_items[0][price_data][currency]': 'eur',
-        'line_items[0][price_data][unit_amount]': Math.round(amount * 100),
-        'line_items[0][price_data][product_data][name]': description || 'Reserva Miautech',
-        'line_items[0][quantity]': '1',
-        'mode': 'payment',
-        'success_url': `${new URL(context.request.url).origin}/sucesso.html?session_id={CHECKOUT_SESSION_ID}`,
-        'cancel_url': `${new URL(context.request.url).origin}/cancelado.html`,
-      })
+      body: params
     });
 
     const session = await response.json();
