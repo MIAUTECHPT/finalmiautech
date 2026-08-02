@@ -19,10 +19,8 @@ export async function onRequestPost(context) {
       });
     }
 
-    // Configuração correta de parâmetros para o Stripe
     const params = new URLSearchParams();
-    params.append('payment_method_types[0]', 'card');
-    params.append('payment_method_types[1]', 'mbway');
+    params.append('automatic_payment_methods[enabled]', 'true');
     params.append('line_items[0][price_data][currency]', 'eur');
     params.append('line_items[0][price_data][unit_amount]', Math.round(amount * 100));
     params.append('line_items[0][price_data][product_data][name]', description || 'Reserva Miautech');
