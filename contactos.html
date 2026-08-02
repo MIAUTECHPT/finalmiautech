@@ -564,8 +564,9 @@
 
                 alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes.');
                 window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
-} catch (error) {
-                console.error("Erro no registo MB WAY:", error);
+
+            } catch (error) {
+                console.error("Erro na reserva MB WAY:", error);
                 alert("Ocorreu um erro ao registar a reserva. Tente novamente.");
                 btnMbway.disabled = false;
                 btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva <br /> Após pagamento efetuado por MB WAY';
