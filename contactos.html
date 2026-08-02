@@ -145,12 +145,6 @@
                         <div id="alertaErro" class="alert alert-danger d-none mb-3" role="alert"></div>
 
                         <!-- BOTÃO DE PAGAMENTO STRIPE CHECKOUT -->
-                        <button class="btn btn-dark w-100 py-3 fs-5 shadow-sm" id="btnStripe" type="button" onclick="pagarComStripe()">
-                            <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
-                        </button>
-                    </form>
-                </div>
-                <!-- BOTÃO DE PAGAMENTO STRIPE CHECKOUT -->
                         <button class="btn btn-dark w-100 py-3 fs-5 shadow-sm mb-3" id="btnStripe" type="button" onclick="pagarComStripe()">
                             <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
                         </button>
@@ -165,6 +159,8 @@
                                 <i class="fa-brands fa-whatsapp me-2"></i> Reservado por MB WAY
                             </button>
                         </div>
+                    </form>
+                </div>
 
                 <div class="col-lg-5">
                     <div class="card shadow-sm border-0 h-100">
@@ -314,10 +310,12 @@
             const alertaErro = document.getElementById('alertaErro');
             const alertaSucesso = document.getElementById('alertaSucesso');
             const btnStripe = document.getElementById('btnStripe');
+            const btnMbway = document.getElementById('btnMbway');
 
             alertaErro.classList.add('d-none');
             alertaSucesso.classList.add('d-none');
             btnStripe.disabled = false;
+            if(btnMbway) btnMbway.disabled = false;
 
             if (!dataEntregaVal || !dataDevolucaoVal) {
                 resetValores("Selecione as datas de entrega e devolução.");
@@ -402,6 +400,8 @@
         function mostrarErro(msg) {
             const alertaErro = document.getElementById('alertaErro');
             document.getElementById('btnStripe').disabled = true;
+            const btnMbway = document.getElementById('btnMbway');
+            if(btnMbway) btnMbway.disabled = true;
             alertaErro.innerText = msg;
             alertaErro.classList.remove('d-none');
         }
@@ -501,66 +501,67 @@
                 console.error("Erro no checkout:", error);
                 alert("Ocorreu um erro ao ligar ao gateway de pagamento. Tente novamente.");
                 btnStripe.disabled = false;
-                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão / MB WAY';
+                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
+            }
+        }
+
+        async function reservarPorMbway() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const telefone = document.getElementById('telefone').value;
+            const entrega = document.getElementById('dataEntrega').value;
+            const devolucao = document.getElementById('dataDevolucao').value;
+            const localidade = document.getElementById('localidade').value;
+            const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
+            const valorTexto = document.getElementById('valorTotal').innerText;
+
+            if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
+                alert('Por favor, preencha o Nome, Email, Telemóvel, Localidade e Datas antes de prosseguir.');
+                return;
+            }
+
+            if (!valorTexto || valorTexto.includes('--')) {
+                alert('Por favor, selecione datas válidas para calcular o total.');
+                return;
+            }
+
+            const btnMbway = document.getElementById('btnMbway');
+            btnMbway.disabled = true;
+            btnMbway.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A registar e a enviar avisos...';
+
+            try {
+                const response = await fetch('/api/reservar-mbway', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        numReserva: numeroReservaGlobal,
+                        nome,
+                        email,
+                        telefone,
+                        entrega,
+                        devolucao,
+                        localidade,
+                        tipoEquipamento,
+                        valorTotal: valorTexto
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes sobre o pagamento MB WAY.');
+                window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
+
+            } catch (error) {
+                console.error("Erro MB WAY:", error);
+                alert("Ocorreu um erro ao processar a reserva. Tente novamente.");
+                btnMbway.disabled = false;
+                btnMbway.innerHTML = '<i class="fa-brands fa-whatsapp me-2"></i> Reservado por MB WAY';
             }
         }
     </script>
 </body>
 </html>
-async function reservarPorMbway() {
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const telefone = document.getElementById('telefone').value;
-    const entrega = document.getElementById('dataEntrega').value;
-    const devolucao = document.getElementById('dataDevolucao').value;
-    const localidade = document.getElementById('localidade').value;
-    const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
-    const valorTexto = document.getElementById('valorTotal').innerText;
-
-    if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
-        alert('Por favor, preencha o Nome, Email, Telemóvel, Localidade e Datas antes de prosseguir.');
-        return;
-    }
-
-    if (!valorTexto || valorTexto.includes('--')) {
-        alert('Por favor, selecione datas válidas para calcular o total.');
-        return;
-    }
-
-    const btnMbway = document.getElementById('btnMbway');
-    btnMbway.disabled = true;
-    btnMbway.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A registar e a enviar avisos...';
-
-    try {
-        const response = await fetch('/api/reservar-mbway', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                numReserva: numeroReservaGlobal,
-                nome,
-                email,
-                telefone,
-                entrega,
-                devolucao,
-                localidade,
-                tipoEquipamento,
-                valorTotal: valorTexto
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-            throw new Error(data.error);
-        }
-
-        alert('Reserva registada com sucesso! Verifique o seu email para mais detalhes sobre o pagamento MB WAY.');
-        window.location.href = 'sucesso.html?reserva=' + encodeURIComponent(numeroReservaGlobal);
-
-    } catch (error) {
-        console.error("Erro MB WAY:", error);
-        alert("Ocorreu um erro ao processar a reserva. Tente novamente.");
-        btnMbway.disabled = false;
-        btnMbway.innerHTML = '<i class="fa-brands fa-whatsapp me-2"></i> Reservado por MB WAY (Enviar Aviso)';
-    }
-}
