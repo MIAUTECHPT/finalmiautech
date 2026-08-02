@@ -149,32 +149,24 @@
                             <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
                         </button>
 
-                        <!-- BLOCO DE PAGAMENTO MB WAY CORRIGIDO (Ícone SVG Limpo + Alinhamento Perfeito) -->
+                        <!-- BLOCO DE PAGAMENTO MB WAY COM IMAGEM LOCAL -->
                         <div class="p-3 bg-gradient-price border border-primary border-opacity-50 rounded-3 shadow-sm mb-3">
                             <div class="bg-white p-3 rounded-3 shadow-sm mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2 border">
-                                <div class="d-flex align-items-center gap-2">
-<!-- LOGÓTIPO MB WAY OFICIAL (Estilo Caixa Vermelha) -->
-<svg height="28" viewBox="0 0 110 32" xmlns="http://www.w3.org/2000/svg" style="display:inline-block; vertical-align:middle;">
-    <!-- Retângulo vermelho arredondado -->
-    <rect x="2" y="4" width="46" height="24" rx="6" fill="none" stroke="#ff0000" stroke-width="3"/>
-    <!-- Letras MB em preto/azul escuro dentro da caixa -->
-    <text x="7" y="22" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#000000">MB</text>
-    <!-- Texto WAY ao lado -->
-    <text x="54" y="22" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#000000" letter-spacing="1">WAY</text>
-</svg>
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="assets/imagens/mbway-logo.png" alt="MB WAY" height="32" style="object-fit: contain;">
                                     <span class="fs-4 fw-bold text-dark font-monospace mb-0">918 642 824</span>
                                 </div>
                                 <span class="badge bg-primary text-white px-3 py-2">Pagamento Manual</span>
                             </div>
                             
                             <ul class="small text-dark ps-3 mb-3 lh-lg">
-                                <li><strong>1º</strong> Abra a aplicação <strong class="text-primary">MB WAY</strong> e envie o valor total para o número indicado acima.</li>
-                                <li><strong>2º</strong> No campo de mensagem/descrição da transferência, indique o seu <strong class="text-primary">Nº de Reserva</strong> (visível no resumo ao lado).</li>
-                                <li><strong>3º</strong> Clique no botão azul abaixo para concluir a sua reserva.</li>
+                                <li><strong>1º</strong> Abra a aplicação <strong class="text-primary">MB WAY</strong> e envie o valor para o número indicado acima.</li>
+                                <li><strong>2º</strong> No campo da descrição da transferência, indique o seu <strong class="text-primary">Nº de Reserva</strong> (visível no resumo ao lado).</li>
+                                <li><strong>3º</strong> Após efetuar o pagamento clique no botão azul abaixo para concluir a sua reserva.</li>
                             </ul>
 
                             <button class="btn btn-primary w-100 py-3 fs-5 shadow-sm" id="btnMbway" type="button" onclick="reservarPorMbway()">
-                                <i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência feita por MB WAY
+                                <i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva - Transferência manual já efetuada por MB WAY
                             </button>
                         </div>
                     </form>
