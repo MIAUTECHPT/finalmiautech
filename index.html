@@ -16,15 +16,16 @@
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
-        body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
+        body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
         .bg-gradient-price { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+        .row { margin-left: 0 !important; margin-right: 0 !important; }
     </style>
 </head>
 <body>
 
     <!-- TOPBAR INFORMATIVA -->
     <div class="topbar py-2 bg-dark text-white">
-        <div class="container d-flex justify-content-center justify-content-lg-between align-items-center">
+        <div class="container d-flex flex-wrap justify-content-center justify-content-lg-between align-items-center gap-3">
             <span><i class="fa-solid fa-truck-fast me-2"></i> Entrega presencial nos distritos de Porto e Aveiro</span>
             <span><i class="fa-solid fa-shield-cat me-2"></i> Equipamentos higienizados</span>
             <span><i class="fa-brands fa-whatsapp me-2"></i> Apoio por WhatsApp</span>
@@ -57,12 +58,12 @@
         </div>
     </nav>
 
-    <!-- HERO PRINCIPAL (ALUGUER DO PACK) -->
+    <!-- HERO PRINCIPAL -->
     <section class="py-5">
         <div class="container">
-            <div class="row align-items-center g-5">
+            <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-6">
-                   <span class="badge bg-primary px-3 py-2 rounded-pill fs-6 mb-3 d-inline-block lh-base">
+                    <span class="badge bg-primary px-3 py-2 rounded-pill fs-6 mb-3 d-inline-block lh-base">
                         Mantenha-se sempre ligado aos seus gatos, onde quer que esteja.
                     </span>
                     <h1 class="fw-bold mb-3 hero-titulo">Alugue o Pack Completo</h1>
@@ -91,44 +92,39 @@
         </div>
     </section>
 
-    <!-- O QUE ESTÁ INCLUÍDO NO PACK DE ALUGUER -->
+    <!-- O QUE ESTÁ INCLUÍDO -->
     <section class="py-5 bg-white">
         <div class="container">
-            <div class="text-center max-w-600 mx-auto mb-5">
+            <div class="text-center mb-5">
                 <h2 class="fw-bold">O que inclui o Pack de Aluguer?</h2>
-                <p class="text-muted">Recebe em sua casa um kit completo, 100% desinfetado e pronto a ligar à tomada e à App.</p>
+                <p class="text-muted">Recebe em sua casa um kit completo, 100% desinfetado e pronto a ligar.</p>
             </div>
 
             <div class="row g-4">
-                <!-- Equipamento 1 -->
                 <div class="col-md-4">
                     <div class="card h-100 border-0 shadow-sm text-center p-3">
                         <img src="assets/imagens/purobot.jpg" class="card-img-top mx-auto" alt="Purobot Ultra" style="height: 180px; object-fit: contain;">
                         <div class="card-body">
                             <h5 class="fw-bold">1. Purobot Ultra</h5>
-                            <p class="small text-muted">Diga adeus à limpeza diária manual. Transforme a rotina de higiene do seu gato com uma caixa de areia inteligente equipada com câmara IA. Limpa automaticamente, sela os resíduos e, quando necessário, substitui o saco sem intervenção humana, garantindo máxima higiene, comodidade e tranquilidade.</p>
+                            <p class="small text-muted">Diga adeus à limpeza diária manual. Caixa inteligente com câmara IA.</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Equipamento 2 -->
                 <div class="col-md-4">
                     <div class="card h-100 border-0 shadow-sm text-center p-3">
-                        <img src="assets/imagens/comedouro.jpg" class="card-img-top mx-auto" alt="Comedouro PETKIT" style="height: 180px; object-fit: contain;">
+                        <img src="assets/imagens/comedouro.jpg" class="card-img-top mx-auto" alt="Comedouro" style="height: 180px; object-fit: contain;">
                         <div class="card-body">
                             <h5 class="fw-bold">2. Comedouro Automático</h5>
-                            <p class="small text-muted">Controle a alimentação do seu animal onde quer que esteja. Defina horários e porções, acompanhe tudo pelo telemóvel, receba alertas e utilize a câmara integrada para verificar, em tempo real, se o comedouro precisa de ser reabastecido.</p>
+                            <p class="small text-muted">Controle a alimentação e porções pelo telemóvel com câmara integrada.</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Equipamento 3 -->
                 <div class="col-md-4">
                     <div class="card h-100 border-0 shadow-sm text-center p-3">
-                        <img src="assets/imagens/fonte.jpg" class="card-img-top mx-auto" alt="Fonte PETKIT" style="height: 180px; object-fit: contain;">
+                        <img src="assets/imagens/fonte.jpg" class="card-img-top mx-auto" alt="Fonte" style="height: 180px; object-fit: contain;">
                         <div class="card-body">
-                            <h5 class="fw-bold">3. Fonte de Água Inteligente</h5>
-                            <p class="small text-muted">Água filtrada e em circulação contínua para incentivar o seu gato a beber mais água. A bandeja em aço inoxidável, o design inclinado a 5° retém os pelos à superfície, mantendo a água mais limpa e fresca. Aplicação via Bluetooth e uma autonomia sem fios de até 83 dias.</p>
+                            <h5 class="fw-bold">3. Fonte de Água</h5>
+                            <p class="small text-muted">Água filtrada, fresca e com autonomia sem fios de até 83 dias.</p>
                         </div>
                     </div>
                 </div>
@@ -141,62 +137,21 @@
         <div class="container">
             <h2 class="text-center fw-bold mb-5">Como funciona o processo?</h2>
             <div class="row text-center g-4">
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                     <div class="display-5 text-primary fw-bold mb-2">①</div>
                     <h5 class="fw-bold">Reserve</h5>
-                    <p class="text-muted small">Escolha o período pretendido no nosso formulário.</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                     <div class="display-5 text-primary fw-bold mb-2">②</div>
                     <h5 class="fw-bold">Receba</h5>
-                    <p class="text-muted small">Entregamos o Pack higienizado e pronto a usar em sua casa.</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                     <div class="display-5 text-primary fw-bold mb-2">③</div>
                     <h5 class="fw-bold">Experimente</h5>
-                    <p class="text-muted small">Utilize todos os equipamentos e desfrute com o seu gato.</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                     <div class="display-5 text-primary fw-bold mb-2">④</div>
                     <h5 class="fw-bold">Decida</h5>
-                    <p class="text-muted small">Aumente o periodo do aluguer, adquira um novo equipamento definitivo ou faça a devolução simples.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- VANTAGENS DO ALUGUER -->
-    <section class="py-5 bg-white">
-        <div class="container">
-            <h2 class="text-center fw-bold mb-5">Porque escolher a MiautechPT?</h2>
-            <div class="row g-4">
-                <div class="col-md-3 text-center">
-                    <div class="p-3">
-                        <i class="fa-solid fa-piggy-bank fa-2x text-primary mb-3"></i>
-                        <h5 class="fw-bold">Poupança Real</h5>
-                        <p class="small text-muted">Economize tempo porque tempo é dinheiro.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="p-3">
-                        <i class="fa-solid fa-shield-virus fa-2x text-primary mb-3"></i>
-                        <h5 class="fw-bold">100% Higienizado</h5>
-                        <p class="small text-muted">Desinfeção entre cada cliente.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="p-3">
-                        <i class="fa-solid fa-cat fa-2x text-primary mb-3"></i>
-                        <h5 class="fw-bold">Zero Risco</h5>
-                        <p class="small text-muted">Se o gato não se habituar, basta devolver no fim do contrato.</p>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="p-3">
-                        <i class="fa-solid fa-headset fa-2x text-primary mb-3"></i>
-                        <h5 class="fw-bold">Apoio Dedicado</h5>
-                        <p class="small text-muted">Ajudamos a ligar tudo à aplicação PETKIT e a configurar os horários.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -206,113 +161,33 @@
     <section class="py-5 bg-primary text-white text-center">
         <div class="container">
             <h2 class="fw-bold mb-3">Pronto para dar mais conforto ao seu gato?</h2>
-            <p class="lead mb-4">Escolha as datas pretendidas e verifique a disponibilidade do Pack PETKIT.</p>
             <a href="contactos.html" class="btn btn-lg btn-light text-primary fw-bold">Pedir Reserva de Aluguer</a>
         </div>
     </section>
 
-    <!-- SECÇÃO DE PARTILHA E REDES SOCIAIS -->
-    <section class="py-4 text-center">
-        <div class="container">
-            <p class="fw-bold mb-3 text-secondary">Gostou da ideia? Partilhe com outros amantes de gatos!</p>
-            <div class="d-flex justify-content-center gap-2 flex-wrap">
-                <!-- Partilhar no WhatsApp -->
-                <a href="https://api.whatsapp.com/send?text=Descobre%20a%20MiautechPT!%20Aluga%20equipamentos%20inteligentes%20para%20o%20teu%20gato%20quando%20fores%20de%20f%C3%A9rias:%20https://miautechpt.com" 
-                   target="_blank" class="btn btn-sm btn-success rounded-pill px-3">
-                    <i class="fa-brands fa-whatsapp me-1"></i> Partilhar no WhatsApp
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://instagram.com/miautechpt" 
-                   target="_blank" class="btn btn-sm btn-warning text-dark rounded-pill px-3">
-                    <i class="fa-brands fa-instagram me-1"></i> Siga-nos no Instagram
-                </a>
-
-                <!-- Partilhar no Facebook -->
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://miautechpt.com" 
-                   target="_blank" class="btn btn-sm btn-primary rounded-pill px-3" style="background-color: #1877f2; border: none;">
-                    <i class="fa-brands fa-facebook-f me-1"></i> Facebook
-                </a>
-
-                <!-- Copiar Link / Partilhar Nativo -->
-                <button onclick="partilharSite()" class="btn btn-sm btn-outline-dark rounded-pill px-3">
-                    <i class="fa-solid fa-share-nodes me-1"></i> Copiar Link
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER COMPLETO -->
+    <!-- FOOTER -->
     <footer class="bg-dark text-white pt-5 pb-3">
         <div class="container">
             <div class="row g-4">
-                <!-- COLUNA 1: SOBRE & REDES -->
                 <div class="col-lg-4">
                     <h4>MiautechPT</h4>
-                    <p class="text-white-50 mb-3">Vá de férias descansado. Tecnologia inteligente para o seu gato sem compromissos.</p>
-                    
-                    <h6 class="text-white fw-bold mb-2">Siga-nos nas Redes:</h6>
-                    <div class="d-flex gap-3 fs-4">
-                        <a href="https://instagram.com/miautechpt" target="_blank" class="text-white-50 text-decoration-none" title="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://facebook.com/miautechpt" target="_blank" class="text-white-50 text-decoration-none" title="Facebook">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                        <a href="https://wa.me/351918642824" target="_blank" class="text-white-50 text-decoration-none" title="WhatsApp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
+                    <p class="text-white-50">Tecnologia inteligente para o seu gato sem compromissos.</p>
                 </div>
-
-                <!-- COLUNA 2: CONTACTO DIRETO -->
                 <div class="col-lg-4">
                     <h5>Contacto</h5>
-                    <p class="mb-1">
-                        <i class="fa-solid fa-envelope me-2 text-primary"></i>
-                        <a href="mailto:miautechpt@hotmail.com" class="text-white-50 text-decoration-none">miautechpt@hotmail.com</a>
-                    </p>
-                    <p class="mb-1">
-                        <i class="fa-brands fa-whatsapp me-2 text-success"></i>
-                        <a href="https://wa.me/351918642824" target="_blank" class="text-white-50 text-decoration-none">+351 918 642 824</a>
-                    </p>
-                    <p>
-                        <i class="fa-brands fa-instagram me-2 text-warning"></i>
-                        <a href="https://instagram.com/miautechpt" target="_blank" class="text-white-50 text-decoration-none">@miautechpt</a>
-                    </p>
+                    <p class="text-white-50"><i class="fa-solid fa-envelope me-2"></i> miautechpt@hotmail.com</p>
                 </div>
-
-                <!-- COLUNA 3: NAVEGAÇÃO -->
                 <div class="col-lg-4">
                     <h5>Links Úteis</h5>
-                    <ul class="list-unstyled lh-lg">
-                        <li><a href="index.html" class="text-white-50 text-decoration-none">Início</a></li>
-                        <li><a href="pack.html" class="text-white-50 text-decoration-none">Alugar Pack / Caixa</a></li>
-                        <li><a href="loja.html" class="text-white-50 text-decoration-none">Comprar Equipamentos</a></li>
-                        <li><a href="contactos.html" class="text-white-50 text-decoration-none">Reservar</a></li>
-                        <li><a href="privacidade.html" class="text-white-50 text-decoration-none">Política de Privacidade</a></li>
-                        <li><a href="termos.html" class="text-white-50 text-decoration-none">Termos e Condições</a></li>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50">Início</a></li>
+                        <li><a href="termos.html" class="text-white-50">Termos e Condições</a></li>
                     </ul>
                 </div>
             </div>
-
-            <hr class="border-secondary my-4">
-
-            <p class="text-center text-white-50 mb-0">
-                © 2026 MiautechPT. Todos os direitos reservados.
-            </p>
         </div>
     </footer>
 
-    <!-- Botão Flutuante do WhatsApp -->
-    <a href="https://wa.me/351918642824" class="whatsapp-btn position-fixed bottom-0 end-0 m-4 btn btn-success rounded-circle p-3 shadow" target="_blank" style="z-index: 1000;">
-        <i class="fa-brands fa-whatsapp fa-2x"></i>
-    </a>
-
-    <!-- Scripts Bootstrap e Personalizado -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/script.js"></script>
-
 </body>
-
 </html>
