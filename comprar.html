@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_code = """<!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -47,18 +47,18 @@
         </div>
     </nav>
 
-    <!-- FORMULÁRIO DE COMPRA -->
+    <!-- FORMULÁRIO DE COMPRA & ADICIONAR PRODUTOS -->
     <section class="py-5">
         <div class="container">
             <div class="text-center mb-5">
                 <h1 class="fw-bold">Finalizar Compra de Equipamentos</h1>
-                <p class="lead text-muted">Selecione os equipamentos novos PETKIT que deseja adquirir e preencha os dados de envio.</p>
+                <p class="lead text-muted">Confirme os seus produtos, selecione se pretender equipamentos adicionais e preencha os dados de envio.</p>
             </div>
 
-            <div class="row g-5">
-                <!-- FORMULÁRIO -->
-                <div class="col-lg-7">
-                    <form id="compraForm" action="https://formsubmit.co/miautechpt@hotmail.com" method="POST" class="p-4 rounded shadow-sm bg-light border" onsubmit="prepararEnvioEmail()">
+            <div class="row g-5 justify-content-center">
+                <!-- FORMULÁRIO (COLUNA PRINCIPAL) -->
+                <div class="col-lg-8">
+                    <form id="compraForm" action="https://formsubmit.co/miautechpt@hotmail.com" method="POST" class="p-4 p-md-5 rounded shadow-sm bg-light border" onsubmit="prepararEnvioEmail()">
                         <input type="hidden" name="_subject" value="Nova Compra de Equipamento - MiautechPT">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" id="numReservaInput" name="Número de Reserva" value="">
@@ -74,7 +74,93 @@
                             <span class="badge bg-primary fs-6" id="exibirNumReserva">...</span>
                         </div>
 
-                        <h4 class="fw-bold mb-4 text-primary"><i class="fa-solid fa-cart-shopping me-2"></i>Dados para Envio</h4>
+                        <!-- 1. RESUMO E GESTÃO DA ENCOMENDA -->
+                        <div class="card shadow-sm border-0 mb-5 bg-white">
+                            <div class="card-body p-4">
+                                <h4 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-cart-shopping me-2"></i>Resumo da Encomenda</h4>
+                                <div id="listaCarrinho" class="my-3 text-muted small">
+                                    <em>Nenhum equipamento selecionado.</em>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center p-3 bg-light border border-primary rounded-3 mt-3">
+                                    <span class="fw-bold text-dark fs-5">Total a Pagar:</span>
+                                    <span class="fw-bold text-primary fs-3" id="totalCarrinho">0,00 €</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. ADICIONAR MAIS PRODUTOS (MAIS ABAIXO NA PÁGINA) -->
+                        <div class="card shadow-sm border-0 mb-5 bg-white">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="fw-bold mb-0 text-secondary"><i class="fa-solid fa-boxes-packing me-2 text-primary"></i>Adicionar Mais Produtos</h4>
+                                    <a href="loja.html" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fa-solid fa-arrow-left me-1"></i> Ver Loja
+                                    </a>
+                                </div>
+                                <p class="text-muted small mb-3">Deseja acrescentar mais algum equipamento PETKIT à sua encomenda?</p>
+                                
+                                <div class="row g-2">
+                                    <!-- Pack PETKIT -->
+                                    <div class="col-md-6">
+                                        <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center h-100">
+                                            <div class="d-flex align-items-center">
+                                                <img src="assets/imagens/pack.png" alt="Pack" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                                                <div>
+                                                    <strong class="d-block small">Pack PETKIT Completo</strong>
+                                                    <small class="text-muted">947,00 €</small>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Pack PETKIT Completo', 947.00, 'assets/imagens/pack.png')">+ Adicionar</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Purobot Ultra -->
+                                    <div class="col-md-6">
+                                        <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center h-100">
+                                            <div class="d-flex align-items-center">
+                                                <img src="assets/imagens/purobot.jpg" alt="Purobot" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                                                <div>
+                                                    <strong class="d-block small">Purobot Ultra</strong>
+                                                    <small class="text-muted">669,00 €</small>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Purobot Ultra', 669.00, 'assets/imagens/purobot.jpg')">+ Adicionar</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comedouro -->
+                                    <div class="col-md-6">
+                                        <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center h-100">
+                                            <div class="d-flex align-items-center">
+                                                <img src="assets/imagens/comedouro.jpg" alt="Comedouro" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                                                <div>
+                                                    <strong class="d-block small">Comedouro Automático</strong>
+                                                    <small class="text-muted">169,00 €</small>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Comedouro Automático', 169.00, 'assets/imagens/comedouro.jpg')">+ Adicionar</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Fonte de Água -->
+                                    <div class="col-md-6">
+                                        <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center h-100">
+                                            <div class="d-flex align-items-center">
+                                                <img src="assets/imagens/fonte.jpg" alt="Fonte" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                                                <div>
+                                                    <strong class="d-block small">Fonte de Água</strong>
+                                                    <small class="text-muted">149,00 €</small>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Fonte de Água', 149.00, 'assets/imagens/fonte.jpg')">+ Adicionar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. DADOS PARA ENVIO -->
+                        <h4 class="fw-bold mb-4 text-primary"><i class="fa-solid fa-truck-fast me-2"></i>Dados para Envio</h4>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -131,7 +217,7 @@
                             </div>
                         </div>
 
-                        <!-- AVISO DO MB WAY ATUALIZADO -->
+                        <!-- AVISO DO MB WAY -->
                         <div id="avisoMbway" class="alert alert-warning mb-3 small">
                             <i class="fa-solid fa-mobile-screen me-2 fs-5 align-middle text-warning"></i> 
                             <strong>Instruções de Pagamento por MB WAY:</strong><br>
@@ -153,79 +239,11 @@
                         </button>
                     </form>
                 </div>
-
-                <!-- LISTA DE EQUIPAMENTOS DA LOJA -->
-                <div class="col-lg-5">
-                    <div class="card shadow-sm border-0 h-100">
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <div>
-                                <h4 class="fw-bold mb-3"><i class="fa-solid fa-boxes-packing me-2 text-primary"></i>Escolha os Produtos</h4>
-                                
-                                <div class="mb-4">
-                                    <!-- Pack PETKIT -->
-                                    <div class="p-2 border rounded bg-white mb-2 d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong class="d-block">Pack PETKIT Completo</strong>
-                                            <small class="text-muted">947,00 €</small>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Pack PETKIT Completo', 947.00)">+ Adicionar</button>
-                                    </div>
-
-                                    <!-- Purobot Ultra -->
-                                    <div class="p-2 border rounded bg-white mb-2 d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong class="d-block">Purobot Ultra (Caixa)</strong>
-                                            <small class="text-muted">669,00 €</small>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Purobot Ultra', 669.00)">+ Adicionar</button>
-                                    </div>
-
-                                    <!-- Comedouro -->
-                                    <div class="p-2 border rounded bg-white mb-2 d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong class="d-block">Comedouro Automático</strong>
-                                            <small class="text-muted">169,00 €</small>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Comedouro Automático', 169.00)">+ Adicionar</button>
-                                    </div>
-
-                                    <!-- Fonte -->
-                                    <div class="p-2 border rounded bg-white mb-2 d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong class="d-block">Fonte de Água</strong>
-                                            <small class="text-muted">149,00 €</small>
-                                        </div>
-                                        <button class="btn btn-sm btn-outline-primary" type="button" onclick="adicionarProduto('Fonte de Água', 149.00)">+ Adicionar</button>
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <!-- RESUMO DA ENCOMENDA -->
-                                <h6 class="fw-bold">Resumo da Encomenda:</h6>
-                                <div id="listaCarrinho" class="my-3 text-muted small">
-                                    <em>Nenhum equipamento selecionado. Clique em "+ Adicionar" acima.</em>
-                                </div>
-
-                                <div class="p-3 bg-white border border-primary rounded-3 shadow-sm mt-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="fw-bold text-dark fs-5">Total a Pagar:</span>
-                                        <span class="fw-bold text-primary fs-3" id="totalCarrinho">0,00 €</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-info mt-4 mb-0 py-2 small" role="alert">
-                                <i class="fa-solid fa-truck-ramped me-1"></i> Entregas presenciais no Porto e Aveiro ou Envio CTT.
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER COMPLETO -->
+    <!-- FOOTER -->
     <footer class="bg-dark text-white pt-5 pb-3">
         <div class="container">
             <div class="row g-4">
@@ -242,9 +260,7 @@
                     <h5>Links Úteis</h5>
                     <ul class="list-unstyled lh-lg">
                         <li><a href="index.html" class="text-white-50 text-decoration-none">Início</a></li>
-                        <li><a href="alugar.html" class="text-white-50 text-decoration-none">Alugar Pack</a></li>
                         <li><a href="loja.html" class="text-white-50 text-decoration-none">Comprar Equipamentos</a></li>
-                        <li><a href="reservar.html" class="text-white-50 text-decoration-none">Reservar Aluguer</a></li>
                     </ul>
                 </div>
             </div>
@@ -259,62 +275,87 @@
         let carrinho = [];
         let codigoReservaAtual = "";
 
-        // GERADOR DO NÚMERO DE RESERVA (Ex: J10201)
         function gerarCodigoReserva() {
             const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
             const dataAtual = new Date();
             const mesNome = meses[dataAtual.getMonth()];
-            
-            // Pega na letra inicial do mês atual (em maiúscula)
             const letraInicialMes = mesNome.charAt(0).toUpperCase();
-
-            // Pega no contador acumulado no navegador ou começa em 1
             let contador = parseInt(localStorage.getItem('miautech_seq_reserva') || '1');
-            const numFormatado = String(contador).padStart(2, '0'); // Formato de 2 dígitos (Ex: 01, 02)
+            const numFormatado = String(contador).padStart(2, '0');
 
-            // Monta o código sem tracinho com o padrão 102: [InicialMês]102[Sequencial] (Ex: J10201)
             codigoReservaAtual = `${letraInicialMes}102${numFormatado}`;
-
-            // Atualiza na página e nos campos do formulário
             document.getElementById('exibirNumReserva').innerText = codigoReservaAtual;
             document.getElementById('avisoNumReserva').innerText = codigoReservaAtual;
             document.getElementById('numReservaInput').value = codigoReservaAtual;
         }
 
-        // Incrementa o contador quando o pedido é finalizado
         function incrementarContadorReserva() {
             let contador = parseInt(localStorage.getItem('miautech_seq_reserva') || '1');
             localStorage.setItem('miautech_seq_reserva', contador + 1);
         }
 
-        // Executar a geração assim que a página carregar
-        window.addEventListener('DOMContentLoaded', gerarCodigoReserva);
+        window.addEventListener('DOMContentLoaded', () => {
+            gerarCodigoReserva();
+
+            const carrinhoSalvo = localStorage.getItem('carrinhoMiautech');
+            if (carrinhoSalvo) {
+                try {
+                    const produtosNovos = JSON.parse(carrinhoSalvo);
+                    if (Array.isArray(produtosNovos)) {
+                        produtosNovos.forEach(itemNovo => {
+                            const nome = itemNovo.nome || itemNovo.produto || "Produto";
+                            const preco = Number(itemNovo.preco) || 0;
+                            const qtd = Number(itemNovo.qtd || itemNovo.quantidade) || 1;
+                            const imagem = itemNovo.imagem || "";
+
+                            const existente = carrinho.find(item => item.nome === nome);
+                            if (existente) {
+                                existente.qtd += qtd;
+                            } else {
+                                carrinho.push({ nome: nome, preco: preco, qtd: qtd, imagem: imagem });
+                            }
+                        });
+                    }
+                    localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
+                } catch (e) {
+                    console.error("Erro ao processar carrinho do localStorage:", e);
+                }
+            }
+            
+            atualizarCarrinho();
+        });
 
         function verificarPagamento(val) {
             const avisoMbway = document.getElementById('avisoMbway');
-            if (val.includes('MB WAY')) {
+            if (val && val.includes('MB WAY')) {
                 avisoMbway.style.display = 'block';
             } else {
                 avisoMbway.style.display = 'none';
             }
         }
 
-        function adicionarProduto(nome, preco) {
+        function adicionarProduto(nome, preco, imagem) {
+            const precoNum = Number(preco) || 0;
             const itemExistente = carrinho.find(item => item.nome === nome);
+            
             if (itemExistente) {
                 itemExistente.qtd += 1;
             } else {
-                carrinho.push({ nome, preco, qtd: 1 });
+                carrinho.push({ nome: nome, preco: precoNum, qtd: 1, imagem: imagem });
             }
+            localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
             atualizarCarrinho();
         }
 
         function alterarQtd(index, delta) {
-            carrinho[index].qtd += delta;
-            if (carrinho[index].qtd <= 0) {
-                carrinho.splice(index, 1);
+            if (carrinho[index]) {
+                carrinho[index].qtd += delta;
+                if (carrinho[index].qtd <= 0) {
+                    carrinho.splice(index, 1);
+                }
+                localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
+                atualizarCarrinho();
             }
-            atualizarCarrinho();
         }
 
         function atualizarCarrinho() {
@@ -323,34 +364,43 @@
             const resumoInput = document.getElementById('resumoProdutosInput');
             const totalInput = document.getElementById('valorTotalInput');
 
+            if (!container || !totalSpan) return;
+
             if (carrinho.length === 0) {
-                container.innerHTML = '<em>Nenhum equipamento selecionado. Clique em "+ Adicionar" acima.</em>';
+                container.innerHTML = '<em>Nenhum equipamento selecionado.</em>';
                 totalSpan.innerText = '0,00 €';
-                resumoInput.value = '';
-                totalInput.value = '';
+                if (resumoInput) resumoInput.value = '';
+                if (totalInput) totalInput.value = '';
                 return;
             }
 
             let html = '<ul class="list-group list-group-flush">';
-            let total = 0;
+            let totalCalculado = 0;
             let textoResumo = [];
 
             carrinho.forEach((item, index) => {
-                const subtotal = item.preco * item.qtd;
-                total += subtotal;
-                textoResumo.push(`${item.nome} (x${item.qtd}) - ${subtotal.toFixed(2)}€`);
+                const precoNum = Number(item.preco) || 0;
+                const qtdNum = Number(item.qtd) || 0;
+                const subtotal = precoNum * qtdNum;
+                const imgHtml = item.imagem ? `<img src="${item.imagem}" alt="" style="width: 35px; height: 35px; object-fit: contain;" class="me-2 rounded border bg-white">` : '';
+                
+                totalCalculado += subtotal;
+                textoResumo.push(`${item.nome} (x${qtdNum}) - ${subtotal.toFixed(2)}€`);
 
                 html += `
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0 bg-transparent">
-                        <div>
-                            <strong>${item.nome}</strong><br>
-                            <small class="text-muted">${item.preco.toFixed(2)} € / unid.</small>
+                        <div class="d-flex align-items-center">
+                            ${imgHtml}
+                            <div>
+                                <strong class="small">${item.nome}</strong><br>
+                                <small class="text-muted">${precoNum.toFixed(2)} € / unid.</small>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
+                        <div class="d-flex align-items-center gap-1">
                             <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="alterarQtd(${index}, -1)">-</button>
-                            <span class="fw-bold">${item.qtd}</span>
+                            <span class="fw-bold px-1">${qtdNum}</span>
                             <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="alterarQtd(${index}, 1)">+</button>
-                            <span class="ms-2 fw-bold text-dark">${subtotal.toFixed(2)} €</span>
+                            <span class="ms-2 fw-bold text-dark small">${subtotal.toFixed(2)} €</span>
                         </div>
                     </li>
                 `;
@@ -358,14 +408,15 @@
 
             html += '</ul>';
             container.innerHTML = html;
-            totalSpan.innerText = total.toFixed(2).replace('.', ',') + ' €';
+            totalSpan.innerText = totalCalculado.toFixed(2).replace('.', ',') + ' €';
 
-            resumoInput.value = textoResumo.join(' | ');
-            totalInput.value = total.toFixed(2).replace('.', ',') + ' €';
+            if (resumoInput) resumoInput.value = textoResumo.join(' | ');
+            if (totalInput) totalInput.value = totalCalculado.toFixed(2).replace('.', ',') + ' €';
         }
 
         function prepararEnvioEmail() {
             incrementarContadorReserva();
+            localStorage.removeItem('carrinhoMiautech');
         }
 
         function enviarWhatsAppCompra() {
@@ -388,22 +439,27 @@
 
             let listaTexto = "";
             carrinho.forEach(item => {
-                listaTexto += `• ${item.nome} (x${item.qtd}) - ${(item.preco * item.qtd).toFixed(2)} €\n`;
+                listaTexto += `• ${item.nome} (x${item.qtd}) - ${(item.preco * item.qtd).toFixed(2)} €\\n`;
             });
 
-            const texto = `Olá! Gostaria de comprar o seguinte equipamento na MiautechPT:\n\n` +
-                `*Nº de Reserva:* ${codigoReservaAtual}\n` +
-                `*Cliente:* ${nome}\n` +
-                `*Telemóvel:* ${telefone}\n` +
-                `*Morada:* ${morada} (${localidade})\n` +
-                `*Pagamento:* ${pagamento}\n\n` +
-                `*Equipamento(s):*\n${listaTexto}\n` +
-                `*Total:* ${total}\n\n` +
+            const texto = `Olá! Gostaria de comprar o seguinte equipamento na MiautechPT:\\n\\n` +
+                `*Nº de Reserva:* ${codigoReservaAtual}\\n` +
+                `*Cliente:* ${nome}\\n` +
+                `*Telemóvel:* ${telefone}\\n` +
+                `*Morada:* ${morada} (${localidade})\\n` +
+                `*Pagamento:* ${pagamento}\\n\\n` +
+                `*Equipamento(s):*\\n${listaTexto}\\n` +
+                `*Total:* ${total}\\n\\n` +
                 `_Nota: Se pagar por MB WAY (+351 918 642 824), por favor indique o Nº de Reserva ${codigoReservaAtual} na descrição do pagamento._`;
 
             incrementarContadorReserva();
+            localStorage.removeItem('carrinhoMiautech');
             window.open(`https://wa.me/351918642824?text=${encodeURIComponent(texto)}`, '_blank');
         }
     </script>
 </body>
 </html>
+"""
+
+with open("comprar.html", "w", encoding="utf-8") as f:
+    f.write(html_code)
