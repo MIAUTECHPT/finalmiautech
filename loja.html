@@ -69,9 +69,14 @@
                             <span class="badge bg-primary mb-2 align-self-start">Pack Completo</span>
                             <h5 class="fw-bold">Pack PETKIT</h5>
                             <p class="text-muted small">Os 3 equipamentos inteligentes juntos com desconto de conjunto.</p>
-                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
-                                <span class="fs-4 fw-bold text-dark">947,00 €</span>
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Pack PETKIT Completo', 947.00, 'assets/imagens/pack.png')">Adicionar</button>
+                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fs-4 fw-bold text-dark">947,00 €</span>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Pack PETKIT Completo', 947.00, 'assets/imagens/pack.png')">Adicionar</button>
+                                </div>
+                                <a href="pack-detalhe.html" class="btn btn-sm btn-dark w-100">
+                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -85,9 +90,14 @@
                             <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
                             <h5 class="fw-bold">Purobot Ultra</h5>
                             <p class="text-muted small">Caixa de areia automática com câmara e desinfeção antiodor.</p>
-                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
-                                <span class="fs-4 fw-bold text-dark">669,00 €</span>
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Purobot Ultra', 669.00, 'assets/imagens/purobot.jpg')">Adicionar</button>
+                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fs-4 fw-bold text-dark">669,00 €</span>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Purobot Ultra', 669.00, 'assets/imagens/purobot.jpg')">Adicionar</button>
+                                </div>
+                                <a href="purobot.html" class="btn btn-sm btn-dark w-100">
+                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -101,9 +111,14 @@
                             <span class="badge bg-secondary mb-2 align-self-start">Alimentação</span>
                             <h5 class="fw-bold">Comedouro Automático</h5>
                             <p class="text-muted small">Comedouro inteligente com câmara FHD e controlo de doses.</p>
-                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
-                                <span class="fs-4 fw-bold text-dark">169,00 €</span>
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Comedouro Automático', 169.00, 'assets/imagens/comedouro.jpg')">Adicionar</button>
+                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fs-4 fw-bold text-dark">169,00 €</span>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Comedouro Automático', 169.00, 'assets/imagens/comedouro.jpg')">Adicionar</button>
+                                </div>
+                                <a href="comedouro.html" class="btn btn-sm btn-dark w-100">
+                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -117,9 +132,14 @@
                             <span class="badge bg-secondary mb-2 align-self-start">Hidratação</span>
                             <h5 class="fw-bold">Fonte de Água</h5>
                             <p class="text-muted small">Fonte ultra-silenciosa com sistema quádruplo de filtragem.</p>
-                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
-                                <span class="fs-4 fw-bold text-dark">149,00 €</span>
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Fonte de Água', 149.00, 'assets/imagens/fonte.jpg')">Adicionar</button>
+                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fs-4 fw-bold text-dark">149,00 €</span>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Fonte de Água', 149.00, 'assets/imagens/fonte.jpg')">Adicionar</button>
+                                </div>
+                                <a href="fonte.html" class="btn btn-sm btn-dark w-100">
+                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -184,7 +204,6 @@
                 localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
                 atualizarContadorLoja();
                 
-                // Pequeno aviso visual discreto ou alerta opcional
                 alert(`"${nomeProduto}" foi adicionado ao carrinho!`);
             } catch (error) {
                 console.error("Erro ao adicionar ao carrinho:", error);
