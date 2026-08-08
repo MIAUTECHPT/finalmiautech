@@ -291,7 +291,7 @@
     <!-- SCRIPT PRINCIPAL -->
     <script>
         let numeroReservaGlobal = "";
-        const CLOUDFLARE_WORKER_URL = '/api/create-checkout-session'; // Altere para o URL completo do seu backend/worker se necessário
+        const CLOUDFLARE_WORKER_URL = '/api/create-checkout-session';
 
         document.addEventListener('DOMContentLoaded', () => {
             const hoje = new Date().toISOString().split('T')[0];
@@ -461,69 +461,67 @@
             document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
         }
 
- async function pagarComStripe() {
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const telefone = document.getElementById('telefone').value;
-    const entrega = document.getElementById('dataEntrega').value;
-    const devolucao = document.getElementById('dataDevolucao').value;
-    const localidade = document.getElementById('localidade').value;
-    const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
-    const valorTexto = document.getElementById('valorTotal').innerText;
-    const observacoes = document.getElementById('mensagem').value;
+        async function pagarComStripe() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const telefone = document.getElementById('telefone').value;
+            const entrega = document.getElementById('dataEntrega').value;
+            const devolucao = document.getElementById('dataDevolucao').value;
+            const localidade = document.getElementById('localidade').value;
+            const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
+            const valorTexto = document.getElementById('valorTotal').innerText;
+            const observacoes = document.getElementById('mensagem').value;
 
-    if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
-        alert('Por favor, preencha todos os campos obrigatórios (Nome, Email, Telemóvel, Localidade e Datas) antes de prosseguir.');
-        return;
-    }
+            if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
+                alert('Por favor, preencha todos os campos obrigatórios (Nome, Email, Telemóvel, Localidade e Datas) antes de prosseguir.');
+                return;
+            }
 
-    if (!valorTexto || valorTexto.includes('--')) {
-        alert('Por favor, selecione datas válidas para calcular o total.');
-        return;
-    }
+            if (!valorTexto || valorTexto.includes('--')) {
+                alert('Por favor, selecione datas válidas para calcular o total.');
+                return;
+            }
 
-    // Converter "59,00 €" num número limpo (ex: 59.00) para o Stripe processar sem erros
-    const valorNumerico = parseFloat(valorTexto.replace('€', '').trim().replace(',', '.'));
+            const valorNumerico = parseFloat(valorTexto.replace('€', '').trim().replace(',', '.'));
 
-    const btnStripe = document.getElementById('btnStripe');
-    btnStripe.disabled = true;
-    btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A preparar pagamento com cartão...';
+            const btnStripe = document.getElementById('btnStripe');
+            btnStripe.disabled = true;
+            btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A preparar pagamento com cartão...';
 
-    try {
-        const response = await fetch(CLOUDFLARE_WORKER_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                numeroReserva: numeroReservaGlobal,
-                nome: nome,
-                email: email,
-                telefone: telefone,
-                entrega: entrega,
-                devolucao: devolucao,
-                localidade: localidade,
-                equipamento: tipoEquipamento,
-                valorTotal: valorNumerico, // Enviamos o número correto em vez da string com símbolos
-                observacoes: observacoes
-            })
-        });
+            try {
+                const response = await fetch(CLOUDFLARE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        numeroReserva: numeroReservaGlobal,
+                        nome: nome,
+                        email: email,
+                        telefone: telefone,
+                        entrega: entrega,
+                        devolucao: devolucao,
+                        localidade: localidade,
+                        equipamento: tipoEquipamento,
+                        valorTotal: valorNumerico,
+                        observacoes: observacoes
+                    })
+                });
 
-        const data = await response.json();
+                const data = await response.json();
 
-        if (data.url) {
-            window.location.href = data.url;
-        } else {
-            throw new Error(data.error || 'Não foi possível iniciar a sessão de pagamento no Stripe.');
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || 'Não foi possível iniciar a sessão de pagamento no Stripe.');
+                }
+
+            } catch (error) {
+                console.error("Erro no Stripe:", error);
+                alert("Ocorreu um erro ao comunicar com o servidor de pagamentos. Tente novamente ou utilize o MB WAY.");
+                btnStripe.disabled = false;
+                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
+            }
         }
 
-    } catch (error) {
-        console.error("Erro no Stripe:", error);
-        alert("Ocorreu um erro ao comunicar com o servidor de pagamentos. Tente novamente ou utilize o MB WAY.");
-        btnStripe.disabled = false;
-        btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
-    }
-}
-
-        // FUNÇÃO MB WAY
         async function reservarPorMbway() {
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
@@ -574,24 +572,15 @@
                 });
 
                 const result = await response.json();
-
                 if (result.success) {
-                    alert(
-                        `RESERVA REGISTADA COM SUCESSO!\n\n` +
-                        `Referência: ${numeroReservaGlobal}\n` +
-                        `Período: ${entrega} a ${devolucao}\n` +
-                        `Valor Total: ${valorTexto}\n\n` +
-                        `Iremos entrar em contacto consigo muito em breve para confirmar os detalhes de agendamento.`
-                    );
-                    
-                    window.location.href = `sucesso/index.html?reserva=${encodeURIComponent(numeroReservaGlobal)}&entrega=${encodeURIComponent(entrega)}&devolucao=${encodeURIComponent(devolucao)}&valor=${encodeURIComponent(valorTexto)}`;
+                    alert('Reserva registada com sucesso! Aguardamos a confirmação do pagamento por MB WAY.');
+                    window.location.href = 'index.html';
                 } else {
-                    throw new Error(result.message || 'Erro ao enviar formulário.');
+                    throw new Error(result.message || 'Erro ao submeter formulário.');
                 }
-
             } catch (error) {
                 console.error("Erro no MB WAY:", error);
-                alert("Ocorreu um erro ao registar a reserva. Tente novamente.");
+                alert("Ocorreu um erro ao submeter a reserva. Tente novamente.");
                 btnMbway.disabled = false;
                 btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva <br /> Após pagamento efetuado por MB WAY';
             }
