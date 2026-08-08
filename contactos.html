@@ -461,65 +461,67 @@
             document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
         }
 
-        // FUNÇÃO DO STRIPE CORRIGIDA E ADICIONADA
-        async function pagarComStripe() {
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const telefone = document.getElementById('telefone').value;
-            const entrega = document.getElementById('dataEntrega').value;
-            const devolucao = document.getElementById('dataDevolucao').value;
-            const localidade = document.getElementById('localidade').value;
-            const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
-            const valorTexto = document.getElementById('valorTotal').innerText;
-            const observacoes = document.getElementById('mensagem').value;
+ async function pagarComStripe() {
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const telefone = document.getElementById('telefone').value;
+    const entrega = document.getElementById('dataEntrega').value;
+    const devolucao = document.getElementById('dataDevolucao').value;
+    const localidade = document.getElementById('localidade').value;
+    const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
+    const valorTexto = document.getElementById('valorTotal').innerText;
+    const observacoes = document.getElementById('mensagem').value;
 
-            if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
-                alert('Por favor, preencha todos os campos obrigatórios (Nome, Email, Telemóvel, Localidade e Datas) antes de prosseguir.');
-                return;
-            }
+    if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
+        alert('Por favor, preencha todos os campos obrigatórios (Nome, Email, Telemóvel, Localidade e Datas) antes de prosseguir.');
+        return;
+    }
 
-            if (!valorTexto || valorTexto.includes('--')) {
-                alert('Por favor, selecione datas válidas para calcular o total.');
-                return;
-            }
+    if (!valorTexto || valorTexto.includes('--')) {
+        alert('Por favor, selecione datas válidas para calcular o total.');
+        return;
+    }
 
-            const btnStripe = document.getElementById('btnStripe');
-            btnStripe.disabled = true;
-            btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A preparar pagamento com cartão...';
+    // Converter "59,00 €" num número limpo (ex: 59.00) para o Stripe processar sem erros
+    const valorNumerico = parseFloat(valorTexto.replace('€', '').trim().replace(',', '.'));
 
-            try {
-                const response = await fetch(CLOUDFLARE_WORKER_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        numeroReserva: numeroReservaGlobal,
-                        nome: nome,
-                        email: email,
-                        telefone: telefone,
-                        entrega: entrega,
-                        devolucao: devolucao,
-                        localidade: localidade,
-                        equipamento: tipoEquipamento,
-                        valorTotal: valorTexto,
-                        observacoes: observacoes
-                    })
-                });
+    const btnStripe = document.getElementById('btnStripe');
+    btnStripe.disabled = true;
+    btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A preparar pagamento com cartão...';
 
-                const data = await response.json();
+    try {
+        const response = await fetch(CLOUDFLARE_WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                numeroReserva: numeroReservaGlobal,
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                entrega: entrega,
+                devolucao: devolucao,
+                localidade: localidade,
+                equipamento: tipoEquipamento,
+                valorTotal: valorNumerico, // Enviamos o número correto em vez da string com símbolos
+                observacoes: observacoes
+            })
+        });
 
-                if (data.url) {
-                    window.location.href = data.url;
-                } else {
-                    throw new Error(data.error || 'Não foi possível iniciar a sessão de pagamento no Stripe.');
-                }
+        const data = await response.json();
 
-            } catch (error) {
-                console.error("Erro no Stripe:", error);
-                alert("Ocorreu um erro ao comunicar com o servidor de pagamentos. Tente novamente ou utilize o MB WAY.");
-                btnStripe.disabled = false;
-                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
-            }
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            throw new Error(data.error || 'Não foi possível iniciar a sessão de pagamento no Stripe.');
         }
+
+    } catch (error) {
+        console.error("Erro no Stripe:", error);
+        alert("Ocorreu um erro ao comunicar com o servidor de pagamentos. Tente novamente ou utilize o MB WAY.");
+        btnStripe.disabled = false;
+        btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
+    }
+}
 
         // FUNÇÃO MB WAY
         async function reservarPorMbway() {
