@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PETKIT Purobot Max Pro 2 | MiautechPT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body>
+
+    <!-- MENU -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/imagens/favicon.jpg" alt="MiautechPT Logo" height="50">
+            </a>
+            <div class="ms-auto">
+                <a class="btn btn-outline-secondary btn-sm" href="loja.html">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DETALHE DO PRODUTO -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center mb-5">
+                
+                <!-- COLUNA DAS IMAGENS (GALERIA) -->
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0 p-3 bg-white text-center">
+                        
+                        <!-- Imagem Principal com Botões de Navegação Sobrepostos -->
+                        <div class="position-relative mb-3">
+                            <img id="imgPrincipal" src="assets/imagens/Purobot Max Pro 2/Foto 1.webp" class="rounded img-fluid w-100" alt="PETKIT Purobot Max Pro 2" style="height: 350px; object-fit: contain; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalZoom" onclick="atualizarZoom()" title="Clique para ampliar">
+                            
+                            <!-- Botão Anterior -->
+                            <button type="button" class="position-absolute top-50 start-0 translate-middle-y btn btn-dark bg-opacity-50 border-0 text-white ms-2 px-2 py-1" onclick="mudarFoto(-1); event.stopPropagation();">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            
+                            <!-- Botão Seguinte -->
+                            <button type="button" class="position-absolute top-50 end-0 translate-middle-y btn btn-dark bg-opacity-50 border-0 text-white me-2 px-2 py-1" onclick="mudarFoto(1); event.stopPropagation();">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Miniaturas -->
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 1.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(0)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 2.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(1)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 3.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(2)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 4.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(3)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 5.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(4)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 6.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(5)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 7.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(6)">
+                            <img src="assets/imagens/Purobot Max Pro 2/Foto 8.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(7)">
+                            <img src="assets/imagens/Purobot Max Pro 2/foto 9.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(8)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA DA INFORMAÇÃO -->
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 p-md-5 rounded shadow-sm border">
+                        <span class="badge bg-secondary mb-2">Caixa de Areia</span>
+                        <h1 class="fw-bold mb-3">PETKIT Purobot Max Pro 2</h1>
+                        <h3 class="text-primary fw-bold mb-4">475,00 €</h3>
+                        
+                        <p class="text-muted mb-4">
+                            Caixa de areia automática inteligente equipada com câmara HD 1080p, Inteligência Artificial para reconhecimento individual de gatos, múltiplos sensores de segurança e controlo total via App PETKIT.
+                        </p>
+
+                        <ul class="list-unstyled text-muted small mb-4 lh-lg">
+                            <li><i class="fa-solid fa-check text-success me-2"></i> IA e Câmara HD 1080p com reconhecimento de gatos</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Monitorização de peso, frequência e duração das visitas</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> 12 sensores de segurança e funcionamento ultra-silencioso (~35 dB)</li>
+                        </ul>
+
+                        <div class="d-grid gap-2">
+                            <a href="loja.html" class="btn btn-outline-secondary py-2">
+                                <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SECÇÃO DE DESCRIÇÃO DETALHADA DO PRODUTO -->
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="bg-white p-4 p-md-5 rounded shadow-sm border">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold text-primary">PETKIT Purobot Max Pro 2 — Tecnologia e Segurança de Elite</h2>
+                            <p class="text-muted fs-5">Reconhecimento por IA, câmara integrada e máxima higiene para múltiplos gatos.</p>
+                        </div>
+                        
+                        <p class="text-muted mb-4">
+                            A <strong>PETKIT Purobot Max Pro 2</strong> eleva o padrão das caixas de areia inteligentes. Com inteligência artificial avançada e uma câmara HD 1080p integrada, consegue reconhecer individualmente cada gato da casa, monitorizar o seu peso e acompanhar detalhadamente a frequência e duração das visitas através da aplicação. Desenhada para garantir total tranquilidade, conta com 12 sensores de segurança e um funcionamento extremamente silencioso de apenas 35 dB.
+                        </p>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light h-100">
+                                    <h5 class="fw-bold text-dark"><i class="fa-solid fa-robot text-primary me-2"></i> IA e Câmara HD</h5>
+                                    <p class="text-muted small mb-0">Reconhecimento individual por IA e câmara 1080p para visualizar vídeos e o comportamento do gato pela App.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light h-100">
+                                    <h5 class="fw-bold text-dark"><i class="fa-solid fa-shield-halved text-primary me-2"></i> 12 Sensores de Segurança</h5>
+                                    <p class="text-muted small mb-0">Sistema de proteção avançado com estrutura selada anti-fugas e funcionamento ultra-silencioso (aprox. 35 dB).</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light h-100">
+                                    <h5 class="fw-bold text-dark"><i class="fa-solid fa-scale-balanced text-primary me-2"></i> Controlo e Saúde</h5>
+                                    <p class="text-muted small mb-0">Monitorização contínua de peso e rotinas de utilização, ideal para lares com vários gatos (pesos entre 1,5 a 10 kg).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ESPECIFICAÇÕES TÉCNICAS -->
+                        <div class="mb-4">
+                            <h4 class="fw-bold text-dark mb-3"><i class="fa-solid fa-sliders text-primary me-2"></i> Especificações Técnicas</h4>
+                            <div class="row g-2 text-muted small">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled lh-lg mb-0">
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Depósito de resíduos:</strong> 8 L</li>
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Capacidade do cilindro:</strong> 76 L</li>
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Peso suportado:</strong> 1,5 – 10 kg</li>
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Compatibilidade de areia:</strong> 99% areias aglomerantes</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled lh-lg mb-0">
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Dimensões:</strong> 657 × 538 × 603 mm</li>
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Conectividade:</strong> Wi-Fi 2,4/5 GHz + Bluetooth Low Energy</li>
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Nível de ruído:</strong> Cerca de 35 dB</li>
+                                        <li><i class="fa-solid fa-circle-chevron-right text-primary me-2"></i> <strong>Design:</strong> Entrada ampla e confortável, estrutura selada anti-fugas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded text-center" style="background-color: #f0f7ff;">
+                            <h5 class="fw-bold text-dark mb-2"><i class="fa-solid fa-heart text-danger me-2"></i> Pensada para o bem-estar do seu gato</h5>
+                            <p class="text-muted mb-3">Conforto, espaço e uma experiência de utilização mais tranquila — porque uma casa limpa também deve ser uma casa feliz para o seu companheiro.</p>
+                            <hr class="w-25 mx-auto border-secondary">
+                            <p class="fw-semibold text-dark mb-1">A sua casa mais limpa. O seu gato mais feliz. E uma preocupação a menos para si.</p>
+                            <p class="text-primary fw-bold mb-0">PETKIT Purobot Max Pro 2 — deixe a tecnologia tratar da areia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODAL PARA AMPLIAR A IMAGEM NA MESMA PÁGINA COM NAVEGAÇÃO -->
+    <div class="modal fade" id="modalZoom" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body text-center position-relative p-0">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3 bg-dark p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    
+                    <div class="position-relative d-inline-block">
+                        <img id="imgZoomModal" src="" class="img-fluid rounded shadow-lg" style="max-height: 80vh; object-fit: contain;">
+                        
+                        <!-- Botões de navegação dentro do Modal -->
+                        <button type="button" class="position-absolute top-50 start-0 translate-middle-y btn btn-dark bg-opacity-75 border-0 text-white ms-2 px-3 py-2" onclick="mudarFoto(-1)">
+                            <i class="fa-solid fa-chevron-left fa-lg"></i>
+                        </button>
+                        <button type="button" class="position-absolute top-50 end-0 translate-middle-y btn btn-dark bg-opacity-75 border-0 text-white me-2 px-3 py-2" onclick="mudarFoto(1)">
+                            <i class="fa-solid fa-chevron-right fa-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Array com os caminhos de todas as imagens da galeria
+        const imagensGaleria = [
+            "assets/imagens/Purobot Max Pro 2/Foto 1.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 2.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 3.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 4.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 5.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 6.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 7.webp",
+            "assets/imagens/Purobot Max Pro 2/Foto 8.webp",
+            "assets/imagens/Purobot Max Pro 2/foto 9.webp"
+        ];
+
+        let indiceAtual = 0;
+
+        function mudarFoto(direcao) {
+            indiceAtual += direcao;
+            
+            // Ciclo infinito (se passar da última, volta à primeira e vice-versa)
+            if (indiceAtual >= imagensGaleria.length) {
+                indiceAtual = 0;
+            } else if (indiceAtual < 0) {
+                indiceAtual = imagensGaleria.length - 1;
+            }
+
+            atualizarImagens();
+        }
+
+        function mudarParaIndice(indice) {
+            indiceAtual = indice;
+            atualizarImagens();
+        }
+
+        function atualizarImagens() {
+            const caminho = imagensGaleria[indiceAtual];
+            document.getElementById('imgPrincipal').src = caminho;
+            
+            // Se o modal estiver aberto, atualiza também a imagem de zoom
+            const imgZoom = document.getElementById('imgZoomModal');
+            if (imgZoom) {
+                imgZoom.src = caminho;
+            }
+        }
+
+        function atualizarZoom() {
+            document.getElementById('imgZoomModal').src = imagensGaleria[indiceAtual];
+        }
+    </script>
+</body>
+</html>
