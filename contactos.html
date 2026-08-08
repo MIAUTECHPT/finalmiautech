@@ -148,8 +148,8 @@
                         <button class="btn btn-dark w-100 py-3 fs-5 shadow-sm mb-3" id="btnStripe" type="button" onclick="pagarComStripe()">
                             <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
                         </button>
-
-                        <!-- BLOCO DE PAGAMENTO MB WAY COM IMAGEM LOCAL -->
+                        
+                        <!-- BLOCO DE PAGAMENTO MB WAY -->
                         <div class="p-3 bg-gradient-price border border-primary border-opacity-50 rounded-3 shadow-sm mb-3">
                             <div class="bg-white p-3 rounded-3 shadow-sm mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2 border">
                                 <div class="d-flex align-items-center gap-3">
@@ -161,7 +161,7 @@
                             
                             <ul class="small text-dark ps-3 mb-3 lh-lg">
                                 <li><strong>1º</strong> Abra a aplicação <strong class="text-primary">MB WAY</strong> e envie o valor para o número 918 642 824.</li>
-                                <li><strong>2º</strong> No campo da descrição da transferência, indique a sua <strong class="text-primary">Ref. de Reserva (MIAU - ....)</strong> <br />(visível no quadro azul junto ao valor total).</li>
+                                <li><strong>2º</strong> No campo da descrição da transferência, indique a sua <strong class="text-primary">Ref. de Reserva</strong>.</li>
                                 <li><strong>3º</strong> Após efetuar o pagamento clique no botão azul abaixo para concluir a sua reserva.</li>
                             </ul>
 
@@ -184,7 +184,7 @@
                                     <li id="itemFonte"><i class="fa-solid fa-check text-success me-2"></i> Fonte de Água Inteligente</li>
                                 </ul>
 
-                                <!-- TABELA DE TARIFAS DE REFERÊNCIA -->
+                                <!-- TABELA DE TARIFAS -->
                                 <div class="p-3 bg-white rounded border mb-3">
                                     <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.85rem;"><i class="fa-solid fa-tags me-1"></i> Tabela de Preços/Dia:</h6>
                                     <div class="d-flex justify-content-between text-muted small border-bottom py-1">
@@ -201,7 +201,7 @@
                                     </div>
                                 </div>
 
-                                <!-- CAIXA DE PREÇO TOTAL E REF. RESERVA -->
+                                <!-- CAIXA DE PREÇO TOTAL -->
                                 <div class="p-3 bg-gradient-price border border-primary rounded-3 mb-3 shadow-sm">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <div>
@@ -220,34 +220,26 @@
                                     </div>
                                 </div>
 
-                                <!-- TIPO DE AREIA PERMITIDO -->
+                                <!-- TIPO DE AREIA -->
                                 <div class="p-3 bg-white border border-warning rounded-3 mb-3 shadow-sm">
                                     <div class="d-flex align-items-center mb-2">
                                         <i class="fa-solid fa-box-open text-warning fs-5 me-2"></i>
                                         <h6 class="fw-bold mb-0 text-dark">Tipo de Areia Permitido</h6>
                                     </div>
-                                    <p class="small text-muted mb-2 lh-sm">
-                                        Para garantir o bom funcionamento da máquina e evitar danos/avarias:
-                                    </p>
                                     <ul class="list-unstyled small mb-0 lh-sm">
-                                        <li class="mb-1 text-danger">
-                                            <strong>🚫 Proibido:</strong> Areia de sílica convencional (cristais grandes/grossos). Bloqueia a rede de filtragem e danifica o motor.
-                                        </li>
-                                        <li class="mb-1 text-success">
-                                            <strong>✅ Obrigatório:</strong> Areia Aglomerante (Clumping) de grão fino (Bentonite ou Tofu fino).
-                                        </li>
+                                        <li class="mb-1 text-danger"><strong>🚫 Proibido:</strong> Areia de sílica convencional.</li>
+                                        <li class="mb-1 text-success"><strong>✅ Obrigatório:</strong> Areia Aglomerante (Bentonite/Tofu fino).</li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <!-- INFORMAÇÃO DA CAUÇÃO -->
                             <div class="p-3 bg-white border border-primary border-opacity-25 rounded-3 shadow-sm">
                                 <div class="d-flex align-items-center mb-1">
                                     <i class="fa-solid fa-shield-cat text-primary fs-5 me-2"></i>
                                     <h6 class="fw-bold mb-0 text-dark">Informação da Caução</h6>
                                 </div>
                                 <p class="small text-muted mb-0 lh-sm">
-                                    Caução de 450€ por pré-autorização (não é debitada, fica apenas cativa durante o aluguer).
+                                    Caução de 450€ por pré-autorização (não debitada, fica cativa durante o aluguer).
                                 </p>
                             </div>
                         </div>
@@ -255,23 +247,20 @@
                 </div>
             </div>
 
-            <!-- BLOCO DE CONTACTO DÚVIDAS WHATSAPP NO BOTTOM -->
             <div class="text-center mt-5 pt-3">
                 <div class="p-4 bg-white rounded-3 shadow-sm border d-inline-block">
                     <p class="mb-2 fw-medium text-dark fs-5">
                         <i class="fa-regular fa-circle-question text-primary me-2"></i>Tem alguma dúvida sobre o aluguer?
                     </p>
-                    <p class="text-muted small mb-3">Estamos disponíveis para esclarecer todas as questões antes ou após a sua reserva.</p>
                     <a href="https://wa.me/351918642824" target="_blank" class="btn btn-outline-success px-4 py-2 rounded-pill fw-bold">
                         <i class="fa-brands fa-whatsapp me-2"></i>Contactar através do WhatsApp
                     </a>
                 </div>
             </div>
-
         </div>
     </section>
 
- <!-- FIREBASE SDKs -->
+    <!-- FIREBASE SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -289,24 +278,20 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Disponibilizar globalmente para o resto do script
         window.db = db;
         window.getDocs = getDocs;
         window.collection = collection;
         window.doc = doc;
         window.getDoc = getDoc;
-        
-        // Disparar um evento a avisar que o Firebase está pronto (opcional, mas útil)
-        window.dispatchEvent(new Event('firebase-loaded'));
     </script>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- O TEU SCRIPT PRINCIPAL -->
-   <script>
+    <!-- SCRIPT PRINCIPAL -->
+    <script>
         let numeroReservaGlobal = "";
-        const CLOUDFLARE_WORKER_URL = '/api/create-checkout-session';
+        const CLOUDFLARE_WORKER_URL = '/api/create-checkout-session'; // Altere para o URL completo do seu backend/worker se necessário
 
         document.addEventListener('DOMContentLoaded', () => {
             const hoje = new Date().toISOString().split('T')[0];
@@ -325,7 +310,6 @@
             if(inputReserva) inputReserva.value = numeroReservaGlobal;
         });
 
-        // 1. FUNÇÃO DE CÁLCULO E VERIFICAÇÃO (Garante que os valores aparecem)
         async function calcularEVerificar() {
             const dataEntregaVal = document.getElementById('dataEntrega').value;
             const dataDevolucaoVal = document.getElementById('dataDevolucao').value;
@@ -477,7 +461,67 @@
             document.getElementById('valorTotalInput').value = valorFinal.toFixed(2).replace('.', ',') + ' € (' + numDias + ' dias)';
         }
 
-        // 2. FUNÇÃO MBWAY (Com o alerta e redirecionamento correto após o OK)
+        // FUNÇÃO DO STRIPE CORRIGIDA E ADICIONADA
+        async function pagarComStripe() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const telefone = document.getElementById('telefone').value;
+            const entrega = document.getElementById('dataEntrega').value;
+            const devolucao = document.getElementById('dataDevolucao').value;
+            const localidade = document.getElementById('localidade').value;
+            const tipoEquipamento = document.getElementById('tituloEquipamento').innerText;
+            const valorTexto = document.getElementById('valorTotal').innerText;
+            const observacoes = document.getElementById('mensagem').value;
+
+            if (!nome || !email || !telefone || !entrega || !devolucao || !localidade) {
+                alert('Por favor, preencha todos os campos obrigatórios (Nome, Email, Telemóvel, Localidade e Datas) antes de prosseguir.');
+                return;
+            }
+
+            if (!valorTexto || valorTexto.includes('--')) {
+                alert('Por favor, selecione datas válidas para calcular o total.');
+                return;
+            }
+
+            const btnStripe = document.getElementById('btnStripe');
+            btnStripe.disabled = true;
+            btnStripe.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> A preparar pagamento com cartão...';
+
+            try {
+                const response = await fetch(CLOUDFLARE_WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        numeroReserva: numeroReservaGlobal,
+                        nome: nome,
+                        email: email,
+                        telefone: telefone,
+                        entrega: entrega,
+                        devolucao: devolucao,
+                        localidade: localidade,
+                        equipamento: tipoEquipamento,
+                        valorTotal: valorTexto,
+                        observacoes: observacoes
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || 'Não foi possível iniciar a sessão de pagamento no Stripe.');
+                }
+
+            } catch (error) {
+                console.error("Erro no Stripe:", error);
+                alert("Ocorreu um erro ao comunicar com o servidor de pagamentos. Tente novamente ou utilize o MB WAY.");
+                btnStripe.disabled = false;
+                btnStripe.innerHTML = '<i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão';
+            }
+        }
+
+        // FUNÇÃO MB WAY
         async function reservarPorMbway() {
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
@@ -551,3 +595,5 @@
             }
         }
     </script>
+</body>
+</html>
