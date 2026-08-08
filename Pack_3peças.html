@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pack PETKIT Completo | MiautechPT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
+        
+        /* Classe para padronizar o tamanho e comportamento da imagem principal */
+        .img-container-principal {
+            width: 100%;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .img-container-principal img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Estilo uniforme para as miniaturas */
+        .miniatura {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.2s ease-in-out;
+        }
+        .miniatura:hover, .miniatura.active {
+            opacity: 1;
+            border-color: #0d6efd !important;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/imagens/favicon.jpg" alt="MiautechPT Logo" height="50">
+            </a>
+            <div class="ms-auto">
+                <a class="btn btn-outline-secondary btn-sm" href="loja.html">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DETALHE DO PRODUTO -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center mb-5">
+                
+                <!-- COLUNA DAS IMAGENS (GALERIA) -->
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0 p-3 bg-white text-center">
+                        
+                        <!-- Imagem Principal com Botões de Navegação Sobrepostos -->
+                        <div class="position-relative mb-3">
+                            <div class="img-container-principal rounded">
+                                <img id="imgPrincipal" src="assets/imagens/pack.png" class="rounded img-fluid" alt="Pack PETKIT Completo" data-bs-toggle="modal" data-bs-target="#modalZoom" onclick="atualizarZoom()" title="Clique para ampliar">
+                            </div>
+                            
+                            <!-- Botão Anterior -->
+                            <button type="button" class="position-absolute top-50 start-0 translate-middle-y btn btn-dark bg-opacity-50 border-0 text-white ms-2 px-2 py-1" onclick="mudarFoto(-1); event.stopPropagation();">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            
+                            <!-- Botão Seguinte -->
+                            <button type="button" class="position-absolute top-50 end-0 translate-middle-y btn btn-dark bg-opacity-50 border-0 text-white me-2 px-2 py-1" onclick="mudarFoto(1); event.stopPropagation();">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Miniaturas dinâmicas atualizadas -->
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                            <img src="assets/imagens/pack.png" class="rounded border miniatura active" onclick="mudarParaIndice(0)" alt="Miniatura 1">
+                            <!-- Adiciona mais miniaturas se tiveres mais fotos do pack -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUNA DA INFORMAÇÃO -->
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 p-md-5 rounded shadow-sm border">
+                        <span class="badge bg-primary mb-2">Pack Completo</span>
+                        <h1 class="fw-bold mb-3">Pack PETKIT (Conjunto Inteligente)</h1>
+                        <h3 class="text-primary fw-bold mb-4">947,00 €</h3>
+                        
+                        <p class="text-muted mb-4">
+                            Os 3 equipamentos inteligentes essenciais reunidos num único pack com desconto de conjunto para o máximo conforto e automação no cuidado do seu animal.
+                        </p>
+
+                        <ul class="list-unstyled text-muted small mb-4 lh-lg">
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Inclui os 3 principais equipamentos inteligentes PETKIT</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Poupança direta com desconto de conjunto aplicado</li>
+                            <li><i class="fa-solid fa-check text-success me-2"></i> Controlo centralizado e total via App PETKIT</li>
+                        </ul>
+
+                        <div class="d-grid gap-2">
+                            <a href="loja.html" class="btn btn-outline-secondary py-2">
+                                <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SECÇÃO DE DESCRIÇÃO DETALHADA DO PRODUTO -->
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="bg-white p-4 p-md-5 rounded shadow-sm border">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold text-primary">Pack PETKIT — A solução completa de domótica para animais</h2>
+                            <p class="text-muted fs-5">Máxima tecnologia, comodidade e bem-estar integrados na sua casa.</p>
+                        </div>
+                        
+                        <p class="text-muted mb-4">
+                            Este pack foi pensado para tutores que procuram modernizar por completo a rotina dos seus animais de estimação. Ao juntar os melhores dispositivos inteligentes da PETKIT, garante uma gestão automatizada da alimentação, da hidratação e da higiene, tudo interligado através da aplicação móvel.
+                        </p>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light h-100">
+                                    <h5 class="fw-bold text-dark"><i class="fa-solid fa-utensils text-primary me-2"></i> Alimentação</h5>
+                                    <p class="text-muted small mb-0">Comedouro automático de alta precisão para porções programadas e seguras.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light h-100">
+                                    <h5 class="fw-bold text-dark"><i class="fa-solid fa-droplet text-primary me-2"></i> Hidratação</h5>
+                                    <p class="text-muted small mb-0">Fonte inteligente com circulação e filtragem avançada de água fresca.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 border rounded bg-light h-100">
+                                    <h5 class="fw-bold text-dark"><i class="fa-solid fa-wand-magic-sparkles text-primary me-2"></i> Higiene</h5>
+                                    <p class="text-muted small mb-0">Sistema automatizado para garantir a limpeza e o controlo de odores diário.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded text-center" style="background-color: #f0f7ff;">
+                            <h5 class="fw-bold text-dark mb-2"><i class="fa-solid fa-heart text-danger me-2"></i> Tudo o que o seu pet precisa</h5>
+                            <p class="text-muted mb-3">Uma experiência de cuidado de excelência com uma vantagem económica evidente.</p>
+                            <hr class="w-25 mx-auto border-secondary">
+                            <p class="fw-semibold text-dark mb-1">Tecnologia e carinho em perfeita harmonia.</p>
+                            <p class="text-primary fw-bold mb-0">Pack PETKIT — O ecossistema definitivo para o seu companheiro.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODAL PARA AMPLIAR A IMAGEM -->
+    <div class="modal fade" id="modalZoom" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body text-center position-relative p-0">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3 bg-dark p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    
+                    <div class="position-relative d-inline-block">
+                        <img id="imgZoomModal" src="" class="img-fluid rounded shadow-lg" style="max-height: 80vh; object-fit: contain;">
+                        
+                        <button type="button" class="position-absolute top-50 start-0 translate-middle-y btn btn-dark bg-opacity-75 border-0 text-white ms-2 px-3 py-2" onclick="mudarFoto(-1)">
+                            <i class="fa-solid fa-chevron-left fa-lg"></i>
+                        </button>
+                        <button type="button" class="position-absolute top-50 end-0 translate-middle-y btn btn-dark bg-opacity-75 border-0 text-white me-2 px-3 py-2" onclick="mudarFoto(1)">
+                            <i class="fa-solid fa-chevron-right fa-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const imagensGaleria = [
+            "assets/imagens/pack.png",
+            // Podes adicionar mais caminhos de imagens do pack aqui se necessário
+        ];
+
+        let indiceAtual = 0;
+
+        function mudarFoto(direcao) {
+            indiceAtual += direcao;
+            if (indiceAtual >= imagensGaleria.length) {
+                indiceAtual = 0;
+            } else if (indiceAtual < 0) {
+                indiceAtual = imagensGaleria.length - 1;
+            }
+            atualizarImagens();
+        }
+
+        function mudarParaIndice(indice) {
+            indiceAtual = indice;
+            atualizarImagens();
+        }
+
+        function atualizarImagens() {
+            const caminho = imagensGaleria[indiceAtual];
+            document.getElementById('imgPrincipal').src = caminho;
+            
+            const imgZoom = document.getElementById('imgZoomModal');
+            if (imgZoom) {
+                imgZoom.src = caminho;
+            }
+
+            // Atualizar classes ativas das miniaturas
+            const miniaturas = document.querySelectorAll('.miniatura');
+            miniaturas.forEach((mini, idx) => {
+                if (idx === indiceAtual) {
+                    mini.classList.add('active');
+                } else {
+                    mini.classList.remove('active');
+                }
+            });
+        }
+
+        function atualizarZoom() {
+            document.getElementById('imgZoomModal').src = imagensGaleria[indiceAtual];
+        }
+    </script>
+</body>
+</html>
