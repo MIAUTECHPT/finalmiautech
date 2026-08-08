@@ -496,12 +496,15 @@
                         numeroReserva: numeroReservaGlobal,
                         nome: nome,
                         email: email,
+                        clientEmail: email,
+                        clientName: nome,
                         telefone: telefone,
                         entrega: entrega,
                         devolucao: devolucao,
                         localidade: localidade,
-                        equipamento: tipoEquipamento,
+                        description: tipoEquipamento,
                         valorTotal: valorNumerico,
+                        amount: valorNumerico,
                         observacoes: observacoes
                     })
                 });
@@ -567,20 +570,20 @@
                         'Localidade': localidade,
                         'Equipamento': tipoEquipamento,
                         'Valor Total': valorTexto,
-                        'Observações': observacoes || 'Nenhuma'
+                        'Observações': observacoes
                     })
                 });
 
                 const result = await response.json();
                 if (result.success) {
-                    alert('Reserva registada com sucesso! Aguardamos a confirmação do pagamento por MB WAY.');
-                    window.location.href = 'index.html';
+                    alert('Reserva registada com sucesso! Aguardamos a confirmação do pagamento MB WAY.');
+                    window.location.href = 'sucesso.html';
                 } else {
-                    throw new Error(result.message || 'Erro ao submeter formulário.');
+                    throw new Error('Erro ao enviar formulário.');
                 }
             } catch (error) {
-                console.error("Erro no MB WAY:", error);
-                alert("Ocorreu um erro ao submeter a reserva. Tente novamente.");
+                console.error("Erro MB WAY:", error);
+                alert("Ocorreu um erro ao registar a reserva. Tente novamente.");
                 btnMbway.disabled = false;
                 btnMbway.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i> Concluir Reserva <br /> Após pagamento efetuado por MB WAY';
             }
