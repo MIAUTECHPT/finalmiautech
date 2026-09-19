@@ -15,295 +15,364 @@
 </head>
 <body>
 
-    <!-- TOPBAR INFORMATIVA -->
-    <div class="topbar py-2 bg-dark text-white">
-        <div class="container d-flex justify-content-center justify-content-lg-between align-items-center">
-            <span><i class="fa-solid fa-truck-fast me-2"></i> Entrega presencial nos distritos de Porto e Aveiro ou Envio CTT</span>
-            <span><i class="fa-brands fa-whatsapp me-2"></i> Apoio por WhatsApp</span>
+<!-- TOPBAR INFORMATIVA -->
+<div class="topbar py-2 bg-dark text-white">
+    <div class="container d-flex justify-content-center justify-content-lg-between align-items-center">
+        <span><i class="fa-solid fa-truck-fast me-2"></i> Entrega presencial nos distritos de Porto e Aveiro ou Envio CTT</span>
+        <span><i class="fa-brands fa-whatsapp me-2"></i> Apoio por WhatsApp</span>
+    </div>
+</div>
+
+<!-- MENU -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img src="assets/imagens/favicon.jpg" alt="MiautechPT Logo" height="50">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto align-items-lg-center py-2 py-lg-0">
+                <li class="nav-item"><a class="nav-link py-2" href="index.html">Início</a></li>
+                <li class="nav-item"><a class="nav-link py-2" href="pack.html">Alugar Pack</a></li>
+                <li class="nav-item"><a class="nav-link py-2 active fw-semibold text-primary" href="loja.html">Comprar</a></li>
+                <li class="nav-item"><a class="nav-link py-2" href="sobre.html">Sobre</a></li>
+                <li class="nav-item"><a class="nav-link py-2" href="faq.html">FAQ</a></li>
+                <!-- Botão para ir para o Checkout/Comprar com indicador de itens -->
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                    <a class="btn btn-primary position-relative w-100" href="comprar.html">
+                        <i class="fa-solid fa-cart-shopping me-2"></i> Ver Carrinho
+                        <span id="badgeCarrinho" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
+</nav>
 
-    <!-- MENU -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="assets/imagens/favicon.jpg" alt="MiautechPT Logo" height="50">
-            </a>
+<!-- SECÇÃO DA LOJA / PRODUTOS -->
+<section class="pb-5 pt-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Loja de Equipamentos PETKIT</h1>
+            <p class="lead text-muted">Selecione o equipamento que deseja adquirir e adicione ao carrinho.</p>
+        </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <div class="row g-4">
 
-            <div class="collapse navbar-collapse" id="menu">
-                <ul class="navbar-nav ms-auto align-items-lg-center py-2 py-lg-0">
-                    <li class="nav-item"><a class="nav-link py-2" href="index.html">Início</a></li>
-                    <li class="nav-item"><a class="nav-link py-2" href="pack.html">Alugar Pack</a></li>
-                    <li class="nav-item"><a class="nav-link py-2 active fw-semibold text-primary" href="loja.html">Comprar</a></li>
-                    <li class="nav-item"><a class="nav-link py-2" href="sobre.html">Sobre</a></li>
-                    <li class="nav-item"><a class="nav-link py-2" href="faq.html">FAQ</a></li>
-                    <!-- Botão para ir para o Checkout/Comprar com indicador de itens -->
-                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn btn-primary position-relative w-100" href="comprar.html">
-                            <i class="fa-solid fa-cart-shopping me-2"></i> Ver Carrinho
-                            <span id="badgeCarrinho" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
-                        </a>
-                    </li>
+            <!-- Pack Completo -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="Pack_3peças.html" class="product-img-link">
+                        <img src="assets/imagens/pack.png" class="card-img-top p-3 rounded" alt="Pack Completo" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-primary mb-2 align-self-start">Pack Completo</span>
+                        <h5 class="fw-bold">Pack PETKIT</h5>
+                        <p class="text-muted small">Os 3 melhores equipamentos inteligentes da PETKIT juntos com desconto de conjunto.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">917,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Pack PETKIT Completo', 917.00, 'assets/imagens/pack.png')">Adicionar</button>
+                            </div>
+                            <a href="Pack_3peças.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PETKIT Pura Max 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="Pura-mAX-2.HTML" class="product-img-link">
+                        <img src="assets/imagens/Pura Max 2/foto1.webp" class="card-img-top p-3 rounded" alt="PETKIT Pura Max 2" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
+                        <h5 class="fw-bold">PETKIT Pura Max 2</h5>
+                        <p class="text-muted small">Caixa de areia automática inteligente (sem câmara) com controlo de odores e App.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">399,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Pura Max 2', 399.00, 'assets/imagens/Pura Max 2/foto1.webp')">Adicionar</button>
+                            </div>
+                            <a href="Pura-mAX-2.HTML" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PETKIT Purobot Max Pro 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="Purobot_Max_Pro_2.html" class="product-img-link">
+                        <img src="assets/imagens/Purobot Max Pro 2/Foto 1.webp" class="card-img-top p-3 rounded" alt="PETKIT Purobot Max Pro 2" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
+                        <h5 class="fw-bold">PETKIT Purobot Max Pro 2</h5>
+                        <p class="text-muted small">Caixa de areia automática com IA, câmara HD 1080p e reconhecimento individual de gatos.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">475,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Purobot Max Pro 2', 475.00, 'assets/imagens/Purobot Max Pro 2/Foto 1.webp')">Adicionar</button>
+                            </div>
+                            <a href="Purobot_Max_Pro_2.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Purobot Ultra -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="purobot.html" class="product-img-link">
+                        <img src="assets/imagens/purobot.jpg" class="card-img-top p-3 rounded" alt="Purobot Ultra" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
+                        <h5 class="fw-bold">Purobot Ultra</h5>
+                        <p class="text-muted small">Caixa de areia automática com câmara e desinfeção antiodor.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">669,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Purobot Ultra', 669.00, 'assets/imagens/purobot.jpg')">Adicionar</button>
+                            </div>
+                            <a href="purobot.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comedouro -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="Comedouro.html" class="product-img-link">
+                        <img src="assets/imagens/comedouro.jpg" class="card-img-top p-3 rounded" alt="Comedouro" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-secondary mb-2 align-self-start">Alimentação</span>
+                        <h5 class="fw-bold">Comedouro Automático</h5>
+                        <p class="text-muted small">Comedouro inteligente com câmara FHD e controlo de doses.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">149,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Comedouro Automático', 149.00, 'assets/imagens/comedouro.jpg')">Adicionar</button>
+                            </div>
+                            <a href="Comedouro.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fonte com UVC (Anterior) -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="Fonte.html" class="product-img-link">
+                        <img src="assets/imagens/fonte.jpg" class="card-img-top p-3 rounded" alt="Fonte de Água" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-secondary mb-2 align-self-start">Hidratação</span>
+                        <h5 class="fw-bold">Fonte de Água com UVC</h5>
+                        <p class="text-muted small">Fonte ultra-silenciosa com sistema quádruplo de filtragem.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">139,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Fonte de Água com UVC', 139.00, 'assets/imagens/fonte.jpg')">Adicionar</button>
+                            </div>
+                            <a href="Fonte.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nova Fonte: Eversweet Max 2 Sem UVC -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="fonte-eversweey-max2.html" class="product-img-link">
+                        <img src="assets/imagens/Fonte eversweet max 2/foto 1.webp" class="card-img-top p-3 rounded" alt="Eversweet Max 2 Sem UVC" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-secondary mb-2 align-self-start">Hidratação</span>
+                        <h5 class="fw-bold">Fonte de Água sem UVC / Eversweet Max 2</h5>
+                        <p class="text-muted small">Bandeja em aço inox 304, design inclinado a 5° e autonomia sem fios até 83 dias.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">97,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Fonte de Água sem UVC / Eversweet Max 2', 97.00, 'assets/imagens/Fonte eversweet max 2/foto 1.webp')">Adicionar</button>
+                            </div>
+                            <a href="fonte-eversweey-max2.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOVO: PETKIT Urine Monitor -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="areia_urine.html" class="product-img-link">
+                        <img src="assets/imagens/areia_urine.jpg" class="card-img-top p-3 rounded" alt="PETKIT Urine Monitor" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-success mb-2 align-self-start">Areia / Higiene</span>
+                        <h5 class="fw-bold">PETKIT Urine Monitor (Pack 4 sacos)</h5>
+                        <p class="text-muted small">Areia aglomerante com partículas sensíveis ao pH para monitorização urinária e da saúde do gato.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">28,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Urine Monitor', 28.00, 'assets/imagens/areia_urine.jpg')">Adicionar</button>
+                            </div>
+                            <a href="areia_urine.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOVO: PETKIT 5 em 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="areia_5in1.html" class="product-img-link">
+                        <img src="assets/imagens/areia_5in1.jpg" class="card-img-top p-3 rounded" alt="PETKIT 5 em 1" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-success mb-2 align-self-start">Areia / Higiene</span>
+                        <h5 class="fw-bold">PETKIT Areia 5 em 1</h5>
+                        <p class="text-muted small">Areia aglomerante mista de alto desempenho com máximo controlo de odores e 99% menos pó.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">22,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Areia 5 em 1', 22.00, 'assets/imagens/areia_5in1.jpg')">Adicionar</button>
+                            </div>
+                            <a href="areia_5in1.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOVO: PETKIT Natural -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <a href="areia_natural.html" class="product-img-link">
+                        <img src="assets/imagens/areia_natural.jpg" class="card-img-top p-3 rounded" alt="PETKIT Natural" style="height: 200px; object-fit: contain;">
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge bg-success mb-2 align-self-start">Areia / Higiene</span>
+                        <h5 class="fw-bold">PETKIT Areia Natural (Tofu e Mandioca)</h5>
+                        <p class="text-muted small">Areia 100% vegetal com amido de mandioca, absorção rápida, aglomeração firme e menor dispersão.</p>
+                        <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-dark">24,00 €</span>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Areia Natural', 24.00, 'assets/imagens/areia_natural.jpg')">Adicionar</button>
+                            </div>
+                            <a href="areia_natural.html" class="btn btn-sm btn-dark w-100">
+                                <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white pt-5 pb-3">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h4>MiautechPT</h4>
+                <p class="text-white-50 mb-3">Vá de férias descansado. Tecnologia inteligente para o seu gato sem compromissos.</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Contacto</h5>
+                <p class="mb-1"><i class="fa-solid fa-envelope me-2 text-primary"></i> <a href="mailto:miautechpt@hotmail.com" class="text-white-50 text-decoration-none">miautechpt@hotmail.com</a></p>
+                <p class="mb-1"><i class="fa-brands fa-whatsapp me-2 text-success"></i> <a href="https://wa.me/351918642824" target="_blank" class="text-white-50 text-decoration-none">+351 918 642 824</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Links Úteis</h5>
+                <ul class="list-unstyled lh-lg">
+                    <li><a href="index.html" class="text-white-50 text-decoration-none">Início</a></li>
+                    <li><a href="pack.html" class="text-white-50 text-decoration-none">Alugar Pack</a></li>
+                    <li><a href="loja.html" class="text-white-50 text-decoration-none">Comprar Equipamentos</a></li>
                 </ul>
             </div>
         </div>
-    </nav>
+        <hr class="border-secondary my-4">
+        <p class="text-center text-white-50 mb-0">© 2026 MiautechPT. Todos os direitos reservados.</p>
+    </div>
+</footer>
 
-    <!-- SECÇÃO DA LOJA / PRODUTOS -->
-    <section class="pb-5 pt-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h1 class="fw-bold">Loja de Equipamentos PETKIT</h1>
-                <p class="lead text-muted">Selecione o equipamento que deseja adquirir e adicione ao carrinho.</p>
-            </div>
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Atualiza o contador de itens no menu ao carregar a página
+    document.addEventListener("DOMContentLoaded", atualizarContadorLoja);
 
-            <div class="row g-4">
-
-                <!-- Pack Completo -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="Pack_3peças.html" class="product-img-link">
-                            <img src="assets/imagens/pack.png" class="card-img-top p-3 rounded" alt="Pack Completo" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-primary mb-2 align-self-start">Pack Completo</span>
-                            <h5 class="fw-bold">Pack PETKIT</h5>
-                            <p class="text-muted small">Os 3 melhores equipamentos inteligentes da PETKIT juntos com desconto de conjunto.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">917,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Pack PETKIT Completo', 947.00, 'assets/imagens/pack.png')">Adicionar</button>
-                                </div>
-                                <a href="Pack_3peças.html" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PETKIT Pura Max 2 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="Pura-mAX-2.HTML" class="product-img-link">
-                            <img src="assets/imagens/Pura Max 2/foto1.webp" class="card-img-top p-3 rounded" alt="PETKIT Pura Max 2" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
-                            <h5 class="fw-bold">PETKIT Pura Max 2</h5>
-                            <p class="text-muted small">Caixa de areia automática inteligente (sem câmara) com controlo de odores e App.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">399,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Pura Max 2', 399.00, 'assets/imagens/Pura Max 2/foto1.webp')">Adicionar</button>
-                                </div>
-                                <a href="Pura-mAX-2.HTML" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PETKIT Purobot Max Pro 2 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="Purobot_Max_Pro_2.html" class="product-img-link">
-                            <img src="assets/imagens/Purobot Max Pro 2/Foto 1.webp" class="card-img-top p-3 rounded" alt="PETKIT Purobot Max Pro 2" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
-                            <h5 class="fw-bold">PETKIT Purobot Max Pro 2</h5>
-                            <p class="text-muted small">Caixa de areia automática com IA, câmara HD 1080p e reconhecimento individual de gatos.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">475,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('PETKIT Purobot Max Pro 2', 475.00, 'assets/imagens/Purobot Max Pro 2/Foto 1.webp')">Adicionar</button>
-                                </div>
-                                <a href="Purobot_Max_Pro_2.html" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Purobot Ultra -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="purobot.html" class="product-img-link">
-                            <img src="assets/imagens/purobot.jpg" class="card-img-top p-3 rounded" alt="Purobot Ultra" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-secondary mb-2 align-self-start">Caixa de Areia</span>
-                            <h5 class="fw-bold">Purobot Ultra</h5>
-                            <p class="text-muted small">Caixa de areia automática com câmara e desinfeção antiodor.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">669,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Purobot Ultra', 669.00, 'assets/imagens/purobot.jpg')">Adicionar</button>
-                                </div>
-                                <a href="purobot.html" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Comedouro -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="Comedouro.html" class="product-img-link">
-                            <img src="assets/imagens/comedouro.jpg" class="card-img-top p-3 rounded" alt="Comedouro" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-secondary mb-2 align-self-start">Alimentação</span>
-                            <h5 class="fw-bold">Comedouro Automático</h5>
-                            <p class="text-muted small">Comedouro inteligente com câmara FHD e controlo de doses.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">149,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Comedouro Automático', 169.00, 'assets/imagens/comedouro.jpg')">Adicionar</button>
-                                </div>
-                                <a href="Comedouro.html" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fonte com UVC (Anterior) -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="Fonte.html" class="product-img-link">
-                            <img src="assets/imagens/fonte.jpg" class="card-img-top p-3 rounded" alt="Fonte de Água" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-secondary mb-2 align-self-start">Hidratação</span>
-                            <h5 class="fw-bold">Fonte de Água com UVC</h5>
-                            <p class="text-muted small">Fonte ultra-silenciosa com sistema quádruplo de filtragem.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">139,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Fonte de Água com UVC', 149.00, 'assets/imagens/fonte.jpg')">Adicionar</button>
-                                </div>
-                                <a href="Fonte.html" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Nova Fonte: Eversweet Max 2 Sem UVC -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="fonte-eversweey-max2.html" class="product-img-link">
-                            <img src="assets/imagens/Fonte eversweet max 2/foto 1.webp" class="card-img-top p-3 rounded" alt="Eversweet Max 2 Sem UVC" style="height: 200px; object-fit: contain;">
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <span class="badge bg-secondary mb-2 align-self-start">Hidratação</span>
-                            <h5 class="fw-bold">Fonte de Água sem UVC / Eversweet Max 2</h5>
-                            <p class="text-muted small">Bandeja em aço inox 304, design inclinado a 5° e autonomia sem fios até 83 dias.</p>
-                            <div class="mt-auto pt-3 border-top d-flex flex-column gap-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fs-4 fw-bold text-dark">97,00 €</span>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="adicionarNaLoja('Fonte de Água sem UVC / Eversweet Max 2', 100.00, 'assets/imagens/Fonte eversweet max 2/foto 1.webp')">Adicionar</button>
-                                </div>
-                                <a href="fonte-eversweey-max2.html" class="btn btn-sm btn-dark w-100">
-                                    <i class="fa-solid fa-circle-info me-1"></i> Mais Fotos/Informações
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-dark text-white pt-5 pb-3">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <h4>MiautechPT</h4>
-                    <p class="text-white-50 mb-3">Vá de férias descansado. Tecnologia inteligente para o seu gato sem compromissos.</p>
-                </div>
-                <div class="col-lg-4">
-                    <h5>Contacto</h5>
-                    <p class="mb-1"><i class="fa-solid fa-envelope me-2 text-primary"></i> <a href="mailto:miautechpt@hotmail.com" class="text-white-50 text-decoration-none">miautechpt@hotmail.com</a></p>
-                    <p class="mb-1"><i class="fa-brands fa-whatsapp me-2 text-success"></i> <a href="https://wa.me/351918642824" target="_blank" class="text-white-50 text-decoration-none">+351 918 642 824</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <h5>Links Úteis</h5>
-                    <ul class="list-unstyled lh-lg">
-                        <li><a href="index.html" class="text-white-50 text-decoration-none">Início</a></li>
-                        <li><a href="pack.html" class="text-white-50 text-decoration-none">Alugar Pack</a></li>
-                        <li><a href="loja.html" class="text-white-50 text-decoration-none">Comprar Equipamentos</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="border-secondary my-4">
-            <p class="text-center text-white-50 mb-0">© 2026 MiautechPT. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Atualiza o contador de itens no menu ao carregar a página
-        document.addEventListener("DOMContentLoaded", atualizarContadorLoja);
-
-        function adicionarNaLoja(nomeProduto, precoProduto, imagemProduto) {
-            try {
-                let carrinho = JSON.parse(localStorage.getItem('carrinhoMiautech')) || [];
-                if (!Array.isArray(carrinho)) carrinho = [];
-                
-                const precoNumerico = Number(precoProduto);
-                const indexProduto = carrinho.findIndex(item => item.nome === nomeProduto);
-
-                if (indexProduto > -1) {
-                    carrinho[indexProduto].qtd += 1;
-                } else {
-                    carrinho.push({ 
-                        nome: nomeProduto, 
-                        preco: precoNumerico, 
-                        qtd: 1,
-                        imagem: imagemProduto 
-                    });
-                }
-
-                localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
-                atualizarContadorLoja();
-                
-                alert(`"${nomeProduto}" foi adicionado ao carrinho!`);
-            } catch (error) {
-                console.error("Erro ao adicionar ao carrinho:", error);
-            }
-        }
-
-        function atualizarContadorLoja() {
+    function adicionarNaLoja(nomeProduto, precoProduto, imagemProduto) {
+        try {
             let carrinho = JSON.parse(localStorage.getItem('carrinhoMiautech')) || [];
-            let totalItens = 0;
-            carrinho.forEach(item => totalItens += item.qtd);
+            if (!Array.isArray(carrinho)) carrinho = [];
+            
+            const precoNumerico = Number(precoProduto);
+            const indexProduto = carrinho.findIndex(item => item.nome === nomeProduto);
 
-            const badge = document.getElementById('badgeCarrinho');
-            if (badge) {
-                if (totalItens > 0) {
-                    badge.innerText = totalItens;
-                    badge.style.display = 'inline-block';
-                } else {
-                    badge.style.display = 'none';
-                }
+            if (indexProduto > -1) {
+                carrinho[indexProduto].qtd += 1;
+            } else {
+                carrinho.push({ 
+                    nome: nomeProduto, 
+                    preco: precoNumerico, 
+                    qtd: 1,
+                    imagem: imagemProduto 
+                });
+            }
+
+            localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
+            atualizarContadorLoja();
+            
+            alert(`"${nomeProduto}" foi adicionado ao carrinho!`);
+        } catch (error) {
+            console.error("Erro ao adicionar ao carrinho:", error);
+        }
+    }
+
+    function atualizarContadorLoja() {
+        let carrinho = JSON.parse(localStorage.getItem('carrinhoMiautech')) || [];
+        let totalItens = 0;
+        carrinho.forEach(item => totalItens += item.qtd);
+
+        const badge = document.getElementById('badgeCarrinho');
+        if (badge) {
+            if (totalItens > 0) {
+                badge.innerText = totalItens;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
             }
         }
-    </script>
+    }
+</script>
 </body>
 </html>
