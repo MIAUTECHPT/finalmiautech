@@ -9,8 +9,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
-        .thumbnail-img { cursor: pointer; transition: opacity 0.2s; }
+        .thumbnail-img { cursor: pointer; transition: opacity 0.2s, border-color 0.2s; }
         .thumbnail-img:hover { opacity: 0.8; }
+        .thumbnail-ativa { border: 2px solid #0d6efd !important; }
+        
+        /* Estilos para as setas na imagem principal */
+        .img-container { position: relative; }
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            transition: background-color 0.2s;
+            z-index: 10;
+        }
+        .nav-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
+        .arrow-prev { left: 15px; }
+        .arrow-next { right: 15px; }
     </style>
 </head>
 <body>
@@ -31,28 +52,31 @@
             <div class="row g-5">
                 <!-- Galeria de Fotos -->
                 <div class="col-lg-6">
-                    <div class="card border-0 shadow-sm p-3 mb-3">
-                        <img id="mainImage" src="assets/imagens/cortahas.jpg" class="img-fluid rounded" alt="PETKIT LED Pet Nail Clipper Pro" style="max-height: 400px; width: 100%; object-fit: contain;">
+                    <div class="card border-0 shadow-sm p-3 mb-3 img-container">
+                        <!-- Botões de Navegação (Setas) -->
+                        <button class="nav-arrow arrow-prev" onclick="mudarFoto(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <img id="mainImage" src="assets/imagens/cortahas/nail_1.jpg" class="img-fluid rounded" alt="PETKIT LED Pet Nail Clipper Pro" style="max-height: 400px; width: 100%; object-fit: contain;">
+                        <button class="nav-arrow arrow-next" onclick="mudarFoto(1)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
-                    <!-- Miniaturas (podes colocar mais imagens na pasta assets/imagens/cortahas/ se quiseres) -->
+                    <!-- Miniaturas -->
                     <div class="row g-2">
                         <div class="col-3">
-                            <img src="assets/imagens/cortahas/nail_1.jpg" class="img-thumbnail thumbnail-img" onclick="trocarImagem(this.src)" style="height: 80px; width: 100%; object-fit: cover;">
+                            <img src="assets/imagens/cortahas/nail_1.jpg" class="img-thumbnail thumbnail-img thumbnail-ativa" onclick="selecionarFoto(0)" style="height: 80px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="col-3">
-                            <img src="assets/imagens/cortahas/nail_2.jpg" class="img-thumbnail thumbnail-img" onclick="trocarImagem(this.src)" style="height: 80px; width: 100%; object-fit: cover;">
+                            <img src="assets/imagens/cortahas/nail_2.jpg" class="img-thumbnail thumbnail-img" onclick="selecionarFoto(1)" style="height: 80px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="col-3">
-                            <img src="assets/imagens/cortahas/nail_3.jpg" class="img-thumbnail thumbnail-img" onclick="trocarImagem(this.src)" style="height: 80px; width: 100%; object-fit: cover;">
+                            <img src="assets/imagens/cortahas/nail_3.jpg" class="img-thumbnail thumbnail-img" onclick="selecionarFoto(2)" style="height: 80px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="col-3">
-                            <img src="assets/imagens/cortahas/nail_4.jpg" class="img-thumbnail thumbnail-img" onclick="trocarImagem(this.src)" style="height: 80px; width: 100%; object-fit: cover;">
+                            <img src="assets/imagens/cortahas/nail_4.jpg" class="img-thumbnail thumbnail-img" onclick="selecionarFoto(3)" style="height: 80px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="col-3">
-                            <img src="assets/imagens/cortahas/nail_5.jpg" class="img-thumbnail thumbnail-img" onclick="trocarImagem(this.src)" style="height: 80px; width: 100%; object-fit: cover;">
+                            <img src="assets/imagens/cortahas/nail_5.jpg" class="img-thumbnail thumbnail-img" onclick="selecionarFoto(4)" style="height: 80px; width: 100%; object-fit: cover;">
                         </div>
                         <div class="col-3">
-                            <img src="assets/imagens/cortahas/nail_6.jpg" class="img-thumbnail thumbnail-img" onclick="trocarImagem(this.src)" style="height: 80px; width: 100%; object-fit: cover;">
+                            <img src="assets/imagens/cortahas/nail_6.jpg" class="img-thumbnail thumbnail-img" onclick="selecionarFoto(5)" style="height: 80px; width: 100%; object-fit: cover;">
                         </div>
                     </div>
                 </div>
@@ -66,7 +90,7 @@
                     <p class="text-muted mb-4">Manter as unhas do seu gato ou cão aparadas é uma parte importante dos cuidados de higiene. O PETKIT LED Pet Nail Clipper Pro foi desenvolvido para tornar esta tarefa mais prática, proporcionando maior visibilidade durante o corte e ajudando o tutor a trabalhar com mais precisão.</p>
 
                     <div class="d-grid gap-2 mb-4">
-                        <button type="button" class="btn btn-primary btn-lg" onclick="adicionarNaLoja('PETKIT LED Pet Nail Clipper Pro', 12.80, 'assets/imagens/cortahas.jpg')">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="adicionarNaLoja('PETKIT LED Pet Nail Clipper Pro', 12.80, 'assets/imagens/cortahas/nail_1.jpg')">
                             <i class="fa-solid fa-cart-shopping me-2"></i> Adicionar ao Carrinho
                         </button>
                     </div>
@@ -109,8 +133,45 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function trocarImagem(src) {
-            document.getElementById('mainImage').src = src;
+        // Lista com as 6 fotos do corta-unhas
+        const galeriaFotos = [
+            "assets/imagens/cortahas/nail_1.jpg",
+            "assets/imagens/cortahas/nail_2.jpg",
+            "assets/imagens/cortahas/nail_3.jpg",
+            "assets/imagens/cortahas/nail_4.jpg",
+            "assets/imagens/cortahas/nail_5.jpg",
+            "assets/imagens/cortahas/nail_6.jpg"
+        ];
+        
+        let indiceAtual = 0;
+
+        function atualizarImagemPrincipal() {
+            document.getElementById('mainImage').src = galeriaFotos[indiceAtual];
+            
+            // Atualiza a borda de destaque nas miniaturas
+            const miniaturas = document.querySelectorAll('.thumbnail-img');
+            miniaturas.forEach((min, idx) => {
+                if (idx === indiceAtual) {
+                    min.classList.add('thumbnail-ativa');
+                } else {
+                    min.classList.remove('thumbnail-ativa');
+                }
+            });
+        }
+
+        function mudarFoto(direcao) {
+            indiceAtual += direcao;
+            if (indiceAtual >= galeriaFotos.length) {
+                indiceAtual = 0; // Volta para a primeira se chegar ao fim
+            } else if (indiceAtual < 0) {
+                indiceAtual = galeriaFotos.length - 1; // Vai para a última se estiver na primeira
+            }
+            atualizarImagemPrincipal();
+        }
+
+        function selecionarFoto(index) {
+            indiceAtual = index;
+            atualizarImagemPrincipal();
         }
 
         function adicionarNaLoja(nome, preco, img) {
