@@ -9,6 +9,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body, section { background-color: #f0f7ff !important; font-family: 'Poppins', sans-serif; }
+        
+        /* Classe para padronizar o tamanho e o comportamento da imagem principal */
+        .img-container-principal {
+            width: 100%;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .img-container-principal img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Estilo uniforme para as miniaturas */
+        .miniatura {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.2s ease-in-out;
+        }
+        .miniatura:hover, .miniatura.active {
+            opacity: 1;
+            border-color: #0d6efd !important;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -38,7 +69,9 @@
                         
                         <!-- Imagem Principal com Botões de Navegação Sobrepostos -->
                         <div class="position-relative mb-3">
-                            <img id="imgPrincipal" src="assets/imagens/purobot/Foto 1.png" class="rounded img-fluid w-100" alt="Purobot Ultra" style="height: 350px; object-fit: contain; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalZoom" onclick="atualizarZoom()" title="Clique para ampliar">
+                            <div class="img-container-principal rounded">
+                                <img id="imgPrincipal" src="assets/imagens/purobot/Foto 1.png" class="rounded img-fluid" alt="Purobot Ultra" data-bs-toggle="modal" data-bs-target="#modalZoom" onclick="atualizarZoom()" title="Clique para ampliar">
+                            </div>
                             
                             <!-- Botão Anterior -->
                             <button type="button" class="position-absolute top-50 start-0 translate-middle-y btn btn-dark bg-opacity-50 border-0 text-white ms-2 px-2 py-1" onclick="mudarFoto(-1); event.stopPropagation();">
@@ -53,11 +86,11 @@
                         
                         <!-- Miniaturas -->
                         <div class="d-flex justify-content-center gap-2 flex-wrap">
-                            <img src="assets/imagens/purobot/Foto 1.png" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(0)">
-                            <img src="assets/imagens/purobot/Foto 2.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(1)">
-                            <img src="assets/imagens/purobot/Foto 3.webp" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(2)">
-                            <img src="assets/imagens/purobot/Foto 4.jpg" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(3)">
-                            <img src="assets/imagens/purobot/Foto 5.jpg" class="rounded border miniatura" style="width: 60px; height: 60px; object-fit: contain; cursor: pointer;" onclick="mudarParaIndice(4)">
+                            <img src="assets/imagens/purobot/Foto 1.png" class="rounded border miniatura active" onclick="mudarParaIndice(0)" alt="Miniatura 1">
+                            <img src="assets/imagens/purobot/Foto 2.webp" class="rounded border miniatura" onclick="mudarParaIndice(1)" alt="Miniatura 2">
+                            <img src="assets/imagens/purobot/Foto 3.webp" class="rounded border miniatura" onclick="mudarParaIndice(2)" alt="Miniatura 3">
+                            <img src="assets/imagens/purobot/Foto 4.jpg" class="rounded border miniatura" onclick="mudarParaIndice(3)" alt="Miniatura 4">
+                            <img src="assets/imagens/purobot/Foto 5.jpg" class="rounded border miniatura" onclick="mudarParaIndice(4)" alt="Miniatura 5">
                         </div>
                     </div>
                 </div>
@@ -79,7 +112,11 @@
                             <li><i class="fa-solid fa-check text-success me-2"></i> Controlo total via App PETKIT</li>
                         </ul>
 
+                        <!-- BOTÕES DE AÇÃO (CARRINHO + VOLTAR) -->
                         <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="adicionarNaLoja('Purobot Ultra', 669.00, 'assets/imagens/purobot/Foto 1.png')">
+                                <i class="fa-solid fa-cart-shopping me-2"></i> Adicionar ao Carrinho
+                            </button>
                             <a href="loja.html" class="btn btn-outline-secondary py-2">
                                 <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
                             </a>
@@ -168,7 +205,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Array com os caminhos de todas as imagens da galeria (CORRIGIDO PARA CORRESPONDER AO HTML)
         const imagensGaleria = [
             "assets/imagens/purobot/Foto 1.png",
             "assets/imagens/purobot/Foto 2.webp",
@@ -181,14 +217,11 @@
 
         function mudarFoto(direcao) {
             indiceAtual += direcao;
-            
-            // Ciclo infinito (se passar da última, volta à primeira e vice-versa)
             if (indiceAtual >= imagensGaleria.length) {
                 indiceAtual = 0;
             } else if (indiceAtual < 0) {
                 indiceAtual = imagensGaleria.length - 1;
             }
-
             atualizarImagens();
         }
 
@@ -201,15 +234,36 @@
             const caminho = imagensGaleria[indiceAtual];
             document.getElementById('imgPrincipal').src = caminho;
             
-            // Se o modal estiver aberto, atualiza também a imagem de zoom
             const imgZoom = document.getElementById('imgZoomModal');
             if (imgZoom) {
                 imgZoom.src = caminho;
             }
+
+            const miniaturas = document.querySelectorAll('.miniatura');
+            miniaturas.forEach((mini, idx) => {
+                if (idx === indiceAtual) {
+                    mini.classList.add('active');
+                } else {
+                    mini.classList.remove('active');
+                }
+            });
         }
 
         function atualizarZoom() {
             document.getElementById('imgZoomModal').src = imagensGaleria[indiceAtual];
+        }
+
+        // Função para adicionar o produto ao carrinho (LocalStorage)
+        function adicionarNaLoja(nome, preco, img) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinhoMiautech')) || [];
+            const index = carrinho.findIndex(item => item.nome === nome);
+            if (index > -1) { 
+                carrinho[index].qtd += 1; 
+            } else { 
+                carrinho.push({ nome: nome, preco: preco, qtd: 1, imagem: img }); 
+            }
+            localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
+            alert(`"${nome}" foi adicionado ao carrinho!`);
         }
     </script>
 </body>
