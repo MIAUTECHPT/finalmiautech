@@ -52,7 +52,7 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h1 class="fw-bold">Finalizar Compra de Equipamentos</h1>
-                <p class="lead text-muted">Confirme os seus produtos, selecione se pretender equipamentos adicionais e preencha os dados de envio.</p>
+                <p class="lead text-muted">Confirme os seus produtos, selecione o método de entrega e preencha os seus dados.</p>
             </div>
 
             <div class="row g-5 justify-content-center">
@@ -63,6 +63,8 @@
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" id="numReservaInput" name="Número de Reserva" value="">
                         <input type="hidden" id="resumoProdutosInput" name="Equipamentos Encomendados" value="">
+                        <input type="hidden" id="metodoEnvioInput" name="Método de Entrega" value="">
+                        <input type="hidden" id="valorPortesInput" name="Valor Portes" value="">
                         <input type="hidden" id="valorTotalInput" name="Valor Total da Compra" value="">
 
                         <!-- NÚMERO DE RESERVA EM DESTAQUE -->
@@ -74,12 +76,35 @@
                             <span class="badge bg-primary fs-6" id="exibirNumReserva">...</span>
                         </div>
 
-                        <!-- 1. RESUMO E GESTÃO DA ENCOMENDA -->
+                        <!-- 1. MÉTODO DE ENTREGA (NOVO) -->
+                        <div class="card shadow-sm border-0 mb-4 bg-white">
+                            <div class="card-body p-4">
+                                <h4 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-truck me-2"></i>Método de Entrega</h4>
+                                <div class="mb-3">
+                                    <label for="metodoEnvio" class="form-label fw-medium">Como deseja receber a sua encomenda? *</label>
+                                    <select class="form-select" id="metodoEnvio" name="Metodo de Entrega Selecionado" required onchange="atualizarCarrinho()">
+                                        <option value="Levantamento na Loja" selected>📦 Levantamento na Loja (Gratuito)</option>
+                                        <option value="Envio para Morada (5€ + IVA)">🚚 Envio para a Morada (5,00 € + IVA = 6,15 €)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. RESUMO E GESTÃO DA ENCOMENDA -->
                         <div class="card shadow-sm border-0 mb-5 bg-white">
                             <div class="card-body p-4">
                                 <h4 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-cart-shopping me-2"></i>Resumo da Encomenda</h4>
                                 <div id="listaCarrinho" class="my-3 text-muted small">
                                     <em>Nenhum equipamento selecionado.</em>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-muted">Subtotal Produtos:</span>
+                                    <span class="fw-bold text-dark" id="subtotalProdutos">0,00 €</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-muted">Portes de Envio:</span>
+                                    <span class="fw-bold text-dark" id="custoPortes">0,00 €</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center p-3 bg-light border border-primary rounded-3 mt-3">
                                     <span class="fw-bold text-dark fs-5">Total a Pagar:</span>
@@ -88,7 +113,7 @@
                             </div>
                         </div>
 
-                        <!-- 2. ADICIONAR MAIS PRODUTOS -->
+                        <!-- 3. ADICIONAR MAIS PRODUTOS -->
                         <div class="card shadow-sm border-0 mb-5 bg-white">
                             <div class="card-body p-4">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -159,8 +184,8 @@
                             </div>
                         </div>
 
-                        <!-- 3. DADOS PARA ENVIO -->
-                        <h4 class="fw-bold mb-4 text-primary"><i class="fa-solid fa-truck-fast me-2"></i>Dados para Envio</h4>
+                        <!-- 4. DADOS PARA CONTACTO E ENTREGA -->
+                        <h4 class="fw-bold mb-4 text-primary"><i class="fa-solid fa-address-card me-2"></i>Dados do Cliente</h4>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -178,15 +203,15 @@
                             <input type="email" class="form-control" id="email" name="Email" required placeholder="exemplo@email.com">
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3" id="blocoMorada">
                             <label for="morada" class="form-label fw-medium">Morada Completa de Entrega *</label>
-                            <input type="text" class="form-control" id="morada" name="Morada de Entrega" required placeholder="Rua, Nº, Andar, Código Postal">
+                            <input type="text" class="form-control" id="morada" name="Morada de Entrega" placeholder="Rua, Nº, Andar, Código Postal">
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-3" id="blocoLocalidade">
                                 <label for="localidade" class="form-label fw-medium">Distrito / Concelho *</label>
-                                <select class="form-select" id="localidade" name="Localidade" required>
+                                <select class="form-select" id="localidade" name="Localidade">
                                     <option value="" selected disabled>Selecione...</option>
                                     <optgroup label="Distrito do Porto">
                                         <option value="Porto">Porto</option>
@@ -213,7 +238,7 @@
                                     <option value="Cartao de Credito/Debito" selected>💳 Pagamento Online com Cartão</option>
                                     <option value="MB WAY (+351 918 642 824)">MB WAY (+351 918 642 824)</option>
                                     <option value="Transferência Bancária">Transferência Bancária</option>
-                                    <option value="Numerário na Entrega">Numerário na Entrega (Presencial)</option>
+                                    <option value="Numerário na Entrega">Numerário na Entrega / Loja</option>
                                 </select>
                             </div>
                         </div>
@@ -235,10 +260,10 @@
 
                         <div class="mb-4">
                             <label for="mensagem" class="form-label fw-medium">Observações / Notas</label>
-                            <textarea class="form-control" rows="2" id="mensagem" name="Mensagem" placeholder="Alguma indicação especial sobre a entrega?"></textarea>
+                            <textarea class="form-control" rows="2" id="mensagem" name="Mensagem" placeholder="Alguma indicação especial?"></textarea>
                         </div>
 
-                        <!-- BOTÃO DE PAGAMENTO COM CARTÃO -->
+                        <!-- BOTÕES DE AÇÃO -->
                         <button class="btn btn-warning w-100 mb-2 py-2 fs-5 text-dark fw-bold" id="btnCartao" type="button" onclick="pagarComCartao()">
                             <i class="fa-solid fa-credit-card me-2"></i> Pagar Online com Cartão
                         </button>
@@ -367,22 +392,52 @@
 
     function atualizarCarrinho() {
         const container = document.getElementById('listaCarrinho');
+        const subtotalSpan = document.getElementById('subtotalProdutos');
+        const portesSpan = document.getElementById('custoPortes');
         const totalSpan = document.getElementById('totalCarrinho');
+        
         const resumoInput = document.getElementById('resumoProdutosInput');
+        const metodoEnvioSelect = document.getElementById('metodoEnvio');
+        const metodoEnvioInput = document.getElementById('metodoEnvioInput');
+        const valorPortesInput = document.getElementById('valorPortesInput');
         const totalInput = document.getElementById('valorTotalInput');
+        
+        const blocoMorada = document.getElementById('blocoMorada');
+        const blocoLocalidade = document.getElementById('blocoLocalidade');
+        const campoMorada = document.getElementById('morada');
+        const campoLocalidade = document.getElementById('localidade');
 
         if (!container || !totalSpan) return;
 
+        // Gestão de visibilidade da morada dependendo do método de envio
+        const metodoEscolhido = metodoEnvioSelect ? metodoEnvioSelect.value : 'Levantamento na Loja';
+        if (metodoEnvioInput) metodoEnvioInput.value = metodoEscolhido;
+
+        if (metodoEscolhido.includes('Levantamento')) {
+            blocoMorada.style.display = 'none';
+            blocoLocalidade.style.display = 'none';
+            campoMorada.removeAttribute('required');
+            campoLocalidade.removeAttribute('required');
+        } else {
+            blocoMorada.style.display = 'block';
+            blocoLocalidade.style.display = 'block';
+            campoMorada.setAttribute('required', 'true');
+            campoLocalidade.setAttribute('required', 'true');
+        }
+
         if (carrinho.length === 0) {
             container.innerHTML = '<em>Nenhum equipamento selecionado.</em>';
+            subtotalSpan.innerText = '0,00 €';
+            portesSpan.innerText = '0,00 €';
             totalSpan.innerText = '0,00 €';
             if (resumoInput) resumoInput.value = '';
+            if (valorPortesInput) valorPortesInput.value = '0,00 €';
             if (totalInput) totalInput.value = '';
             return;
         }
 
         let html = '<ul class="list-group list-group-flush">';
-        let totalCalculado = 0;
+        let subtotalProdutos = 0;
         let textoResumo = [];
 
         carrinho.forEach((item, index) => {
@@ -391,7 +446,7 @@
             const subtotal = precoNum * qtdNum;
             const imgHtml = item.imagem ? `<img src="${item.imagem}" alt="" style="width: 35px; height: 35px; object-fit: contain;" class="me-2 rounded border bg-white">` : '';
             
-            totalCalculado += subtotal;
+            subtotalProdutos += subtotal;
             textoResumo.push(`${item.nome} (x${qtdNum}) - ${subtotal.toFixed(2)}€`);
 
             html += `
@@ -415,10 +470,22 @@
 
         html += '</ul>';
         container.innerHTML = html;
-        totalSpan.innerText = totalCalculado.toFixed(2).replace('.', ',') + ' €';
+
+        // Cálculo dos portes: 5€ + IVA a 23% = 6.15€ (se envio escolhido)
+        let custoPortes = 0;
+        if (metodoEscolhido.includes('Envio')) {
+            custoPortes = 5.00 * 1.23; // 6.15 €
+        }
+
+        let totalFinal = subtotalProdutos + custoPortes;
+
+        subtotalSpan.innerText = subtotalProdutos.toFixed(2).replace('.', ',') + ' €';
+        portesSpan.innerText = custoPortes.toFixed(2).replace('.', ',') + ' €';
+        totalSpan.innerText = totalFinal.toFixed(2).replace('.', ',') + ' €';
 
         if (resumoInput) resumoInput.value = textoResumo.join(' | ');
-        if (totalInput) totalInput.value = totalCalculado.toFixed(2).replace('.', ',') + ' €';
+        if (valorPortesInput) valorPortesInput.value = custoPortes.toFixed(2).replace('.', ',') + ' €';
+        if (totalInput) totalInput.value = totalFinal.toFixed(2).replace('.', ',') + ' €';
     }
 
     function prepararEnvioEmail() {
@@ -426,11 +493,11 @@
         localStorage.removeItem('carrinhoMiautech');
     }
 
-    // NOVA FUNÇÃO LIGADA AO BACKEND / API DO STRIPE
     async function pagarComCartao() {
         const nome = document.getElementById('nome').value;
         const email = document.getElementById('email').value;
         const telefone = document.getElementById('telefone').value;
+        const metodoEnvio = document.getElementById('metodoEnvio').value;
         const morada = document.getElementById('morada').value;
         const localidade = document.getElementById('localidade').value;
 
@@ -439,17 +506,25 @@
             return;
         }
 
-        if (!nome || !email || !telefone || !morada || !localidade) {
-            alert('Por favor, preencha todos os campos obrigatórios dos dados de envio antes de prosseguir.');
+        if (!nome || !email || !telefone) {
+            alert('Por favor, preencha os seus dados de contacto.');
             return;
         }
 
-        let totalCalculado = 0;
+        if (metodoEnvio.includes('Envio') && (!morada || !localidade)) {
+            alert('Por favor, preencha a morada de entrega e localidade para o envio.');
+            return;
+        }
+
+        let subtotalCalculado = 0;
         let descricaoProdutos = [];
         carrinho.forEach(item => {
-            totalCalculado += (Number(item.preco) * Number(item.qtd));
+            subtotalCalculado += (Number(item.preco) * Number(item.qtd));
             descricaoProdutos.push(`${item.nome} (x${item.qtd})`);
         });
+
+        let custoPortes = metodoEnvio.includes('Envio') ? (5.00 * 1.23) : 0;
+        let totalCalculado = subtotalCalculado + custoPortes;
 
         if (totalCalculado <= 0) {
             alert('O valor total do carrinho é inválido.');
@@ -466,7 +541,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     amount: totalCalculado,
-                    description: `Reserva ${codigoReservaAtual} - ` + descricaoProdutos.join(', '),
+                    description: `Reserva ${codigoReservaAtual} (${metodoEnvio}) - ` + descricaoProdutos.join(', '),
                     clientEmail: email,
                     clientName: nome
                 })
@@ -477,7 +552,7 @@
             if (data.url) {
                 incrementarContadorReserva();
                 localStorage.removeItem('carrinhoMiautech');
-                window.location.href = data.url; // Redireciona para o Stripe Checkout oficial
+                window.location.href = data.url; 
             } else {
                 alert('Erro ao criar sessão de pagamento: ' + (data.error || 'Erro desconhecido'));
                 btnCartao.disabled = false;
@@ -493,6 +568,7 @@
     function enviarWhatsAppCompra() {
         const nome = document.getElementById('nome').value;
         const telefone = document.getElementById('telefone').value;
+        const metodoEnvio = document.getElementById('metodoEnvio').value;
         const morada = document.getElementById('morada').value;
         const localidade = document.getElementById('localidade').value;
         const pagamento = document.getElementById('pagamento').value;
@@ -503,8 +579,8 @@
             return;
         }
 
-        if (!nome || !telefone || !morada || !localidade) {
-            alert('Por favor, preencha o Nome, Telemóvel, Morada e Localidade.');
+        if (!nome || !telefone) {
+            alert('Por favor, preencha o Nome e o Telemóvel.');
             return;
         }
 
@@ -513,14 +589,17 @@
             listaTexto += `• ${item.nome} (x${item.qtd}) - ${(item.preco * item.qtd).toFixed(2)} €\n`;
         });
 
+        let dadosEntregaTexto = metodoEnvio.includes('Levantamento') ? "Levantamento na Loja" : `${morada} (${localidade})`;
+
         const texto = `Olá! Gostaria de comprar o seguinte equipamento na MiautechPT:\n\n` +
             `*Nº de Reserva:* ${codigoReservaAtual}\n` +
             `*Cliente:* ${nome}\n` +
             `*Telemóvel:* ${telefone}\n` +
-            `*Morada:* ${morada} (${localidade})\n` +
+            `*Método de Entrega:* ${metodoEnvio}\n` +
+            `*Entrega / Morada:* ${dadosEntregaTexto}\n` +
             `*Pagamento:* ${pagamento}\n\n` +
             `*Equipamento(s):*\n${listaTexto}\n` +
-            `*Total:* ${total}`;
+            `*Total a Pagar:* ${total}`;
 
             incrementarContadorReserva();
             localStorage.removeItem('carrinhoMiautech');
