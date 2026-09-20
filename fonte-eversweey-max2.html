@@ -114,7 +114,11 @@
                             <li><i class="fa-solid fa-check text-success me-2"></i> Conectividade e monitorização inteligente via Bluetooth</li>
                         </ul>
 
+                        <!-- BOTÕES DE AÇÃO (CARRINHO + VOLTAR) -->
                         <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="adicionarNaLoja('Fonte de Água sem UVC / Eversweet Max 2', 100.00, 'assets/imagens/Fonte eversweet max 2/foto 1.webp')">
+                                <i class="fa-solid fa-cart-shopping me-2"></i> Adicionar ao Carrinho
+                            </button>
                             <a href="loja.html" class="btn btn-outline-secondary py-2">
                                 <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
                             </a>
@@ -208,7 +212,7 @@
             "assets/imagens/Fonte eversweet max 2/Foto 3.webp",
             "assets/imagens/Fonte eversweet max 2/Foto 4.webp",
             "assets/imagens/Fonte eversweet max 2/Foto 5.webp",
-            "assets/imagens/Fonte eversweet max 2/Foto 6.webp",
+            "assets/imagens/Fonte eversweet max 2/Foto 6.webp"
         ];
 
         let indiceAtual = 0;
@@ -249,6 +253,19 @@
 
         function atualizarZoom() {
             document.getElementById('imgZoomModal').src = imagensGaleria[indiceAtual];
+        }
+
+        // Função para adicionar o produto ao carrinho (LocalStorage)
+        function adicionarNaLoja(nome, preco, img) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinhoMiautech')) || [];
+            const index = carrinho.findIndex(item => item.nome === nome);
+            if (index > -1) { 
+                carrinho[index].qtd += 1; 
+            } else { 
+                carrinho.push({ nome: nome, preco: preco, qtd: 1, imagem: img }); 
+            }
+            localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
+            alert(`"${nome}" foi adicionado ao carrinho!`);
         }
     </script>
 </body>

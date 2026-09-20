@@ -115,7 +115,11 @@
                             <li><i class="fa-solid fa-check text-success me-2"></i> Filtração avançada de múltiplas camadas</li>
                         </ul>
 
+                        <!-- BOTÕES DE AÇÃO (CARRINHO + VOLTAR) -->
                         <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="adicionarNaLoja('Eversweet Max 2 com UVC', 149.00, 'assets/imagens/Fonte/Fonte_1.webp')">
+                                <i class="fa-solid fa-cart-shopping me-2"></i> Adicionar ao Carrinho
+                            </button>
                             <a href="loja.html" class="btn btn-outline-secondary py-2">
                                 <i class="fa-solid fa-arrow-left me-1"></i> Voltar à Loja
                             </a>
@@ -252,6 +256,19 @@
 
         function atualizarZoom() {
             document.getElementById('imgZoomModal').src = imagensGaleria[indiceAtual];
+        }
+
+        // Função para adicionar o produto ao carrinho (LocalStorage)
+        function adicionarNaLoja(nome, preco, img) {
+            let carrinho = JSON.parse(localStorage.getItem('carrinhoMiautech')) || [];
+            const index = carrinho.findIndex(item => item.nome === nome);
+            if (index > -1) { 
+                carrinho[index].qtd += 1; 
+            } else { 
+                carrinho.push({ nome: nome, preco: preco, qtd: 1, imagem: img }); 
+            }
+            localStorage.setItem('carrinhoMiautech', JSON.stringify(carrinho));
+            alert(`"${nome}" foi adicionado ao carrinho!`);
         }
     </script>
 </body>
