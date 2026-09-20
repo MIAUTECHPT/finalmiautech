@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YLS66TS7VG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YLS66TS7VG');
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comprar Equipamentos PETKIT | MiautechPT</title>
@@ -76,19 +86,20 @@
                             <span class="badge bg-primary fs-6" id="exibirNumReserva">...</span>
                         </div>
 
-                        <!-- 1. MÉTODO DE ENTREGA (NOVO) -->
-                        <div class="card shadow-sm border-0 mb-4 bg-white">
-                            <div class="card-body p-4">
-                                <h4 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-truck me-2"></i>Método de Entrega</h4>
-                                <div class="mb-3">
-                                    <label for="metodoEnvio" class="form-label fw-medium">Como deseja receber a sua encomenda? *</label>
-                                    <select class="form-select" id="metodoEnvio" name="Metodo de Entrega Selecionado" required onchange="atualizarCarrinho()">
-                                        <option value="Levantamento na Loja" selected>📦 Levantamento na Loja (Gratuito)</option>
-                                        <option value="Envio para Morada (5€ + IVA)">🚚 Envio para a Morada (5,00 € + IVA = 6,15 €)</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+<!-- 1. MÉTODO DE ENTREGA (OBRIGATÓRIO) -->
+<div class="card shadow-sm border-0 mb-4 bg-white">
+    <div class="card-body p-4">
+        <h4 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-truck me-2"></i>Método de Entrega</h4>
+        <div class="mb-3">
+            <label for="metodoEnvio" class="form-label fw-medium">Como deseja receber a sua encomenda? *</label>
+            <select class="form-select" id="metodoEnvio" name="Metodo de Entrega Selecionado" required onchange="atualizarCarrinho()">
+                <option value="" selected disabled>Selecione o método de entrega...</option>
+                <option value="Levantamento na Loja">📦 Levantamento na Loja (Gratuito)</option>
+                <option value="Envio para Morada (5€ + IVA)">🚚 Envio para a Morada (5,00 € + IVA = 6,15 €)</option>
+            </select>
+        </div>
+    </div>
+</div>
 
                         <!-- 2. RESUMO E GESTÃO DA ENCOMENDA -->
                         <div class="card shadow-sm border-0 mb-5 bg-white">
